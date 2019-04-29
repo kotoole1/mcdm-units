@@ -1,3 +1,4 @@
 .DS_Store
 .npmrc
+.idea/
 node_modules/

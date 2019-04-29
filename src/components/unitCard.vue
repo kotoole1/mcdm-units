@@ -3,29 +3,41 @@
     <div class="background"></div>
     <div class="content">
       <div class="heading">
-        <div class="name">
-          IRONHEART DEFENDERS
-        </div>
+        <div class="name">{{ title }}</div>
+        <div class="descriptor-line">{{ ancestry.name }} {{  }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import {Ancestry, AncestryOptions} from 'src/components/ancestry';
+import {Equipment, EquipmentOptions} from 'src/components/equipment';
+import {Experience, ExperienceOptions} from 'src/components/experience';
+import {UnitType, UnitTypeOptions} from 'src/components/unitType';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Component
+@Component({
+  props: {
+    // title: String,
+  },
+})
 export default class UnitCard extends Vue {
   @Prop() private msg!: string;
+
+  private title: string = 'IRONHEART DEFENDERS';
+  private ancestry: Ancestry = AncestryOptions.DWARF;
+  private experience: Experience = ExperienceOptions.SEASONED;
+  private equipment: Equipment = EquipmentOptions.MEDIUM;
+  private unitType: UnitType = UnitTypeOptions.INFANTRY;
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
   @overall-width: 400px;
   @overall-height: 500px;
-  @border-width: 120;
-  @border-width-px: 60px;
+  @border-slice: 120;
+  @border-width: 60px;
 
   .std {
     width: @overall-width;
@@ -34,24 +46,33 @@ export default class UnitCard extends Vue {
     .background {
       /*display: block;*/
       position: absolute;
-      width: calc(@overall-width - 2 * @border-width-px);
-      height: calc(@overall-height - 2 * @border-width-px);
-      border: @border-width-px solid;
+      width: calc(@overall-width - 2 * @border-width);
+      height: calc(@overall-height - 2 * @border-width);
+      border: @border-width solid;
       border-image-source: url(../assets/original-background.png);
-      border-image-slice: @border-width fill;
+      border-image-slice: @border-slice fill;
       border-image-repeat: stretch;
     }
 
     .content {
-      position: absolute;
+      position: relative;
+      padding: 40px;
     }
 
     .heading {
-      position: absolute;
-      left: 150px;
-      width: 100%;
+      margin-left: 85px;
+      /*width: 100%;*/
+      text-align: left;
+      text-transform: uppercase;
       .name {
-        font-family: 'Martel', serif;
+        font-family: 'Bitter', serif;
+        font-weight: 800;
+        font-size: 14pt;
+        color: rgb(186, 14, 32);
+        border-bottom: 1px solid black;
+      }
+      .descriptor-line {
+        font-family: 'Bitter', serif;
         font-weight: 800;
       }
     }
