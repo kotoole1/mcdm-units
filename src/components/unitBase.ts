@@ -1,6 +1,7 @@
 import {Ancestry, AncestryOptions} from '@/components/ancestry';
 import {Equipment, EquipmentOptions} from '@/components/equipment';
 import {Experience, ExperienceOptions} from '@/components/experience';
+import {Order, Orders} from '@/components/order';
 import {Trait} from '@/components/trait';
 import {UnitType, UnitTypeOptions} from '@/components/unitType';
 import Component from 'vue-class-component';
@@ -13,6 +14,7 @@ export class UnitBase extends Vue {
   protected experience: Experience = ExperienceOptions.SEASONED;
   protected equipment: Equipment = EquipmentOptions.MEDIUM;
   protected unitType: UnitType = UnitTypeOptions.INFANTRY;
+  protected orders: Order[] = [ Orders.STAND_YOUR_GROUND ];
 
   protected get traits(): Trait[] {
     const ret: Trait[] = [];

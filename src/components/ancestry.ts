@@ -9,8 +9,8 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
   DWARF: {
     name: 'Dwarf',
     traits: [
-      Traits.ANGRY,
       Traits.STERNER_STUFF,
+      Traits.ANGRY,
     ],
   },
 };

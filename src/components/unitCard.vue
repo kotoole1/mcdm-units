@@ -1,7 +1,9 @@
 <template>
   <div class="std">
-    <div class="background"></div>
     <div class="content">
+      <div class="banner std-banner-left">
+
+      </div>
       <div class="heading">
         <div class="name">{{ title }}</div>
         <div class="descriptor-line">{{ ancestry.name }} {{ experience.name }}</div>
@@ -21,8 +23,9 @@
             <div class="std-td"><span>SIZE:</span><span>1d6</span></div></div>
         </div>
         <div class="section-title">TRAITS</div>
-        <p v-for="trait in traits"><b>{{ trait.name }}</b>.{{ trait.description }}</p>
+        <p class="section-content" v-for="trait in traits"><b>{{ trait.name }}.</b> {{ trait.description }}</p>
         <div class="section-title">ORDERS</div>
+        <p class="section-content" v-for="order in orders"><b>{{ order.name }}!</b> {{ order.description }}</p>
       </div>
     </div>
   </div>
@@ -43,28 +46,32 @@ export default class UnitCard extends UnitBase {
   @overall-height: 500px;
   @border-slice: 120;
   @border-width: 60px;
+  @padding-width: 40px;
   @dark-red: rgb(140, 36, 32);
   @light-red: rgb(186, 14, 32);
 
+  div {
+    box-sizing: border-box;
+  }
+
+  p {
+    hyphens: auto;
+  }
+
   .std {
     width: @overall-width;
-    height: @overall-height;
+    /*<!--height: @overall-height;-->*/
     text-align: left;
-
-    .background {
-      /*display: block;*/
-      position: absolute;
-      width: calc(@overall-width - 2 * @border-width);
-      height: calc(@overall-height - 2 * @border-width);
-      border: @border-width solid;
-      border-image-source: url(../assets/original-background.png);
-      border-image-slice: @border-slice fill;
-      border-image-repeat: stretch;
-    }
+    position: absolute;
+    border: @border-width solid;
+    border-image-source: url(../assets/original-background.png);
+    border-image-slice: @border-slice fill;
+    border-image-repeat: stretch;
 
     .content {
+      margin: -@border-width;
       position: relative;
-      padding: 40px;
+      padding: @padding-width;
     }
 
     .heading {
@@ -100,6 +107,7 @@ export default class UnitCard extends UnitBase {
     }
 
     .std-table {
+      margin-bottom: 5px;
       .std-tr {
         border-top: 2px solid black;
         padding-top: 3px;
@@ -134,5 +142,26 @@ export default class UnitCard extends UnitBase {
         border-bottom: 2px solid black;
       }
     }
+
+    .section-title {
+      margin-top: 10px;
+      font-family: 'Bitter', serif;
+      font-weight: 800;
+      /*font-size: 14pt;*/
+      color: @light-red;
+    }
+    .section-content {
+      color: @dark-red;
+      margin-top: 2px;
+      margin-bottom: 5px;
+    }
+    /*.std-banner-left {*/
+      /*position: absolute;*/
+      /*background-color: green;*/
+      /*left: 20px;*/
+      /*top: 0px;*/
+      /*width: 100px;*/
+      /*height: 100px;*/
+    /*}*/
   }
 </style>

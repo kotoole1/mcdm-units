@@ -10,6 +10,6 @@ export const Traits: {[key: string]: Trait } = {
   },
   ANGRY: {
     name: 'That Just Made Them Angry',
-    description: 'While dimin- ished, this unit has advantage on attack checks. Enemy Power checks against this unit have disadvantage.',
+    description: 'While diminished, this unit has advantage on attack checks. Enemy Power checks against this unit have disadvantage.',
   },
 };
