@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <link href="https://fonts.googleapis.com/css?family=Martel|Bitter|Kameron" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Martel|Bitter|Kameron|Open+Sans" rel="stylesheet">
     <UnitCard msg="Welcome to Your Vue.js + TypeScript App"/>
   </div>
 </template>
