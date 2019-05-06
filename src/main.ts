@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
-import './components/banners.less'
+import './components/banners.less';
 
 Vue.config.productionTip = false;
 

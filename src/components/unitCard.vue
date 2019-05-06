@@ -1,30 +1,33 @@
 <template>
   <div class="std">
     <div class="content">
-      <div class="banner std-banner-left">
-
+      <div class="banner-wrapper">
+        <div class="banner std-banner-left"></div>
       </div>
       <div class="heading">
-        <div class="name">{{ title }}</div>
-        <div class="descriptor-line">{{ ancestry.name }} {{ experience.name }}</div>
-        <div class="descriptor-line">{{ equipment.name }} {{ unitType.name }}</div>
+        <div class="name">{{ title1 }}</div>
+        <div class="name underlined">{{ title2 }}</div>
+        <!--<div class="descriptor-line">{{ ancestry.name }} {{ experience.name }}</div>-->
+        <!--<div class="descriptor-line">{{ equipment.name }} {{ unitType.name }}</div>-->
+        <div class="descriptor-line">{{ ancestryExpreience }}</div>
+        <div class="descriptor-line">{{ equipmentType }}</div>
       </div>
       <div class="main-content">
         <div class="std-table">
           <div class="optional-cost"></div>
           <div class="std-tr">
-            <div class="std-td"><span>ATTACK:</span><span>+4</span></div>
-            <div class="std-td"><span>DEFENSE:</span><span>14</span></div></div>
+            <div class="std-td"><span>ATTACK:</span><span>{{ attack }}</span></div>
+            <div class="std-td"><span>DEFENSE:</span><span>{{ defense }}</span></div></div>
           <div class="std-tr">
-            <div class="std-td"><span>POWER:</span><span>+3</span></div>
-            <div class="std-td"><span>TOUGHNESS:</span><span>13</span></div></div>
+            <div class="std-td"><span>POWER:</span><span>{{ power }}</span></div>
+            <div class="std-td"><span>TOUGHNESS:</span><span>{{ toughness }}</span></div></div>
           <div class="std-tr">
-            <div class="std-td"><span>MORALE:</span><span>+4</span></div>
-            <div class="std-td"><span>SIZE:</span><span>1d6</span></div></div>
+            <div class="std-td"><span>MORALE:</span><span>{{ morale }}</span></div>
+            <div class="std-td"><span>SIZE:</span><span>{{ size }}</span></div></div>
         </div>
-        <div class="section-title">TRAITS</div>
+        <div v-if="traits.length" class="section-title">TRAITS</div>
         <p class="section-content" v-for="trait in traits"><b>{{ trait.name }}.</b> {{ trait.description }}</p>
-        <div class="section-title">ORDERS</div>
+        <div v-if="orders.length" class="section-title">ORDERS</div>
         <p class="section-content" v-for="order in orders"><b>{{ order.name }}!</b> {{ order.description }}</p>
       </div>
     </div>
@@ -49,6 +52,8 @@ export default class UnitCard extends UnitBase {
   @padding-width: 40px;
   @dark-red: rgb(140, 36, 32);
   @light-red: rgb(186, 14, 32);
+  //@light-red: rgb(33, 52, 135);
+  //@dark-red: rgb(40, 91, 193);
 
   div {
     box-sizing: border-box;
@@ -75,15 +80,18 @@ export default class UnitCard extends UnitBase {
     }
 
     .heading {
-      margin-left: 85px;
+      margin-left: 120px;
       margin-top: 5px;
       margin-bottom: 10px;
       text-transform: uppercase;
+
       .name {
         font-family: 'Bitter', serif;
         font-weight: 800;
         font-size: 14pt;
         color: @light-red;
+      }
+      .underlined {
         border-bottom: 1px solid black;
         margin-bottom: 5px;
       }
@@ -92,16 +100,18 @@ export default class UnitCard extends UnitBase {
         font-weight: 900;
         font-size: 11pt;
         color: @dark-red;
+        line-height: 1.3em;
       }
     }
 
+    .main-content {
+      /*position: relative;*/
+      margin-top: 20px;
+    }
     .optional-cost {
       font-family: 'Open Sans', sans-serif;
       font-weight: 400;
       color: @dark-red;
-    }
-
-    .optional-cost {
       text-align: right;
       height: 1.5em;
     }
@@ -155,13 +165,33 @@ export default class UnitCard extends UnitBase {
       margin-top: 2px;
       margin-bottom: 5px;
     }
-    /*.std-banner-left {*/
-      /*position: absolute;*/
-      /*background-color: green;*/
-      /*left: 20px;*/
-      /*top: 0px;*/
-      /*width: 100px;*/
-      /*height: 100px;*/
-    /*}*/
+  }
+  .banner {
+    position: absolute;
+  }
+
+  .banner-wrapper {
+    position: absolute;
+    margin-top: -@padding-width;
+    margin-left: -@padding-width;
+    filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.5));
+  }
+
+  .std-banner-left {
+    left: 20px;
+    top: 0;
+    width: 120px;
+    height: 150px;
+    clip-path: polygon(0 0, 25% 0, 25% 10px, 75% 10px, 75% 0, 100% 0, 100% 100%, 75% 95%, 50% 100%, 25% 95%, 0 100%);
+    background: url('../assets/the-broken-bones.jpg') no-repeat 50% 0;
+    box-shadow: 10px 5px 5px red;
+    background-size: 135%;
+
+    /*object-fit: contain;*/
+  }
+
+  .ancestry-banner {
+    clip-path: polygon(0% 0% 0% 25% 10% 25%);
+    background-color: red;
   }
 </style>
