@@ -14,7 +14,7 @@ export const Orders: {[key: string]: Order } = {
   },
   CHARGE: {
     name: 'Charge',
-    description: '',
+    description: 'Cannot use while engaged. When attacking, attack with advantage on the Attack check. On a successful Power check, inflict 2 casualties. The charging unit is then engaged with the defending unit and must make a DC 13 Morale check to disengage.',
   },
   TAKE_AIM: {
     name: 'Take aim',

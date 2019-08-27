@@ -13,13 +13,13 @@ export class UnitBase extends Vue {
   // protected orders: Order[] = [ Orders.STAND_YOUR_GROUND ];
 
   protected title1: string = '\u200b';
-  protected title2: string = 'The Broken Bones';
+  protected title2: string = 'Nadia\'s Thunder';
 
-  protected ancestryExpreience: string  = 'Skeleton regular';
-  protected equipmentType: string  = 'medium archers'; // '\u200b';
+  protected ancestryExpreience: string  = 'Dragon Veteran';
+  protected equipmentType: string  = 'Light Flying Cavalry'; // '\u200b';
 
-  protected traits: Trait[] = [ Traits.MINDLESS ];
-  protected orders: Order[] = [ Orders.TAKE_AIM ];
+  protected traits: Trait[] = [ Traits.COURAGEOUS ];
+  protected orders: Order[] = [ Orders.CHARGE ];
 
   protected attack: string = '+3';
   protected power: string = '+6';

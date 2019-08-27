@@ -52,4 +52,8 @@ export const Traits: {[key: string]: Trait } = {
     name: 'Surprise attack',
     description: 'The first time this unit attacks each unit in battle, a successful power check deals two casualties.',
   },
+  ETERNAL: {
+    name: 'Eternal',
+    description: 'This unit cannot be horrified, and it always succeeds on morale checks to attack undead and fiends.',
+  },
 };
