@@ -1,5 +1,6 @@
 export interface Order {
   name: string;
+  dropdownName?: string;
   description: string;
 }
 
@@ -10,11 +11,16 @@ export const Orders: {[key: string]: Order } = {
   },
   THE_ODDS: {
     name: 'May the odds be never in your favor',
-    description: 'Choose an enemy unit, and place a d12 on their unit card. The next time that unit attacks, it rolls a d12 in place of a d20',
+    description: 'Choose an enemy unit, and place a d12 on their unit card. The next time that unit attacks, it rolls a d12 in place of a d20 on the attack check',
   },
   CHARGE: {
     name: 'Charge',
     description: 'Cannot use while engaged. When attacking, attack with advantage on the Attack check. On a successful Power check, inflict 2 casualties. The charging unit is then engaged with the defending unit and must make a DC 13 Morale check to disengage.',
+  },
+  CHARGE_BRIEF: {
+    name: 'Charge',
+    dropdownName: 'Charge (brief)',
+    description: 'When disengaged, attack with advantage. On a successful Power check, inflict 2 casualties and become engaged (DC 13 Morale check to disengage).',
   },
   TAKE_AIM: {
     name: 'Take aim',

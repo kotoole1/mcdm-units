@@ -1,17 +1,20 @@
 <template>
   <div id="app">
     <link href="https://fonts.googleapis.com/css?family=Martel|Bitter|Kameron|Open+Sans" rel="stylesheet">
-    <UnitCard msg="Welcome to Your Vue.js + TypeScript App"/>
+    <UnitEditor/>
+    <UnitCard/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import UnitCard from './components/unitCard.vue';
+import UnitEditor from './components/unitEditor.vue';
 
 @Component({
   components: {
     UnitCard,
+    UnitEditor,
   },
 })
 export default class App extends Vue {}

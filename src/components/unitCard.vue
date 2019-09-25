@@ -5,11 +5,10 @@
         <div class="banner std-banner-left"></div>
       </div>
       <div class="heading">
-        <div class="name">{{ title1 }}</div>
-        <div class="name underlined">{{ title2 }}</div>
-        <!--<div class="descriptor-line">{{ ancestry.name }} {{ experience.name }}</div>-->
-        <!--<div class="descriptor-line">{{ equipment.name }} {{ unitType.name }}</div>-->
-        <div class="descriptor-line">{{ ancestryExpreience }}</div>
+        <div class="title-wrapper">
+          <div class="title underlined">{{ title }}</div>
+        </div>
+        <div class="descriptor-line">{{ ancestryExperience }}</div>
         <div class="descriptor-line">{{ equipmentType }}</div>
       </div>
       <div class="main-content">
@@ -85,12 +84,19 @@ export default class UnitCard extends UnitBase {
       margin-bottom: 10px;
       text-transform: uppercase;
 
-      .name {
-        font-family: 'Bitter', serif;
-        font-weight: 800;
-        font-size: 14pt;
-        color: @light-red;
+      .title-wrapper {
+        min-height: 3em;
+        display: flex;
+        .title {
+          font-family: 'Bitter', serif;
+          font-weight: 800;
+          font-size: 14pt;
+          color: @light-red;
+          display: inline-block;
+          align-self: flex-end;
+        }
       }
+
       .underlined {
         border-bottom: 1px solid black;
         margin-bottom: 5px;
