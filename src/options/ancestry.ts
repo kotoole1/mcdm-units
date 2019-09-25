@@ -1,5 +1,5 @@
-import {Trait, Traits} from '@/components/trait';
-import {UnitType, UnitTypeOptions} from '@/components/unitType';
+import {Trait, Traits} from '@/options/trait';
+import {UnitType, UnitTypeOptions} from '@/options/unitType';
 
 export interface Ancestry {
   name: string;

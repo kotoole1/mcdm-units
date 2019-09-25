@@ -1,23 +1,29 @@
 <template>
   <div id="app">
     <link href="https://fonts.googleapis.com/css?family=Martel|Bitter|Kameron|Open+Sans" rel="stylesheet">
-    <UnitEditor/>
-    <UnitCard/>
+    <!--<RootEditor model="rootModel"/>-->
   </div>
 </template>
 
 <script lang="ts">
+// import RootEditor from './components/rootEditor';
+import {RootModel} from 'src/models/rootModel';
+import {UnitModel} from 'src/models/unitModel';
 import { Component, Vue } from 'vue-property-decorator';
-import UnitCard from './components/unitCard.vue';
-import UnitEditor from './components/unitEditor.vue';
 
 @Component({
   components: {
-    UnitCard,
-    UnitEditor,
+    // RootEditor,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  // private rootModel: RootModel;
+  // TODO: Big grand model here, saving and loading from cookies and from other stuff
+  private mounted() {
+    // const activeUnit = new UnitModel();
+    // this.rootModel = new RootModel(activeUnit);
+  }
+}
 </script>
 
 <style lang="less">
