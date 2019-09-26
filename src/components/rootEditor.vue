@@ -1,24 +1,31 @@
 <template>
   <div id="#root-editor">
-    <!--<UnitEditor model="activeUnit"/>-->
-    <!--<UnitCard model="activeUnit"/>-->
+    <UnitEditor v-model="activeUnit"/>
+    <UnitCard v-model="activeUnit"/>
   </div>
 </template>
 
 <script lang="ts">
-// import UnitCard from 'unitCard';
-// import UnitEditor from 'unitEditor';
-// import {RootModel} from 'src/models/rootModel';
+import {UnitModel} from 'src/models/unitModel';
+import UnitCard from './unitCard.vue';
+import UnitEditor from './unitEditor.vue';
+import {RootModel} from 'src/models/rootModel';
 import {Component, Prop, Vue} from 'vue-property-decorator';
 
 @Component({
   components: {
-    // UnitCard,
-    // UnitEditor,
+    UnitCard,
+    UnitEditor,
   },
 })
 export default class RootEditor extends Vue {
-  // @Prop() private model: RootModel;
+  @Prop() private value!: RootModel;
+  private activeUnit!: UnitModel;
+  // @Prop() private activeUnit!: UnitModel;
+  private created() {
+    console.log(this.value);
+    this.activeUnit = this.value.units[0];
+  }
 }
 </script>
 

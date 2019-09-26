@@ -6,7 +6,7 @@
       </div>
       <div class="heading">
         <div class="title-wrapper">
-          <div class="title underlined">{{ title }}</div>
+          <div class="title underlined">{{ value.title }}</div>
         </div>
         <div class="descriptor-line">{{ ancestryExperience }}</div>
         <div class="descriptor-line">{{ equipmentType }}</div>
@@ -24,10 +24,10 @@
             <div class="std-td"><span>MORALE:</span><span>{{ morale }}</span></div>
             <div class="std-td"><span>SIZE:</span><span>{{ size }}</span></div></div>
         </div>
-        <div v-if="traits.length" class="section-title">TRAITS</div>
-        <p class="section-content" v-for="trait in traits"><b>{{ trait.name }}.</b> {{ trait.description }}</p>
-        <div v-if="orders.length" class="section-title">ORDERS</div>
-        <p class="section-content" v-for="order in orders"><b>{{ order.name }}!</b> {{ order.description }}</p>
+        <div v-if="value.traits.length" class="section-title">TRAITS</div>
+        <p class="section-content" v-for="trait in value.traits"><b>{{ trait.name }}.</b> {{ trait.description }}</p>
+        <div v-if="value.orders.length" class="section-title">ORDERS</div>
+        <p class="section-content" v-for="order in value.orders"><b>{{ order.name }}!</b> {{ order.description }}</p>
       </div>
     </div>
   </div>
@@ -35,11 +35,10 @@
 
 <script lang="ts">
 import {UnitBase} from '@/components/unitBase';
-import { Component, Prop } from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 
 @Component({})
 export default class UnitCard extends UnitBase {
-  @Prop() private msg!: string;
 }
 </script>
 
