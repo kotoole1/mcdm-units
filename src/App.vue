@@ -1,15 +1,14 @@
 <template>
   <div id="app">
-    <link href="https://fonts.googleapis.com/css?family=Martel|Bitter|Kameron|Open+Sans" rel="stylesheet">
-    <RootEditor v-model="rootModel"/>
+    <link href="https://fonts.googleapis.com/css?family=Martel|Bitter|Kameron|Open+Sans|Raleway" rel="stylesheet">
+    <RootEditor/>
   </div>
 </template>
 
 <script lang="ts">
-import {RootModel} from './models/rootModel';
-import {UnitModel} from './models/unitModel';
 import RootEditor from './components/rootEditor.vue';
 import { Component, Vue } from 'vue-property-decorator';
+
 
 @Component({
   components: {
@@ -17,12 +16,6 @@ import { Component, Vue } from 'vue-property-decorator';
   },
 })
 export default class App extends Vue {
-  private rootModel!: RootModel;
-  // TODO: Big grand model here, saving and loading from cookies and from other stuff
-  private created() {
-    const activeUnit = new UnitModel();
-    this.rootModel = new RootModel(activeUnit);
-  }
 }
 </script>
 
@@ -31,8 +24,6 @@ export default class App extends Vue {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

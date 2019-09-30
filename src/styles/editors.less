@@ -3,9 +3,22 @@
 }
 
 .editor-panel {
-  position: absolute;
-  width: 300px;
+  position: fixed;
+  left: 0;
+  top: 0;
   height: 100%;
-  overflow: scroll;
-  background-color: aliceblue;
+  overflow: auto;
+  background-color: #ffffff;
+  box-shadow: 0 10px 10px #888;
+  padding: 8px;
+
+  .title {
+    font-weight: 900;
+    font-size: 1.4em;
+    border-bottom: 1px black;
+  }
+}
+
+.unit-editor-panel {
+  width: @unit-editor-width;
 }

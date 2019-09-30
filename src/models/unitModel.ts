@@ -9,6 +9,7 @@ import {UnitSize, UnitSizeOptions} from '@/options/unitSize';
 import {UnitType, UnitTypeOptions} from '@/options/unitType';
 
 export class UnitModel {
+
   // protected title: string = 'IRONHEART DEFENDERS';
   // protected ancestry: Ancestry = AncestryOptions.DWARF;
   // protected experience: Experience = ExperienceOptions.SEASONED;
@@ -29,4 +30,6 @@ export class UnitModel {
   public orders: Order[] = [ Orders.CHARGE_BRIEF ];
 
   public selectedSize: UnitSize = UnitSizeOptions._1D4;
+
+  constructor(public id: string) {}
 }

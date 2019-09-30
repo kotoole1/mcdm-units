@@ -6,9 +6,9 @@
       </div>
       <div class="heading">
         <div class="title-wrapper">
-          <div class="title underlined">{{ value.title }}</div>
+          <div class="title underlined">{{ activeUnit.title }}</div>
         </div>
-        <div class="descriptor-line">{{ ancestryExperience }}</div>
+        <div class="descriptor-line">{{ ancestryExperience  }}</div>
         <div class="descriptor-line">{{ equipmentType }}</div>
       </div>
       <div class="main-content">
@@ -24,10 +24,10 @@
             <div class="std-td"><span>MORALE:</span><span>{{ morale }}</span></div>
             <div class="std-td"><span>SIZE:</span><span>{{ size }}</span></div></div>
         </div>
-        <div v-if="value.traits.length" class="section-title">TRAITS</div>
-        <p class="section-content" v-for="trait in value.traits"><b>{{ trait.name }}.</b> {{ trait.description }}</p>
-        <div v-if="value.orders.length" class="section-title">ORDERS</div>
-        <p class="section-content" v-for="order in value.orders"><b>{{ order.name }}!</b> {{ order.description }}</p>
+        <div v-if="traits.length" class="section-title">TRAITS</div>
+        <p class="section-content" v-for="trait in traits"><b>{{ trait.name }}.</b> {{ trait.description }}</p>
+        <div v-if="orders.length" class="section-title">ORDERS</div>
+        <p class="section-content" v-for="order in orders"><b>{{ order.name }}!</b> {{ order.description }}</p>
       </div>
     </div>
   </div>
@@ -35,10 +35,11 @@
 
 <script lang="ts">
 import {UnitBase} from '@/components/unitBase';
-import { Component } from 'vue-property-decorator';
+import {mixins} from 'vue-class-component';
+import {Component} from 'vue-property-decorator';
 
 @Component({})
-export default class UnitCard extends UnitBase {
+export default class UnitCard extends mixins(UnitBase) {
 }
 </script>
 
@@ -52,10 +53,6 @@ export default class UnitCard extends UnitBase {
   @light-red: rgb(186, 14, 32);
   //@light-red: rgb(33, 52, 135);
   //@dark-red: rgb(40, 91, 193);
-
-  div {
-    box-sizing: border-box;
-  }
 
   p {
     hyphens: auto;

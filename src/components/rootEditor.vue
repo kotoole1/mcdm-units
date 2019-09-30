@@ -1,16 +1,16 @@
 <template>
   <div id="#root-editor">
-    <UnitEditor v-model="activeUnit"/>
-    <UnitCard v-model="activeUnit"/>
+    <UnitEditor :activeUnitId="activeUnitId"/>
+    <div class="card-container">
+      <UnitCard :activeUnitId="activeUnitId"/>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import {UnitModel} from 'src/models/unitModel';
 import UnitCard from './unitCard.vue';
 import UnitEditor from './unitEditor.vue';
-import {RootModel} from 'src/models/rootModel';
-import {Component, Prop, Vue} from 'vue-property-decorator';
+import {Component, Vue} from 'vue-property-decorator';
 
 @Component({
   components: {
@@ -19,19 +19,18 @@ import {Component, Prop, Vue} from 'vue-property-decorator';
   },
 })
 export default class RootEditor extends Vue {
-  @Prop() private value!: RootModel;
-  private activeUnit!: UnitModel;
-  // @Prop() private activeUnit!: UnitModel;
-  private created() {
-    console.log(this.value);
-    this.activeUnit = this.value.units[0];
-  }
+  private activeUnitId = this.$store.state.units[0].id;
 }
 </script>
 
 <style scoped lang="less">
-#root-editor {
-  width: 100%;
-  height: 100%;
-}
+  #root-editor {
+    width: 100%;
+    height: 100%;
+  }
+  .card-container {
+    position: relative;
+    left: @unit-editor-width;
+    padding: 15px 0 0 25px;
+  }
 </style>

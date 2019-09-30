@@ -1,8 +1,10 @@
+import {DropdownOption} from '@/components/dropdownOption';
 import {Trait, Traits} from '@/options/trait';
 import {UnitType, UnitTypeOptions} from '@/options/unitType';
 
-export interface Ancestry {
+export interface Ancestry extends DropdownOption {
   name: string;
+  title?: string;
   attack: number;
   power: number;
   defense: number;
@@ -13,21 +15,6 @@ export interface Ancestry {
 }
 
 export const AncestryOptions: {[key: string]: Ancestry} = {
-  // DWARF: {
-  //   name: 'Dwarf',
-  //   attack: 3, power: 1, defense: 1, toughness: 1, morale:
-  //   traits: [
-  //     Traits.STERNER_STUFF,
-  //     Traits.ANGRY,
-  //   ],
-  // },
-  // ELF: {
-  //   name: 'Elf',
-  //   attack: 2, power: 0, defense: 0, toughness: 0,
-  //   traits: [
-  //     Traits.ETERNAL,
-  //   ],
-  // },
   DRAGON: {
     name: 'Dragon',
     attack: 1, power: 4, defense: 0, toughness: 0, morale: 2,
