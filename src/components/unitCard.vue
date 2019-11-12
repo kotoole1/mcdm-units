@@ -56,6 +56,7 @@ export default class UnitCard extends mixins(UnitBase) {
 
   p {
     hyphens: auto;
+    font-size: 16px;
   }
 
   .std {
@@ -185,7 +186,7 @@ export default class UnitCard extends mixins(UnitBase) {
     width: 120px;
     height: 150px;
     clip-path: polygon(0 0, 25% 0, 25% 10px, 75% 10px, 75% 0, 100% 0, 100% 100%, 75% 95%, 50% 100%, 25% 95%, 0 100%);
-    background: url('../assets/nadias-thunder-3.5.jpg') no-repeat 60% 0;
+    background: url('../assets/greenspawn-razorfiend.png') no-repeat 60% 20%;
     box-shadow: 10px 5px 5px red;
     background-size: 200%;
 

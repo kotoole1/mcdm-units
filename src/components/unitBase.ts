@@ -1,7 +1,12 @@
 import {UnitModel} from '@/models/unitModel';
-import {DomainOptions} from '@/options/domain';
-import {Order} from '@/options/order';
-import {Trait} from '@/options/trait';
+import {Ancestry, AncestryOptions} from '@/options/ancestry';
+import {DomainOptions, Domain} from '@/options/domain';
+import {Equipment, EquipmentOptions} from '@/options/equipment';
+import {Experience, ExperienceOptions} from '@/options/experience';
+import {Order, Orders} from '@/options/order';
+import {Trait, Traits} from '@/options/trait';
+import {UnitSize, UnitSizeOptions} from '@/options/unitSize';
+import {UnitType, UnitTypeOptions} from '@/options/unitType';
 import Component from 'vue-class-component';
 import {Vue, Prop} from 'vue-property-decorator';
 
@@ -15,56 +20,80 @@ export class UnitBase extends Vue {
   }
 
   protected get ancestryExperience() {
-    return this.activeUnit.ancestry.name + ' ' + this.activeUnit.experience.name;
+    return this.ancestry.name + ' ' + this.experience.name;
   }
 
   protected get equipmentType() {
-    let res = this.activeUnit.equipment.name;
-    if (this.activeUnit.domain !== DomainOptions.NONE) {
-      res += ' ' + this.activeUnit.domain.name;
+    let res = this.equipment.name;
+    if (this.activeUnit.hasDomain) {
+      res += ' ' + this.domain.name;
     }
-    res += ' ' + this.activeUnit.unitType.name;
+    res += ' ' + this.unitType.name;
     return res;
   }
 
+  protected get ancestry(): Ancestry {
+    return AncestryOptions[this.activeUnit.ancestryId];
+  }
+
+  protected get equipment(): Equipment {
+    return EquipmentOptions[this.activeUnit.equipmentId];
+  }
+
+  protected get experience(): Experience {
+    return ExperienceOptions[this.activeUnit.experienceId];
+  }
+
+  protected get unitType(): UnitType {
+    return UnitTypeOptions[this.activeUnit.unitTypeId];
+  }
+
+  protected get domain(): Domain {
+    return DomainOptions[this.activeUnit.domainId];
+  }
+
+  protected get selectedSize(): UnitSize {
+    return UnitSizeOptions[this.activeUnit.selectedSizeId];
+  }
+
   protected get attack(): string {
-    return this.formatBonus(this.activeUnit.ancestry.attack +
-      this.activeUnit.unitType.attack +
-      this.activeUnit.experience.attack +
-      this.activeUnit.domain.attack +
-      this.activeUnit.equipment.attack);
+    return this.formatBonus(this.ancestry.attack +
+      this.unitType.attack +
+      this.experience.attack +
+      this.domain.attack +
+      this.equipment.attack);
   }
 
   protected get power(): string {
-    return this.formatBonus(this.activeUnit.ancestry.power +
-      this.activeUnit.unitType.power +
-      this.activeUnit.experience.power +
-      this.activeUnit.domain.power +
-      this.activeUnit.equipment.power);
+    return this.formatBonus(this.ancestry.power +
+      this.unitType.power +
+      this.experience.power +
+      this.domain.power +
+      this.equipment.power);
   }
 
   protected get defense(): string {
-    return this.formatBonus(this.activeUnit.ancestry.defense +
-      this.activeUnit.unitType.defense +
-      this.activeUnit.experience.defense +
-      this.activeUnit.domain.defense +
-      this.activeUnit.equipment.defense);
+    return this.formatBonus(this.ancestry.defense +
+      this.unitType.defense +
+      this.experience.defense +
+      this.domain.defense +
+      this.equipment.defense);
   }
 
   protected get toughness(): string {
-    return this.formatBonus(this.activeUnit.ancestry.toughness +
-      this.activeUnit.unitType.toughness +
-      this.activeUnit.experience.toughness +
-      this.activeUnit.domain.toughness +
-      this.activeUnit.equipment.toughness);
+    return this.formatBonus(this.ancestry.toughness +
+      this.unitType.toughness +
+      this.experience.toughness +
+      this.domain.toughness +
+      this.equipment.toughness);
   }
 
   protected get morale(): string {
-    return this.formatBonus(this.activeUnit.ancestry.morale +
-      this.activeUnit.unitType.morale +
-      this.activeUnit.experience.morale +
-      this.activeUnit.domain.morale +
-      this.activeUnit.equipment.morale);
+    return this.formatBonus(this.ancestry.morale +
+      this.unitType.morale +
+      this.experience.morale +
+      this.domain.morale +
+      this.equipment.morale);
   }
 
   protected formatBonus(bonus: number): string {
@@ -75,21 +104,21 @@ export class UnitBase extends Vue {
   }
 
   protected get size(): string {
-    return this.activeUnit.selectedSize.numberOfDice + 'd' + this.activeUnit.selectedSize.numberOfSides;
+    return this.selectedSize.numberOfDice + 'd' + this.selectedSize.numberOfSides;
   }
 
   protected get traits(): Trait[] {
     const ret: Trait[] = [];
-    if (this.activeUnit.traits) {
-      ret.push.apply(ret, this.activeUnit.traits);
+    if (this.activeUnit.traitIds) {
+      this.activeUnit.traitIds.forEach((traitId) => ret.push(Traits[traitId]));
     }
     return ret;
   }
 
   protected get orders(): Order[] {
     const ret: Order[] = [];
-    if (this.activeUnit.orders) {
-      ret.push.apply(ret, this.activeUnit.orders);
+    if (this.activeUnit.orderIds) {
+      this.activeUnit.orderIds.forEach((orderId) => ret.push(Orders[orderId]));
     }
     return ret;
   }

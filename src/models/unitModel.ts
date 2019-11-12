@@ -1,12 +1,5 @@
-import {Ancestry, AncestryOptions} from '@/options/ancestry';
-import {Domain, DomainOptions} from '@/options/domain';
-import {Equipment, EquipmentOptions} from '@/options/equipment';
-import {Experience, ExperienceOptions} from '@/options/experience';
-import {Order, Orders} from '@/options/order';
+import {ExperienceOptions} from '@/options/experience';
 import {OverrideStyle} from '@/options/override';
-import {Trait, Traits} from '@/options/trait';
-import {UnitSize, UnitSizeOptions} from '@/options/unitSize';
-import {UnitType, UnitTypeOptions} from '@/options/unitType';
 
 export class UnitModel {
 
@@ -18,18 +11,19 @@ export class UnitModel {
   // protected unitType: UnitType = UnitTypeOptions.INFANTRY;
   // protected orders: Order[] = [ Orders.STAND_YOUR_GROUND ];
 
-  public title: string = 'Nadia\'s Thunder';
-  public ancestry: Ancestry = AncestryOptions.DRAGON;
-  public experience: Experience = ExperienceOptions.VETERAN;
-  public equipment: Equipment = EquipmentOptions.LIGHT;
-  public domain: Domain = DomainOptions.FLYING;
-  public unitType: UnitType = UnitTypeOptions.CAVALRY;
+  public title: string = 'Greenspawn Razorfiends';
+  public ancestryId: string = 'RAZORFIEND';
+  public experienceId: string = 'GREEN';
+  public equipmentId: string = 'MEDIUM';
+  public hasDomain: boolean = true;
+  public domainId: string = 'FLYING';
+  public unitTypeId: string = 'INFANTRY';
 
   public overrideStyle = OverrideStyle.NONE;
-  public traits: Trait[] = [ Traits.COURAGEOUS ];
-  public orders: Order[] = [ Orders.CHARGE_BRIEF ];
+  public traitIds: string[] = [ 'BRED_FOR_WAR' ];
+  public orderIds: string[] = [ 'CHARGE_BRIEF' ];
 
-  public selectedSize: UnitSize = UnitSizeOptions._1D4;
+  public selectedSizeId: string = '_1D6';
 
   constructor(public id: string) {}
 }

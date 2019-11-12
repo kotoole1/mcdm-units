@@ -36,7 +36,7 @@ export const Traits: {[key: string]: Trait } = {
   },
   BRED_FOR_WAR: {
     name: 'Bred for war',
-    description: 'For war this unit cannot be diminished, and cannot have disadvantage on morale checks.',
+    description: 'This unit cannot be diminished, and cannot have disadvantage on morale checks.',
     cost: 100,
   },
   BRUTAL: {

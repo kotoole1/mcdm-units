@@ -137,6 +137,14 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     morale: 1,
     traits: [ Traits.AMPHIBIOUS ],
   },
+  RAZORFIEND: {
+    name: 'Razorfiend',
+    attack: 2,
+    power: 1,
+    defense: -1,
+    toughness: 1,
+    morale: 1,
+  },
   OGRE: {
     name: 'Ogre',
     attack: 0 ,
@@ -184,7 +192,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     traits: [ Traits.REGENERATE ],
   },
   ZOMBIE: {
-    name: 'zombie',
+    name: 'Zombie',
     attack: -2,
     power: 0,
     defense: 2,

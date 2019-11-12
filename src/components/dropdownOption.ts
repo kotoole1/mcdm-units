@@ -1,4 +1,8 @@
+import {OptionSource} from '@/options/optionSource';
+
 export interface DropdownOption {
-  name: string;
-  title?: string;
+  id?: string;
+  name?: string;
+  label?: string;
+  source?: OptionSource;
 }

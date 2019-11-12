@@ -10,15 +10,25 @@
   overflow: auto;
   background-color: #ffffff;
   box-shadow: 0 10px 10px #888;
-  padding: 8px;
+  padding: @editor-panel-padding;
 
   .title {
     font-weight: 900;
     font-size: 1.4em;
     border-bottom: 1px black;
   }
+
+  ul {
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .unit-editor-panel {
   width: @unit-editor-width;
+  padding-left: 15px;
+}
+
+.army-editor-panel {
+  width: @army-editor-width;
 }
