@@ -1,6 +1,6 @@
 <template>
-  <div class="dropdown-parameter">
-    <label class="dropdown-label">{{ name }}</label>
+  <div class="parameter dropdown-parameter">
+    <label class="parameter-label">{{ name }}</label>
     <v-select class="dropdown-select no-clear"
               :value="value"
               :options="getDropdownOptions()"
@@ -52,18 +52,8 @@
     display: none;
   }
 
-  .dropdown-parameter {
-    display: flex;
-    flex-grow: 1;
-    margin-bottom: 5px;
-  }
-
   .dropdown-select {
     flex-grow: 1;
-  }
-
-  .dropdown-label {
-    align-self: center;
-    margin-right: 5px;
+    margin-left: 5px;
   }
 </style>

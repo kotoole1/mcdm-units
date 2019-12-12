@@ -11,7 +11,7 @@ export interface Ancestry extends DropdownOption {
   toughness: number;
   morale: number;
   traits?: Trait[];
-  forcedTypes?: UnitType[];
+  forcedTypes?: UnitType[]; // TODO
 }
 
 export const AncestryOptions: {[key: string]: Ancestry} = {

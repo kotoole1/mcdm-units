@@ -1,5 +1,6 @@
-export interface Domain {
-  name: string;
+import {DropdownOption} from '@/components/dropdownOption';
+
+export interface Domain extends DropdownOption {
   attack: number;
   power: number;
   defense: number;
@@ -17,7 +18,7 @@ export const DomainOptions: {[key: string]: Domain} = {
     morale: 3,
   },
   NONE: {
-    name: '',
+    name: 'Ground',
     attack: 0,
     power: 0,
     defense: 0,

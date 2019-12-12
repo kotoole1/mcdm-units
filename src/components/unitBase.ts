@@ -56,6 +56,22 @@ export class UnitBase extends Vue {
     return UnitSizeOptions[this.activeUnit.selectedSizeId];
   }
 
+  protected get imageUrl(): string {
+    return this.activeUnit.imageUrl;
+  }
+
+  protected get imageScale(): number {
+    return this.activeUnit.imageScale;
+  }
+
+  protected get imageXPos(): number {
+    return this.activeUnit.imageXPos;
+  }
+
+  protected get imageYPos(): number {
+    return this.activeUnit.imageYPos;
+  }
+
   protected get attack(): string {
     return this.formatBonus(this.ancestry.attack +
       this.unitType.attack +

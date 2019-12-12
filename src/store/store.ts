@@ -3,11 +3,17 @@ import {UnitModel} from '@/models/unitModel';
 import {randomId} from '@/models/uuid';
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VuexPersistence from 'vuex-persist';
+
 
 Vue.use(Vuex);
 
+const vuexLocal = new VuexPersistence<RootModel>({
+  storage: window.localStorage,
+});
+
 export default new Vuex.Store<RootModel>({
-  state: new RootModel(new UnitModel(randomId())),
+  state: new RootModel(), // VuexPersistence should override this
   mutations: {
     changeUnitField: (state, { unitId, field, value }:
       { unitId: string, field: keyof UnitModel, value: any}) => {
@@ -19,6 +25,9 @@ export default new Vuex.Store<RootModel>({
     changeAncestry: (state, {id, ancestryId}) => {
       getUnit(state, id).ancestryId = ancestryId;
     },
+    addUnit: (state, { unit }: {unit: UnitModel}) => {
+      state.units.push(unit);
+    },
   },
   getters: {
     unit: (state) => (id: string) => {
@@ -28,6 +37,7 @@ export default new Vuex.Store<RootModel>({
       return state.units;
     },
   },
+  plugins: [vuexLocal.plugin]
 });
 
 function getUnit(state: RootModel, id: string): UnitModel {

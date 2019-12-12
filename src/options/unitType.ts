@@ -1,4 +1,6 @@
-export interface UnitType {
+import {DropdownOption} from '@/components/dropdownOption';
+
+export interface UnitType extends DropdownOption {
   name: string;
   attack: number;
   power: number;

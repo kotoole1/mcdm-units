@@ -5,4 +5,5 @@ export interface DropdownOption {
   name?: string;
   label?: string;
   source?: OptionSource;
+  skipDropdown?: boolean; // TODO
 }

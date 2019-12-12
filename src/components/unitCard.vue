@@ -2,7 +2,9 @@
   <div class="std">
     <div class="content">
       <div class="banner-wrapper">
-        <div class="banner std-banner-left"></div>
+        <div class="banner std-banner-left"
+             :style="{ backgroundImage: 'url(\'' + require('../assets/' + imageUrl ) + '\')' }"
+        ></div>
       </div>
       <div class="heading">
         <div class="title-wrapper">
@@ -39,7 +41,10 @@ import {mixins} from 'vue-class-component';
 import {Component} from 'vue-property-decorator';
 
 @Component({})
-export default class UnitCard extends mixins(UnitBase) {
+export default class UnitCard extends UnitBase {
+  // protected get imageUrlOverride() {
+  //   return this.imageUrl;
+  // }
 }
 </script>
 
@@ -186,7 +191,7 @@ export default class UnitCard extends mixins(UnitBase) {
     width: 120px;
     height: 150px;
     clip-path: polygon(0 0, 25% 0, 25% 10px, 75% 10px, 75% 0, 100% 0, 100% 100%, 75% 95%, 50% 100%, 25% 95%, 0 100%);
-    background: url('../assets/greenspawn-razorfiend.png') no-repeat 60% 20%;
+    background: url('../assets/light-axemen.jpg') no-repeat 60% 20%;
     box-shadow: 10px 5px 5px red;
     background-size: 200%;
 

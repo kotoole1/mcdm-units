@@ -5,15 +5,17 @@
       <li v-for="unit in allUnits"
           class="unit-line-item"
           :class="{ active: isActive(unit) }"
-          @onclick="$emit('select-unit', unit.id)">{{unit.title}}</li>
+          @click="$emit('select-unit', unit.id)">{{unit.title}}</li>
     </ul>
-    <button class="mdl-button">New Unit</button>
+    <button class="mdl-button"
+            @click="newUnitClicked()">New Unit</button>
   </div>
 </template>
 
 <script lang="ts">
-import {UnitModel} from 'src/models/unitModel';
-import {Component, Vue, Prop} from "vue-property-decorator";
+import {UnitModel} from '@/models/unitModel';
+import {randomId} from '@/models/uuid';
+import {Component, Vue, Prop} from 'vue-property-decorator';
 
 @Component({
   components: {},
@@ -30,9 +32,12 @@ export default class UnitEditor extends Vue {
   }
 
   public isActive(unit: UnitModel) {
-    console.log(unit);
-    console.log(this.activeUnitId);
     return unit.id === this.activeUnitId;
+  }
+
+  public newUnitClicked() {
+    const newUnit = new UnitModel(randomId());
+    this.$store.commit('addUnit', { unit: newUnit } );
   }
 }
 </script>
@@ -40,11 +45,13 @@ export default class UnitEditor extends Vue {
 <style lang="less">
   .unit-line-item {
     list-style-type: none;
+    padding: 2px 0;
 
     &.active {
       background-color: aqua;
       margin: 0 -@editor-panel-padding 0 -@editor-panel-padding;
-      padding: 2px @editor-panel-padding 2px @editor-panel-padding;
+      padding-left: @editor-panel-padding;
+      padding-right: @editor-panel-padding;
     }
   }
 </style>

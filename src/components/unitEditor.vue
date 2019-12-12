@@ -29,6 +29,16 @@
                        :options="DomainOptions"
                        @input="setField('domainId', $event)"></DropdownParameter>
   </div>
+  <!--TODO: assign extra parameters dynamically-->
+  <div class="editor-section" v-if="true">
+    <label><b>Banner image</b></label>
+    <NumberParameter :name="'Scale (%)'"
+                     :value="activeUnit.imageScale"
+                     :min="1"
+                     :max="1000"
+                     :step="10"
+                     @input="setField('imageScale', $event)"></NumberParameter>
+  </div>
 </div>
 </template>
 
@@ -44,9 +54,11 @@ import {Domain, DomainOptions} from '@/options/domain';
 import {Component, Prop, Vue} from 'vue-property-decorator';
 import DropdownParameter from './dropdownParameter.vue';
 import BooleanParameter from './booleanParameter.vue';
+import NumberParameter from './numberParameter';
 
 @Component({
   components: {
+    NumberParameter,
     DropdownParameter,
     BooleanParameter,
   },
@@ -78,27 +90,6 @@ export default class UnitEditor extends Vue {
 
   set title(title: string) {
     this.$store.commit('changeTitle', { id: this.activeUnitId, title });
-  }
-
-  public setAncestry(ancestryId: string) {
-    this.$store.commit('changeAncestry', { id: this.activeUnitId, ancestryId });
-  }
-
-
-  public setEquipment(equipmentId: string) {
-    this.$store.commit('changeEquipment', { id: this.activeUnitId, equipmentId });
-  }
-
-  public setExperience(experienceId: string) {
-    this.$store.commit('changeExperience', { id: this.activeUnitId, experienceId });
-  }
-
-  public setUnitType(unitTypeId: string) {
-    this.$store.commit('changeUnitType', { id: this.activeUnitId, experienceId: unitTypeId });
-  }
-
-  public setHasDomain(hasDomain: boolean) {
-    // this.$store.commit(
   }
 }
 </script>

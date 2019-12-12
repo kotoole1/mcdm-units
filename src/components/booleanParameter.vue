@@ -1,5 +1,5 @@
 <template>
-  <div class="boolean-parameter" :class="{inline}">
+  <div class="parameter boolean-parameter" :class="{inline}">
     <label>
       <input :checked="value"
              @input="$emit('input', $event.target.checked)"
@@ -23,8 +23,6 @@
 </script>
 <style lang="less">
   .boolean-parameter {
-    display: flex;
-    margin-bottom: 5px;
     padding: 6px 0;
 
     input {

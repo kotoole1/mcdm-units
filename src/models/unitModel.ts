@@ -1,29 +1,24 @@
-import {ExperienceOptions} from '@/options/experience';
 import {OverrideStyle} from '@/options/override';
 
 export class UnitModel {
-
-  // protected title: string = 'IRONHEART DEFENDERS';
-  // protected ancestry: Ancestry = AncestryOptions.DWARF;
-  // protected experience: Experience = ExperienceOptions.SEASONED;
-  // protected equipment: Equipment = EquipmentOptions.MEDIUM;
-  // protected domain: Domain = Domains.FLYING;
-  // protected unitType: UnitType = UnitTypeOptions.INFANTRY;
-  // protected orders: Order[] = [ Orders.STAND_YOUR_GROUND ];
-
-  public title: string = 'Greenspawn Razorfiends';
-  public ancestryId: string = 'RAZORFIEND';
-  public experienceId: string = 'GREEN';
+  public title: string = 'My New Unit';
+  public ancestryId: string = 'HUMAN';
+  public experienceId: string = 'REGULAR';
   public equipmentId: string = 'MEDIUM';
-  public hasDomain: boolean = true;
+  public hasDomain: boolean = false;
   public domainId: string = 'FLYING';
   public unitTypeId: string = 'INFANTRY';
 
   public overrideStyle = OverrideStyle.NONE;
-  public traitIds: string[] = [ 'BRED_FOR_WAR' ];
-  public orderIds: string[] = [ 'CHARGE_BRIEF' ];
+  public traitIds: string[] = [];
+  public orderIds: string[] = [];
 
   public selectedSizeId: string = '_1D6';
+
+  public imageUrl: string = 'light-axemen.jpg';
+  public imageScale: number = 200;
+  public imageXPos: number = 25;
+  public imageYPos: number = 25;
 
   constructor(public id: string) {}
 }
