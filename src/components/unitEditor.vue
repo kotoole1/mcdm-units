@@ -42,13 +42,13 @@
                      :value="activeUnit.imageXPos"
                      :min="0"
                      :max="100"
-                     :step="10"
+                     :step="5"
                      @input="setField('imageXPos', $event)"></NumberParameter>
     <NumberParameter :name="'Y position (%)'"
                      :value="activeUnit.imageYPos"
                      :min="0"
                      :max="100"
-                     :step="10"
+                     :step="5"
                      @input="setField('imageYPos', $event)"></NumberParameter>
   </div>
 </div>

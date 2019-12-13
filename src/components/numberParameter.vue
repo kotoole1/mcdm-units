@@ -5,9 +5,10 @@
                   :value="value"
                   :min="min"
                   :max="max"
+                  :step="step"
                   size="small"
-                  inline controls center
-            @input="$emit('input', $event)">
+                  @change="$emit('input', $event)"
+                  inline controls center>
     </number-input>
   </div>
 </template>
