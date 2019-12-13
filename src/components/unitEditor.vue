@@ -34,10 +34,22 @@
     <label><b>Banner image</b></label>
     <NumberParameter :name="'Scale (%)'"
                      :value="activeUnit.imageScale"
-                     :min="1"
-                     :max="1000"
+                     :min="100"
+                     :max="10000"
                      :step="10"
                      @input="setField('imageScale', $event)"></NumberParameter>
+    <NumberParameter :name="'X position (%)'"
+                     :value="activeUnit.imageXPos"
+                     :min="0"
+                     :max="100"
+                     :step="10"
+                     @input="setField('imageXPos', $event)"></NumberParameter>
+    <NumberParameter :name="'Y position (%)'"
+                     :value="activeUnit.imageYPos"
+                     :min="0"
+                     :max="100"
+                     :step="10"
+                     @input="setField('imageYPos', $event)"></NumberParameter>
   </div>
 </div>
 </template>
@@ -54,7 +66,7 @@ import {Domain, DomainOptions} from '@/options/domain';
 import {Component, Prop, Vue} from 'vue-property-decorator';
 import DropdownParameter from './dropdownParameter.vue';
 import BooleanParameter from './booleanParameter.vue';
-import NumberParameter from './numberParameter';
+import NumberParameter from './numberParameter.vue';
 
 @Component({
   components: {

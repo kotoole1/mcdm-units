@@ -37,7 +37,7 @@ export default new Vuex.Store<RootModel>({
       return state.units;
     },
   },
-  plugins: [vuexLocal.plugin]
+  plugins: [vuexLocal.plugin],
 });
 
 function getUnit(state: RootModel, id: string): UnitModel {

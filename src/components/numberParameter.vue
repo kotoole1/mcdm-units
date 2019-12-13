@@ -17,8 +17,8 @@
 
   @Component({
     components: {
-      'number-input': VueNumberInput,
-    }
+      'number-input': VueNumberInput, // tslint:disable-line:no-implicit-any
+    },
   })
   export default class NumberParameter extends Vue {
     @Prop({ type: Number, required: true })
