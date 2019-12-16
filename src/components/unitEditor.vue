@@ -61,6 +61,9 @@
                      :step="5"
                      @input="setField('imageYPos', $event)"></NumberParameter>
   </div>
+  <div class="bottom-buttons">
+    <button @click="deleteUnit()">Delete unit</button>
+  </div>
 </div>
 </template>
 
@@ -107,6 +110,11 @@ export default class UnitEditor extends Vue {
 
   public setField(field: keyof UnitModel, value: any) {
     this.$store.commit('changeUnitField', { unitId: this.activeUnitId, field, value });
+  }
+
+  public deleteUnit() {
+    this.$emit('select-unit', 'NEXT');
+    this.$store.commit('deleteUnit', { unitId: this.activeUnitId });
   }
 }
 </script>

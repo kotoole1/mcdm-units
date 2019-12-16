@@ -1,5 +1,6 @@
 <template>
-  <div class="std">
+  <div class="std"
+       :class="[ color ]">
     <div class="content">
       <div class="banner-wrapper">
         <div class="banner std-banner-left"
@@ -57,10 +58,11 @@ export default class UnitCard extends UnitBase {
   @border-slice: 120;
   @border-width: 60px;
   @padding-width: 40px;
+
   @dark-red: rgb(140, 36, 32);
   @light-red: rgb(186, 14, 32);
-  //@light-red: rgb(33, 52, 135);
-  //@dark-red: rgb(40, 91, 193);
+  @light-blue: rgb(33, 52, 135);
+  @dark-blue: rgb(40, 91, 193);
 
   p {
     hyphens: auto;
@@ -69,13 +71,13 @@ export default class UnitCard extends UnitBase {
 
   .std {
     width: @overall-width;
-    /*<!--height: @overall-height;-->*/
     text-align: left;
     position: absolute;
     border: @border-width solid;
-    border-image-source: url(../assets/original-background.png);
     border-image-slice: @border-slice fill;
     border-image-repeat: stretch;
+    &.red-army { border-image-source: url(../assets/original-background.png); }
+    &.blue-army { border-image-source: url(../assets/original-background-blue.png); }
 
     .content {
       margin: -@border-width;
@@ -88,35 +90,38 @@ export default class UnitCard extends UnitBase {
       margin-top: 5px;
       margin-bottom: 10px;
       text-transform: uppercase;
-
-      .title-wrapper {
-        min-height: 3em;
-        display: flex;
-        .title {
-          font-family: 'Bitter', serif;
-          font-weight: 800;
-          font-size: 14pt;
-          color: @light-red;
-          display: inline-block;
-          align-self: flex-end;
-        }
-      }
-
-      .underlined {
-        border-bottom: 1px solid black;
-        margin-bottom: 5px;
-      }
-      .descriptor-line {
-        font-family: 'Bitter', serif;
-        font-weight: 900;
-        font-size: 11pt;
-        color: @dark-red;
-        line-height: 1.3em;
-      }
     }
 
+    .title-wrapper {
+      min-height: 3em;
+      display: flex;
+    }
+
+    .title {
+      font-family: 'Bitter', serif;
+      font-weight: 800;
+      font-size: 14pt;
+      display: inline-block;
+      align-self: flex-end;
+    }
+    &.red-army .title { color: @light-red; }
+    &.blue-army .title { color: @light-blue; }
+
+    .underlined {
+      border-bottom: 1px solid black;
+      margin-bottom: 5px;
+    }
+
+    .descriptor-line {
+      font-family: 'Bitter', serif;
+      font-weight: 900;
+      font-size: 11pt;
+      line-height: 1.3em;
+    }
+    &.red-army .descriptor-line { color: @dark-red; }
+    &.blue-army .descriptor-line { color: @dark-blue; }
+
     .main-content {
-      /*position: relative;*/
       margin-top: 20px;
     }
     .optional-cost {
@@ -126,57 +131,67 @@ export default class UnitCard extends UnitBase {
       text-align: right;
       height: 1.5em;
     }
+    &.red-army .optional-cost { color: @dark-red; }
+    &.blue-army .optional-cost { color: @dark-blue; }
 
     .std-table {
       margin-bottom: 5px;
-      .std-tr {
-        border-top: 2px solid black;
-        padding-top: 3px;
-        padding-bottom: 1px;
-        color: @light-red;
-        font-family: 'Calluna Sans', sans-serif;
-        font-weight: 600;
-        font-size: 11pt;
-        line-height: 1.1em;
+    }
 
-        .std-td {
-          display: inline-block;
-        }
-        .std-td:first-child {
-          width: 50%;
-          span:first-child {
-            width: 90px;
-          }
-        }
-        .std-td:last-child {
-          span:first-child {
-            width: 120px;
-          }
-        }
-        span {
-          display: inline-block;
-          flex-direction: column;
-        }
-      }
+    .std-tr {
+      border-top: 2px solid black;
+      padding-top: 3px;
+      padding-bottom: 1px;
+      font-family: 'Calluna Sans', sans-serif;
+      font-weight: 600;
+      font-size: 11pt;
+      line-height: 1.1em;
 
-      .std-tr:last-child {
-        border-bottom: 2px solid black;
+      span {
+        display: inline-block;
+        flex-direction: column;
       }
+    }
+    &.red-army .std-tr { color: @light-red; }
+    &.blue-army .std-tr { color: @light-blue; }
+
+    .std-td {
+      display: inline-block;
+    }
+    .std-td:first-child {
+      width: 50%;
+      span:first-child {
+        width: 90px;
+      }
+    }
+    .std-td:last-child {
+      span:first-child {
+        width: 120px;
+      }
+    }
+
+    .std-tr:last-child {
+      border-bottom: 2px solid black;
     }
 
     .section-title {
       margin-top: 10px;
       font-family: 'Bitter', serif;
       font-weight: 800;
-      /*font-size: 14pt;*/
       color: @light-red;
     }
+    &.red-army .section-title { color: @light-red; }
+    &.blue-army .section-title { color: @light-blue; }
+
     .section-content {
       color: @dark-red;
       margin-top: 2px;
       margin-bottom: 5px;
     }
-  }
+    &.red-army .section-content { color: @dark-red; }
+    &.blue-army .section-content { color: @dark-blue; }
+  } // .std
+
   .banner {
     position: absolute;
   }
@@ -193,11 +208,14 @@ export default class UnitCard extends UnitBase {
     top: 0;
     width: 120px;
     height: 150px;
-    clip-path: polygon(0 0, 25% 0, 25% 8px, 75% 8px, 75% 0, 100% 0, 100% 100%, 75% 95%, 50% 100%, 25% 95%, 0 100%);
+    clip-path: polygon(0 0, 25% 0, 25% 10px, 75% 10px, 75% 0, 100% 0, 100% 100%, 75% 95%, 50% 100%, 25% 95%, 0 100%);
   }
 
+  // TODO: double banner
   .ancestry-banner {
     clip-path: polygon(0% 0% 0% 25% 10% 25%);
     background-color: red;
   }
+
+
 </style>

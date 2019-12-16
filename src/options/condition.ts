@@ -1,6 +1,6 @@
 import {Order} from '@/options/order';
 
-export interface condition {
+export interface Condition {
   name: string;
   dropdownName?: string;
   description: string;

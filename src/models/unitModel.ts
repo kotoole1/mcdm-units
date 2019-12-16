@@ -20,5 +20,6 @@ export class UnitModel {
   public imageXPos: number = 50;
   public imageYPos: number = 50;
 
-  constructor(public id: string) {}
+  constructor(public id: string,
+              public owningArmyId: string) {}
 }

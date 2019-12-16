@@ -1,5 +1,7 @@
+import {ArmyModel} from '@/models/armyModel';
 import {UnitModel} from '@/models/unitModel';
 import {Ancestry, AncestryOptions} from '@/options/ancestry';
+import {ColorOptions} from '@/options/color';
 import {DomainOptions, Domain} from '@/options/domain';
 import {Equipment, EquipmentOptions} from '@/options/equipment';
 import {Experience, ExperienceOptions} from '@/options/experience';
@@ -29,17 +31,28 @@ export class UnitBase extends Vue {
         backgroundAttribute = 'url(\'' + require('../assets/not-found.png' ) + '\')';
       }
     } else {
-      // try {
-        console.log(this.imageUrl);
+      try {
         backgroundAttribute = 'url(\'' + this.imageUrl + '\')';
-      // } catch (e) {
-      //   // TODO: parameter error state
-      //   backgroundAttribute = 'url(\'' + require('../assets/not-found.png' ) + '\')';
-      // }
+      } catch (e) {
+        // TODO: parameter error state
+        backgroundAttribute = 'url(\'' + require('../assets/not-found.png' ) + '\')';
+      }
     }
     return backgroundAttribute;
   }
 
+  /**
+   * The css class for the selected color
+   */
+  protected get color(): string {
+    if (this.activeUnit.owningArmyId) {
+      const army: ArmyModel = this.$store.getters.army(this.activeUnit.owningArmyId);
+      if (army) {
+        return ColorOptions[army.colorId].cssClass;
+      }
+    }
+    return ColorOptions.RED.cssClass;
+  }
   protected get ancestryExperience() {
     return this.ancestry.name + ' ' + this.experience.name;
   }
