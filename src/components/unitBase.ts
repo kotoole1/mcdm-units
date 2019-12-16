@@ -19,6 +19,27 @@ export class UnitBase extends Vue {
     return this.$store.getters.unit(this.activeUnitId);
   }
 
+  protected get bannerImage(): string {
+    let backgroundAttribute: string = '';
+    if (!this.imageUrl.match('/')) {
+      try {
+        backgroundAttribute = 'url(\'' + require('../assets/' + this.imageUrl ) + '\')';
+      } catch (e) {
+        // TODO: parameter error state
+        backgroundAttribute = 'url(\'' + require('../assets/not-found.png' ) + '\')';
+      }
+    } else {
+      // try {
+        console.log(this.imageUrl);
+        backgroundAttribute = 'url(\'' + this.imageUrl + '\')';
+      // } catch (e) {
+      //   // TODO: parameter error state
+      //   backgroundAttribute = 'url(\'' + require('../assets/not-found.png' ) + '\')';
+      // }
+    }
+    return backgroundAttribute;
+  }
+
   protected get ancestryExperience() {
     return this.ancestry.name + ' ' + this.experience.name;
   }
@@ -30,6 +51,10 @@ export class UnitBase extends Vue {
     }
     res += ' ' + this.unitType.name;
     return res;
+  }
+
+  protected get sizeToDisplay(): string {
+    return this.size.name;
   }
 
   protected get ancestry(): Ancestry {
@@ -52,8 +77,8 @@ export class UnitBase extends Vue {
     return DomainOptions[this.activeUnit.domainId];
   }
 
-  protected get selectedSize(): UnitSize {
-    return UnitSizeOptions[this.activeUnit.selectedSizeId];
+  protected get size(): UnitSize {
+    return UnitSizeOptions[this.activeUnit.unitSizeId];
   }
 
   protected get imageUrl(): string {
@@ -117,10 +142,6 @@ export class UnitBase extends Vue {
       return '+' + bonus;
     }
     return '' + bonus;
-  }
-
-  protected get size(): string {
-    return this.selectedSize.numberOfDice + 'd' + this.selectedSize.numberOfSides;
   }
 
   protected get traits(): Trait[] {

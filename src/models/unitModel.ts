@@ -13,12 +13,12 @@ export class UnitModel {
   public traitIds: string[] = [];
   public orderIds: string[] = [];
 
-  public selectedSizeId: string = '_1D6';
+  public unitSizeId: string = '_1D6';
 
   public imageUrl: string = 'light-axemen.jpg';
-  public imageScale: number = 200;
-  public imageXPos: number = 25;
-  public imageYPos: number = 25;
+  public imageScale: number = 120;
+  public imageXPos: number = 50;
+  public imageYPos: number = 50;
 
   constructor(public id: string) {}
 }

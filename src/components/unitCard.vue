@@ -3,10 +3,11 @@
     <div class="content">
       <div class="banner-wrapper">
         <div class="banner std-banner-left"
-             :style="{ backgroundImage: 'url(\'' + require('../assets/' + imageUrl ) + '\')',
+             :style="{ backgroundImage: bannerImage,
+                       backgroundRepeat: 'no-repeat',
                        backgroundPositionX: imageXPos + '%',
                        backgroundPositionY: imageYPos + '%',
-                       backgroundSize: imageScale + '%' }"
+                       backgroundSize: 'auto ' + imageScale + '%' }"
         ></div>
       </div>
       <div class="heading">
@@ -27,7 +28,7 @@
             <div class="std-td"><span>TOUGHNESS:</span><span>{{ toughness }}</span></div></div>
           <div class="std-tr">
             <div class="std-td"><span>MORALE:</span><span>{{ morale }}</span></div>
-            <div class="std-td"><span>SIZE:</span><span>{{ size }}</span></div></div>
+            <div class="std-td"><span>SIZE:</span><span>{{ sizeToDisplay }}</span></div></div>
         </div>
         <div v-if="traits.length" class="section-title">TRAITS</div>
         <p class="section-content" v-for="trait in traits"><b>{{ trait.name }}.</b> {{ trait.description }}</p>
@@ -40,7 +41,6 @@
 
 <script lang="ts">
 import {UnitBase} from '@/components/unitBase';
-import {mixins} from 'vue-class-component';
 import {Component} from 'vue-property-decorator';
 
 @Component({})
@@ -185,7 +185,7 @@ export default class UnitCard extends UnitBase {
     position: absolute;
     margin-top: -@padding-width;
     margin-left: -@padding-width;
-    filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.5));
+    filter: drop-shadow(-0px 6px 3px rgba(50, 50, 0, 0.5)) drop-shadow(0px 0px 11px rgba(50, 50, 0, 0.3));
   }
 
   .std-banner-left {
@@ -193,12 +193,7 @@ export default class UnitCard extends UnitBase {
     top: 0;
     width: 120px;
     height: 150px;
-    clip-path: polygon(0 0, 25% 0, 25% 10px, 75% 10px, 75% 0, 100% 0, 100% 100%, 75% 95%, 50% 100%, 25% 95%, 0 100%);
-    /*background: url('../assets/light-axemen.jpg') no-repeat 60% 20%;*/
-    box-shadow: 10px 5px 5px red;
-    /*background-size: 200%;*/
-
-    /*object-fit: contain;*/
+    clip-path: polygon(0 0, 25% 0, 25% 8px, 75% 8px, 75% 0, 100% 0, 100% 100%, 75% 95%, 50% 100%, 25% 95%, 0 100%);
   }
 
   .ancestry-banner {

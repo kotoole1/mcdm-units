@@ -27,10 +27,13 @@
 
     input {
       align-self: center;
-      margin-right: 5px;
+      margin: 0 5px 0 0;
+      width: 13px;
+      height: 13px;
     }
     label {
       align-self: center;
+      margin-left: -2px;
     }
   }
 </style>

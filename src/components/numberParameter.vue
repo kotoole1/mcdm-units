@@ -32,6 +32,11 @@
     public max!: number;
     @Prop({ type: Number, default: 1 })
     public step!: number;
+
+    public mounted(): void {
+      // prevent tabbing into +/- buttons (the text here is more useful)
+      this.$el.querySelectorAll('button').forEach((button: HTMLElement) => button.setAttribute('tabindex', '-1'));
+    }
   }
 </script>
 <style lang="less">

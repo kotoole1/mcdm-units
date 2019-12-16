@@ -1,7 +1,9 @@
 <template>
 <div class="editor-panel unit-editor-panel">
-  <div class="title">{{title}}</div>
-  <input v-model="title">
+  <div class="title">{{activeUnit.title}}</div>
+  <StringParameter :name="'Title'"
+                   :value="activeUnit.title"
+                   @input="setField('title', $event)"></StringParameter>
   <DropdownParameter :name="'Ancestry'"
                      :alphabetical="true"
                      :value=activeUnit.ancestryId
@@ -15,10 +17,6 @@
                      :value=activeUnit.equipmentId
                      :options="EquipmentOptions"
                      @input="setField('equipmentId', $event)"></DropdownParameter>
-  <DropdownParameter :name="'Type'"
-                     :value=activeUnit.unitTypeId
-                     :options="UnitTypeOptions"
-                     @input="setField('unitTypeId', $event)"></DropdownParameter>
   <div class="param-line">
     <BooleanParameter :name="'Domain'"
                       :value="activeUnit.hasDomain"
@@ -29,9 +27,21 @@
                        :options="DomainOptions"
                        @input="setField('domainId', $event)"></DropdownParameter>
   </div>
+  <DropdownParameter :name="'Type'"
+                     :value=activeUnit.unitTypeId
+                     :options="UnitTypeOptions"
+                     @input="setField('unitTypeId', $event)"></DropdownParameter>
+  <DropdownParameter :name="'Size'"
+                     :value=activeUnit.unitSizeId
+                     :options="UnitSizeOptions"
+                     @input="setField('unitSizeId', $event)"></DropdownParameter>
   <!--TODO: assign extra parameters dynamically-->
   <div class="editor-section" v-if="true">
     <label><b>Banner image</b></label>
+    <!--<input class="string-input" v-model="title">-->
+    <StringParameter :name="'URL'"
+                     :value="activeUnit.imageUrl"
+                     @input="setField('imageUrl', $event)"></StringParameter>
     <NumberParameter :name="'Scale (%)'"
                      :value="activeUnit.imageScale"
                      :min="100"
@@ -67,9 +77,11 @@ import {Component, Prop, Vue} from 'vue-property-decorator';
 import DropdownParameter from './dropdownParameter.vue';
 import BooleanParameter from './booleanParameter.vue';
 import NumberParameter from './numberParameter.vue';
+import StringParameter from './stringParameter.vue';
 
 @Component({
   components: {
+    StringParameter,
     NumberParameter,
     DropdownParameter,
     BooleanParameter,
@@ -81,6 +93,7 @@ import NumberParameter from './numberParameter.vue';
       ExperienceOptions,
       UnitTypeOptions,
       DomainOptions,
+      UnitSizeOptions,
     };
   },
 })
@@ -95,19 +108,5 @@ export default class UnitEditor extends Vue {
   public setField(field: keyof UnitModel, value: any) {
     this.$store.commit('changeUnitField', { unitId: this.activeUnitId, field, value });
   }
-
-  get title() {
-    return this.$store.getters.unit(this.activeUnitId).title;
-  }
-
-  set title(title: string) {
-    this.$store.commit('changeTitle', { id: this.activeUnitId, title });
-  }
 }
 </script>
-
-<style lang="less">
-  .param-line {
-    display: flex;
-  }
-</style>
