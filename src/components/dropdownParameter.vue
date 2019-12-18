@@ -10,7 +10,7 @@
   </div>
 </template>
 <script lang="ts">
-  import {DropdownOption} from 'src/components/dropdownOption';
+  import {DropdownOption, getDropdownOptionsForDisplay} from '@/components/dropdownOption';
   import {Component, Prop, Vue} from 'vue-property-decorator';
   import VueSelect from 'vue-select';
 
@@ -30,13 +30,7 @@
     public alphabetical!: boolean;
 
     public getDropdownOptions(): DropdownOption[] {
-      const optionsToDisplay: DropdownOption[] = [];
-      Object.keys(this.options).forEach((key) => {
-        const option = this.options[key];
-        option.id = key;
-        option.label = option.name ? option.name : option.id;
-        optionsToDisplay.push(option);
-      });
+      const optionsToDisplay: DropdownOption[] = getDropdownOptionsForDisplay(this.options);
       if (this.alphabetical) {
         optionsToDisplay.sort((option1, option2) => {
           return option1.label!.localeCompare(option2.label!);

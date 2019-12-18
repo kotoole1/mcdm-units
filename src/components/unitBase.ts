@@ -11,11 +11,43 @@ import {UnitSize, UnitSizeOptions} from '@/options/unitSize';
 import {UnitType, UnitTypeOptions} from '@/options/unitType';
 import Component from 'vue-class-component';
 import {Vue, Prop} from 'vue-property-decorator';
+// import domtoimage from 'dom-to-image';
+// import html2canvas from 'html2canvas';
 
 @Component({})
 export class UnitBase extends Vue {
   @Prop({ type: String, required: true })
   public activeUnitId!: string;
+
+  private updated() {
+    const node = document.getElementById('unit-card-html');
+
+    // Doesn't work, sadly =(
+    // domtoimage.toPng(node)
+    //   .then((dataUrl: string) => {
+    //     const img = new Image();
+    //     img.src = dataUrl;
+    //     const target = document.getElementById('unit-card-png');
+    //     if (target) {
+    //       while (target.firstChild) {
+    //         target.removeChild(target.firstChild);
+    //       }
+    //       target.appendChild(img);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error('Failed to convert HTML to PNG', error);
+    //   });
+
+    // if (node) {
+    //   html2canvas(node).then((canvas: HTMLElement) => {
+    //     const target = document.getElementById('unit-card-png');
+    //     if (target) {
+    //       target.appendChild(canvas);
+    //     }
+    //   });
+    // }
+  }
 
   protected get activeUnit(): UnitModel {
     return this.$store.getters.unit(this.activeUnitId);
@@ -114,7 +146,7 @@ export class UnitBase extends Vue {
     return this.formatBonus(this.ancestry.attack +
       this.unitType.attack +
       this.experience.attack +
-      this.domain.attack +
+      (this.activeUnit.hasDomain ? this.domain.attack : 0) +
       this.equipment.attack);
   }
 
@@ -122,7 +154,7 @@ export class UnitBase extends Vue {
     return this.formatBonus(this.ancestry.power +
       this.unitType.power +
       this.experience.power +
-      this.domain.power +
+      (this.activeUnit.hasDomain ? this.domain.power : 0) +
       this.equipment.power);
   }
 
@@ -130,7 +162,7 @@ export class UnitBase extends Vue {
     return this.formatBonus(this.ancestry.defense +
       this.unitType.defense +
       this.experience.defense +
-      this.domain.defense +
+      (this.activeUnit.hasDomain ? this.domain.defense : 0) +
       this.equipment.defense);
   }
 
@@ -138,7 +170,7 @@ export class UnitBase extends Vue {
     return this.formatBonus(this.ancestry.toughness +
       this.unitType.toughness +
       this.experience.toughness +
-      this.domain.toughness +
+      (this.activeUnit.hasDomain ? this.domain.toughness : 0) +
       this.equipment.toughness);
   }
 
@@ -146,7 +178,7 @@ export class UnitBase extends Vue {
     return this.formatBonus(this.ancestry.morale +
       this.unitType.morale +
       this.experience.morale +
-      this.domain.morale +
+      (this.activeUnit.hasDomain ? this.domain.morale : 0) +
       this.equipment.morale);
   }
 

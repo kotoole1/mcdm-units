@@ -3,6 +3,7 @@
     <div v-if="activeUnitId"
          class="card-container">
       <UnitCard :activeUnitId="activeUnitId"/>
+      <UnitCardPng></UnitCardPng>
     </div>
     <UnitEditor v-if="activeUnitId"
                 class="unit-editor-container"
@@ -19,6 +20,7 @@ import {UnitModel} from 'src/models/unitModel';
 import {createDefaultArmies, NO_ARMY_ID} from '../models/defaultRootModel';
 import ArmyEditor from './armyEditor.vue';
 import UnitCard from './unitCard.vue';
+import UnitCardPng from './unitCardPng.vue';
 import UnitEditor from './unitEditor.vue';
 import {Component, Vue} from 'vue-property-decorator';
 
@@ -27,6 +29,7 @@ import {Component, Vue} from 'vue-property-decorator';
     ArmyEditor,
     UnitCard,
     UnitEditor,
+    UnitCardPng,
   },
 })
 export default class RootEditor extends Vue {

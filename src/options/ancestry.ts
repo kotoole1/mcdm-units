@@ -15,6 +15,10 @@ export interface Ancestry extends DropdownOption {
 }
 
 export const AncestryOptions: {[key: string]: Ancestry} = {
+  DIRE_BAT: {
+    name: 'Dire bat',
+    attack: -1, power: -1, defense: 0, toughness: 0, morale: -1,
+  },
   DRAGON: {
     name: 'Dragon',
     attack: 1, power: 4, defense: 0, toughness: 0, morale: 2,
@@ -22,10 +26,10 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
   },
   BUGBEAR: {
     name: 'Bugbear',
-    attack: 2,
-    power: 0,
-    defense: 0,
-    toughness: 0,
+    attack: 6,
+    power: 6,
+    defense: -2,
+    toughness: -2,
     morale: 1,
     traits: [ Traits.MARTIAL ],
   },
@@ -40,12 +44,20 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
   },
   DWARF: {
     name: 'Dwarf',
-    attack: 3,
+    attack: 5,
     power: 1,
     defense: 1,
     toughness: 1,
     morale: 2,
     traits: [ Traits.STALWART ],
+  },
+  EAGLE: {
+    name: 'Eagle',
+    attack: 5,
+    power: 3,
+    defense: -1,
+    toughness: -1,
+    morale: 1,
   },
   ELF : {
     name: 'Elf ',
@@ -100,7 +112,25 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     toughness: -1,
     morale: 0,
     traits: [],
-},
+  },
+  HARPY: {
+    name: 'Harpy',
+    attack: 2,
+    power: 1,
+    defense: 0,
+    toughness: 0,
+    morale: 0,
+    traits: [],
+  },
+  HIPPOGRIFF: {
+    name: 'Hippogriff',
+    attack: 1,
+    power: 1,
+    defense: 3,
+    toughness: 4,
+    morale: 2,
+    traits: [],
+  },
   HOBGOBLIN : {
     name: 'Hobgoblin',
     attack: 2,
@@ -163,6 +193,15 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     morale: 2,
     traits: [ Traits.SAVAGE ],
   },
+  ROC: {
+    name: 'Roc',
+    attack: 0 ,
+    power: 2,
+    defense: 0 ,
+    toughness: 2 ,
+    morale: 1,
+    traits: [ Traits.BRUTAL ],
+  },
   SKELETON: {
     name: 'Skeleton',
     attack: -2,
@@ -171,6 +210,16 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     toughness: 1 ,
     morale: 1,
     traits: [ Traits.UNDEAD, Traits.MINDLESS ],
+  },
+  TARRASQUE: {
+    name: 'Tarrasque',
+    attack: 6,
+    power: 15,
+    defense: 4,
+    toughness: 15,
+    morale: 0,
+    traits: [],
+    forcedTypes: [ UnitTypeOptions.INFANTRY ],
   },
   TREANT: {
     name: 'Treant',

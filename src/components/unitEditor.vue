@@ -35,10 +35,17 @@
                      :value=activeUnit.unitSizeId
                      :options="UnitSizeOptions"
                      @input="setField('unitSizeId', $event)"></DropdownParameter>
+  <MultiselectParameter :name="'Traits'"
+                        :value="activeUnit.traitIds"
+                        :options="Traits"
+                        @input="setField('traitIds', $event)"></MultiselectParameter>
+  <MultiselectParameter :name="'Orders'"
+                        :value="activeUnit.orderIds"
+                        :options="Orders"
+                        @input="setField('orderIds', $event)"></MultiselectParameter>
   <!--TODO: assign extra parameters dynamically-->
   <div class="editor-section" v-if="true">
     <label><b>Banner image</b></label>
-    <!--<input class="string-input" v-model="title">-->
     <StringParameter :name="'URL'"
                      :value="activeUnit.imageUrl"
                      @input="setField('imageUrl', $event)"></StringParameter>
@@ -69,12 +76,15 @@
 
 <script lang="ts">
 import 'vue-select/dist/vue-select.css';
+import MultiselectParameter from '@/components/multiselectParameter.vue';
 import {UnitModel} from 'src/models/unitModel';
 import {Ancestry, AncestryOptions} from '@/options/ancestry';
 import {Equipment, EquipmentOptions} from '@/options/equipment';
 import {Experience, ExperienceOptions} from '@/options/experience';
 import {UnitType, UnitTypeOptions} from '@/options/unitType';
 import {UnitSize, UnitSizeOptions} from '@/options/unitSize';
+import {Traits} from '@/options/trait';
+import {Orders} from '@/options/order';
 import {Domain, DomainOptions} from '@/options/domain';
 import {Component, Prop, Vue} from 'vue-property-decorator';
 import DropdownParameter from './dropdownParameter.vue';
@@ -84,6 +94,7 @@ import StringParameter from './stringParameter.vue';
 
 @Component({
   components: {
+    MultiselectParameter,
     StringParameter,
     NumberParameter,
     DropdownParameter,
@@ -97,6 +108,8 @@ import StringParameter from './stringParameter.vue';
       UnitTypeOptions,
       DomainOptions,
       UnitSizeOptions,
+      Traits,
+      Orders,
     };
   },
 })

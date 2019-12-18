@@ -1,6 +1,7 @@
 <template>
   <div class="std"
-       :class="[ color ]">
+       :class="[ color ]"
+       id="unit-card-html">
     <div class="content">
       <div class="banner-wrapper">
         <div class="banner std-banner-left"
@@ -200,7 +201,7 @@ export default class UnitCard extends UnitBase {
     position: absolute;
     margin-top: -@padding-width;
     margin-left: -@padding-width;
-    filter: drop-shadow(-0px 6px 3px rgba(50, 50, 0, 0.5)) drop-shadow(0px 0px 11px rgba(50, 50, 0, 0.3));
+    filter: drop-shadow(1px 6px 3px rgba(50, 50, 0, 0.5)) drop-shadow(4px 0px 11px rgba(50, 50, 0, 0.3));
   }
 
   .std-banner-left {

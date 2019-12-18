@@ -17,6 +17,7 @@
     "no-consecutive-blank-lines": false,
     "no-namespace": false,
     "max-line-length": [false],
-    "member-ordering": [false]
+    "member-ordering": [false],
+    "no-angle-bracket-type-assertion": false
   }
 }

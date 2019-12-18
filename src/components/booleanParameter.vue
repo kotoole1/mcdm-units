@@ -32,8 +32,7 @@
       height: 13px;
     }
     label {
-      align-self: center;
-      margin-left: -2px;
+      margin-left: 2px;
     }
   }
 </style>

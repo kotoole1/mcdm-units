@@ -52,6 +52,7 @@
       input {
         box-sizing: border-box;
         width: 100% !important;
+        border-color: rgba(60,60,60,.26); // TODO: lighten this?
       }
     }
   }

@@ -30,8 +30,6 @@
         align-self: center;
       margin: 0 0 0 6px;
       border: 1px solid rgba(60,60,60,.26);
-      -webkit-border-radius: 4px;
-      -moz-border-radius: 4px;
       border-radius: 4px;
       padding: 5px 7px;
       font-size: 16px;

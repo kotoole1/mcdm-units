@@ -51,7 +51,7 @@ export default class UnitEditor extends Vue {
   }
 
   private selectUnit(unitId: string) {
-    this.$emit('select-unit', unitId)
+    this.$emit('select-unit', unitId);
   }
 
   private get allUnits(): UnitModel[] {
@@ -74,11 +74,11 @@ export default class UnitEditor extends Vue {
 
   private addToArmy(unitId: string, owningArmyId: string) {
     const originalUnit: UnitModel = this.$store.getters.unit(unitId);
-    const newUnit: UnitModel = Object.assign({}, originalUnit);
+    const newUnit = <UnitModel> Object.assign({}, originalUnit);
     newUnit.id = randomId();
     newUnit.owningArmyId = owningArmyId;
     this.$store.commit('addUnit', {
-      unit: newUnit
+      unit: newUnit,
     });
     this.selectUnit(newUnit.id);
   }

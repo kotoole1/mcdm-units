@@ -1,4 +1,6 @@
-export interface Trait {
+import {DropdownOption} from '@/components/dropdownOption';
+
+export interface Trait extends DropdownOption {
   name: string;
   description: string;
   cost?: number;
