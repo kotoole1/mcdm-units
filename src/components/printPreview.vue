@@ -6,7 +6,7 @@
            class="card-print-wrapper"
            :style="{ height: heightForUnit(unitId(row, column)) + 'px' }">
         <UnitCard v-if="unitId(row, column)"
-                  :activeUnitId="unitId(row, column)"
+                  :unitId="unitId(row, column)"
                   @height="setHeightForUnit(unitId(row, column), $event)"/>
       </div>
     </div>

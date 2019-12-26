@@ -23,16 +23,12 @@
   export default class NavBar extends Vue {
     private undoEdit(): void {
       // @ts-ignore
-      console.log(this.$store.state.units[0].ancestryId, ' undo to ');
       this.undo();
-      console.log(this.$store.state.units[0].ancestryId);
     }
 
     private redoEdit(): void {
       // @ts-ignore
-      console.log(this.$store.state.units[0].ancestryId, ' redo to ');
       this.redo();
-      console.log(this.$store.state.units[0].ancestryId);
     }
   }
 </script>

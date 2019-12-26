@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/kotoole/build_tools/node-v8.15.1-darwin-x64-npm-5.6.0/bin/node /Users/kotoole/build_tools/yarn-1.17.3/bin/yarn.js add @types/vuex-undo-redo
+  /Users/kotoole/build_tools/node-v8.15.1-darwin-x64-npm-5.6.0/bin/node /Users/kotoole/build_tools/yarn-1.17.3/bin/yarn.js add @types/vue-shortkey
 
 PATH: 
   /Users/kotoole/build_tools/virtualenv/newton-kot-named-attributes/bin:/Users/kotoole/Library/Python/2.7/bin:/Users/kotoole/build_tools/node-v8.15.1-darwin-x64-npm-5.6.0/bin:/Users/kotoole/repos/newton/tools:/Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/bin:/Users/kotoole/build_tools/yarn-1.17.3/bin:/Users/kotoole/.yarn/bin:/usr/local/autoconf/bin:/usr/local/heroku/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/opt/X11/bin:/usr/local/git/bin:/Users/kotoole/.gem/ruby/1.8/bin:/opt/nginx/sbin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/Applications/microchip/xc16/v1.24/bin:/usr/local/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fvuex-undo-redo: Not found
+  Error: https://registry.yarnpkg.com/@types%2fvue-shortkey: Not found
       at Request.params.callback [as _callback] (/Users/kotoole/build_tools/yarn-1.17.3/lib/cli.js:66830:18)
       at Request.self.callback (/Users/kotoole/build_tools/yarn-1.17.3/lib/cli.js:140464:22)
       at emitTwo (events.js:126:13)
@@ -39,16 +39,19 @@ npm manifest:
     },
     "dependencies": {
       "@chenfengyuan/vue-number-input": "^1.2.0",
+      "@types/lodash": "^4.14.149",
       "@types/vue-select": "^2.5.0",
       "core-js": "^2.6.5",
       "dom-to-image": "^2.6.0",
       "es6-promise": "^4.2.8",
       "html2canvas": "^1.0.0-rc.5",
+      "lodash": "^4.17.15",
       "vue": "^2.6.10",
       "vue-class-component": "^7.0.2",
       "vue-multiselect": "^2.1.6",
       "vue-property-decorator": "^8.1.0",
       "vue-select": "^3.2.0",
+      "vue-shortkey": "^3.1.7",
       "vuex": "^3.1.1",
       "vuex-persist": "^2.2.0",
       "vuex-undo-redo": "^1.1.4"
@@ -716,6 +719,11 @@ Lockfile:
       "@types/events" "*"
       "@types/minimatch" "*"
       "@types/node" "*"
+  
+  "@types/lodash@^4.14.149":
+    version "4.14.149"
+    resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.149.tgz#1342d63d948c6062838fbf961012f74d4e638440"
+    integrity sha512-ijGqzZt/b7BfzcK9vTrS6MFljQRPn5BFWOx8oE0GYxribu6uV+aA9zZuXI1zc/etK9E8nrgdoF2+LgUw7+9tJQ==
   
   "@types/minimatch@*":
     version "3.0.3"
@@ -2291,6 +2299,11 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/current-script-polyfill/-/current-script-polyfill-1.0.0.tgz#f31cf7e4f3e218b0726e738ca92a02d3488ef615"
   
+  custom-event-polyfill@^1.0.7:
+    version "1.0.7"
+    resolved "https://registry.yarnpkg.com/custom-event-polyfill/-/custom-event-polyfill-1.0.7.tgz#9bc993ddda937c1a30ccd335614c6c58c4f87aee"
+    integrity sha512-TDDkd5DkaZxZFM8p+1I3yAlvM3rSr1wbrOliG4yJiwinMZN8z/iGL7BTlDkrJcYTmgUSb4ywVCc3ZaUtOtC76w==
+  
   cyclist@~0.2.2:
     version "0.2.2"
     resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
@@ -2591,6 +2604,11 @@ Lockfile:
   electron-to-chromium@^1.3.124:
     version "1.3.127"
     resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.127.tgz#9b34d3d63ee0f3747967205b953b25fe7feb0e10"
+  
+  element-matches@^0.1.2:
+    version "0.1.2"
+    resolved "https://registry.yarnpkg.com/element-matches/-/element-matches-0.1.2.tgz#7345cb71e965bd2b12f725e524591c102198361a"
+    integrity sha512-yWh1otcs3OKUWDvu/IxyI36ZI3WNaRZlI0uG/DK6fu0pap0VYZ0J5pEGTk1zakme+hT0OKHwhlHc0N5TJhY6yQ==
   
   elliptic@^6.0.0:
     version "6.4.1"
@@ -4110,6 +4128,11 @@ Lockfile:
   lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
     version "4.17.11"
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+  
+  lodash@^4.17.15:
+    version "4.17.15"
+    resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+    integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
   
   log-symbols@^2.2.0:
     version "2.2.0"
@@ -6686,6 +6709,14 @@ Lockfile:
   vue-select@^3.2.0:
     version "3.2.0"
     resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-3.2.0.tgz#c72166cb1f976d76cd612cde25fc8ef29f7914f5"
+  
+  vue-shortkey@^3.1.7:
+    version "3.1.7"
+    resolved "https://registry.yarnpkg.com/vue-shortkey/-/vue-shortkey-3.1.7.tgz#31c09a99ed597331a6a49a45eeff894a78a19eef"
+    integrity sha512-Wm/vPXXS+4Wl/LoYpD+cZc0J0HIoVlY8Ep0JLIqqswmAya3XUBtsqKbhzEf9sXo+3rZ5p1YsUyZfXas8XD7YjQ==
+    dependencies:
+      custom-event-polyfill "^1.0.7"
+      element-matches "^0.1.2"
   
   vue-style-loader@^4.1.0:
     version "4.1.2"

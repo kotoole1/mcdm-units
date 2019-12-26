@@ -1,17 +1,13 @@
 <template>
   <div id="root-editor">
-    <div v-if="activeUnitId"
+    <div v-if="selectedItemId"
          class="card-container">
-      <UnitCard :activeUnitId="activeUnitId"/>
+      <UnitCard/>
       <UnitCardPng></UnitCardPng>
     </div>
-    <UnitEditor v-if="activeUnitId"
-                class="unit-editor-container"
-                :activeUnitId="activeUnitId"
-                @select-unit="selectUnit($event)"/>
-    <ArmyEditor :activeUnitId="activeUnitId"
-                class="army-editor-container"
-                @select-unit="selectUnit($event)"/>
+    <UnitEditor v-if="selectedItemId"
+                class="unit-editor-container"/>
+    <ArmyEditor class="army-editor-container"/>
   </div>
 </template>
 
@@ -35,25 +31,29 @@ import {Component, Vue} from 'vue-property-decorator';
   },
 })
 export default class RootEditor extends Vue {
-  private activeUnitId = this.$store.state.units.length ? this.$store.state.units[0].id : '';
   public static initialState: RootModel | null = null; // should only be set once when the page loads, by
 
-  private selectUnit(unitId: string) {
-    if (unitId === 'NEXT') {
-      const oldIndex = this.$store.state.units.indexOf(this.activeUnitId);
-      const newIndex = (oldIndex + 1) % this.$store.state.units.length;
-      const newUnit: UnitModel = this.$store.state.units[newIndex];
-      if (newUnit) {
-        unitId = newUnit.id;
-      }
-    }
-    this.activeUnitId = unitId;
+  // private selectUnit(unitId: string) {
+  //   if (unitId === 'NEXT') {
+  //     const oldIndex = this.$store.state.units.indexOf(this.activeUnitId);
+  //     const newIndex = (oldIndex + 1) % this.$store.state.units.length;
+  //     const newUnit: UnitModel = this.$store.state.units[newIndex];
+  //     if (newUnit) {
+  //       unitId = newUnit.id;
+  //     }
+  //   }
+  //   this.activeUnitId = unitId;
+  // }
+
+  private get selectedItemId(): string {
+    return this.$store.state.selectedItemId;
   }
 
   private mounted() {
     this.rectifyArmiesAndUnits();
   }
 
+  // TODOK: make static, don't use mutators, call in initializer
   public rectifyArmiesAndUnits(): void {
     if (!this.$store.state.armies || !this.$store.state.armies.length) {
       this.$store.commit('setArmies', {
@@ -73,6 +73,11 @@ export default class RootEditor extends Vue {
         armiesById[unit.owningArmyId].unitIds.push(unit.id);
       }
     });
+    if (!this.$store.state.selectedItemId && this.$store.getters.allUnits.length) {
+      this.$store.commit('selectItem', {
+        unitId: this.$store.getters.allUnits[0].id,
+      });
+    }
   }
 }
 </script>

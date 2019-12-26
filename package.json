@@ -22,6 +22,7 @@
     "vue-multiselect": "^2.1.6",
     "vue-property-decorator": "^8.1.0",
     "vue-select": "^3.2.0",
+    "vue-shortkey": "^3.1.7",
     "vuex": "^3.1.1",
     "vuex-persist": "^2.2.0",
     "vuex-undo-redo": "^1.1.4"

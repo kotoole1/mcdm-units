@@ -114,8 +114,9 @@ import StringParameter from './stringParameter.vue';
   },
 })
 export default class UnitEditor extends Vue {
-  @Prop(String)
-  public activeUnitId!: string;
+  protected get activeUnitId(): string {
+    return this.$store.state.selectedItemId;
+  }
 
   protected get activeUnit(): UnitModel {
     return this.$store.getters.unit(this.activeUnitId);

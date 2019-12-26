@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
 import store from './store/store';
+// @ts-ignore
+import VueShortkey from 'vue-shortkey';
 
 Vue.config.productionTip = false;
 
@@ -14,6 +16,8 @@ Vue.mixin({
     },
   },
 });
+
+Vue.use(VueShortkey);
 
 new Vue({
   render: (h) => h(App),

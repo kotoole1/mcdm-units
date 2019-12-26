@@ -37,7 +37,6 @@ vuexLocal.saveState = (key: string, state: {}, storage?: AsyncStorage | Storage)
   return localSaveState(key, state, storage);
 };
 
-
 export default new Vuex.Store<RootModel>({
   state: new RootModel(), // VuexPersistence should override this
   mutations: {
@@ -49,8 +48,9 @@ export default new Vuex.Store<RootModel>({
       // TODOK
     },
     emptyState() { // For vuex-undo-redo
-      console.log('initialState: ' + RootEditor.initialState.units[0].ancestryId);
       if (RootEditor.initialState) {
+        // Unfortunately, skipping the cloneDeep leaves vuex in a state where it
+        // is directly mutating initialState, so we have to clone on every undo =/
         this.replaceState(_.cloneDeep(RootEditor.initialState));
       } else {
         // TODO: rectify
@@ -74,6 +74,7 @@ export default new Vuex.Store<RootModel>({
       if (army) {
         army.unitIds.push(unit.id);
       }
+      state.selectedItemId = unit.id;
     },
     deleteUnit: (state, { unitId }: {unitId: string}) => {
       state.units = state.units.filter((unit) => {
@@ -84,9 +85,28 @@ export default new Vuex.Store<RootModel>({
           return armyUnitId !== unitId;
         });
       });
+      if (unitId === state.selectedItemId) {
+        state.selectedItemId = getFirstUnit(state);
+      }
     },
     setArmies: (state, { armies }: {armies: ArmyModel[]}) => {
       state.armies = armies;
+    },
+    selectItem: (state, { unitId }: { unitId: string}) => {
+      // if (unitId === 'NEXT') {
+      //   const oldIndex = state.units.find((unit) => unit.id === state.selectedUnitId);
+      //   if (!oldIndex) {
+      //     state.selectedUnitId = '';
+      //     return;
+      //   } else {
+      //     const newIndex = (oldIndex + 1) % state.units.length;
+      //     const newUnit: UnitModel = state.units[newIndex];
+      //     if (newUnit) {
+      //       unitId = newUnit.id;
+      //     }
+      //   }
+      // }
+      state.selectedItemId = unitId;
     },
   },
   getters: {
@@ -112,4 +132,11 @@ function getUnit(state: RootModel, id: string): UnitModel {
 
 function getArmy(state: RootModel, id: string): ArmyModel {
   return state.armies.find((army) => army.id === id)!;
+}
+
+function getFirstUnit(state: RootModel): string {
+  if (state.armies.length && state.armies[0].unitIds.length) {
+    return state.armies[0].unitIds[0];
+  }
+  return '';
 }

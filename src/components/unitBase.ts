@@ -16,8 +16,8 @@ import {Vue, Prop} from 'vue-property-decorator';
 
 @Component({})
 export class UnitBase extends Vue {
-  @Prop({ type: String, required: true })
-  public activeUnitId!: string;
+  @Prop({ type: String, default: '' })
+  public unitId: string;
 
   protected mounted() {
     this.emitHeight();
@@ -61,6 +61,13 @@ export class UnitBase extends Vue {
 
   protected get activeUnit(): UnitModel {
     return this.$store.getters.unit(this.activeUnitId);
+  }
+
+  protected get activeUnitId(): string {
+    if (this.unitId) {
+      return this.unitId;
+    }
+    return this.$store.state.selectedItemId;
   }
 
   protected get bannerImage(): string {

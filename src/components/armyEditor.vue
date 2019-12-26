@@ -57,13 +57,14 @@ import {Component, Vue, Prop} from 'vue-property-decorator';
   },
 })
 export default class UnitEditor extends Vue {
-  @Prop(String)
-  private activeUnitId!: string;
-
   private tempUploadElement: HTMLInputElement | null = null;
 
   private getUnit(unitId: string) {
     return this.$store.getters.unit(unitId);
+  }
+
+  protected get activeUnitId(): string {
+    return this.$store.state.selectedItemId;
   }
 
   private getColor(army: ArmyModel) {
@@ -71,7 +72,7 @@ export default class UnitEditor extends Vue {
   }
 
   private selectUnit(unitId: string) {
-    this.$emit('select-unit', unitId);
+    this.$store.commit('selectItem', { unitId });
   }
 
   private get allUnits(): UnitModel[] {
@@ -89,7 +90,6 @@ export default class UnitEditor extends Vue {
   private newUnitClicked(owningArmyId: string) {
     const newUnit = new UnitModel(randomId(), owningArmyId);
     this.$store.commit('addUnit', { unit: newUnit } );
-    this.selectUnit(newUnit.id);
   }
 
   private addToArmy(unitId: string, owningArmyId: string) {
@@ -100,7 +100,6 @@ export default class UnitEditor extends Vue {
     this.$store.commit('addUnit', {
       unit: newUnit,
     });
-    this.selectUnit(newUnit.id);
   }
 
   private openPrintPage(): void {
