@@ -16,8 +16,25 @@
           ></div>
         </li>
       </ul>
-      <button class="mdl-button"
-              @click="newUnitClicked(army.id)">New Unit</button>
+      <div class="btn-container">
+        <button :class="[ 'new-unit-btn', ...btnFlat()]"
+                @click="newUnitClicked(army.id)">New Unit</button>
+      </div>
+    </div>
+    <div class="bottom-btn-container">
+      <div class="btn-row">
+        <div :class="['bottom-btn', ...btn('colored')]"
+             @click="openPrintPage()">
+          <i class="material-icons">print</i> Print</div>
+      </div>
+      <div class="btn-row">
+        <div :class="['bottom-btn', ...btn('accent')]"
+             @click="saveDataAsJSON()">
+          <i class="material-icons">file_download</i> Save</div>
+        <div :class="['bottom-btn', ...btn('accent')]"
+             @click="loadDataAsJSON()">
+          <i class="material-icons">file_upload</i> Load</div>
+      </div>
     </div>
   </div>
 </template>
@@ -28,6 +45,7 @@ import {randomId} from '@/models/uuid';
 import {ArmyModel} from 'src/models/armyModel';
 import {ColorOptions} from '@/options/color';
 import {NO_ARMY_ID} from '@/models/defaultRootModel';
+import {RootModel} from 'src/models/rootModel';
 import {Component, Vue, Prop} from 'vue-property-decorator';
 
 @Component({
@@ -41,6 +59,8 @@ import {Component, Vue, Prop} from 'vue-property-decorator';
 export default class UnitEditor extends Vue {
   @Prop(String)
   private activeUnitId!: string;
+
+  private tempUploadElement: HTMLInputElement | null = null;
 
   private getUnit(unitId: string) {
     return this.$store.getters.unit(unitId);
@@ -82,10 +102,70 @@ export default class UnitEditor extends Vue {
     });
     this.selectUnit(newUnit.id);
   }
+
+  private openPrintPage(): void {
+    window.open('/print', '_blank');
+  }
+
+  private saveDataAsJSON(): void {
+    const data = JSON.stringify(this.$store.state, null, 2);
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(data);
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute('href', dataStr);
+    downloadAnchorNode.setAttribute('download', 'MCDM Units.json');
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  }
+
+  private loadDataAsJSON(): void {
+    this.tempUploadElement = <HTMLInputElement> (document.createElement('INPUT'));
+    this.tempUploadElement.type = 'file';
+    this.tempUploadElement.accept = 'application/json';
+
+    const self: UnitEditor = this;
+    // (cancel will not trigger 'change')
+    this.tempUploadElement.addEventListener('change', (res) => {
+      if (!self.tempUploadElement || !self.tempUploadElement.files || !self.tempUploadElement.files.length) {
+        return;
+      }
+      try {
+        const file = self.tempUploadElement.files[0];
+        const reader = new FileReader();
+        reader.onload = (event: Event) => {
+          if (event && (<FileReader> event.target).result) {
+            const fileContents = (<FileReader> event.target).result;
+            if (fileContents && typeof fileContents === 'string') {
+              const json: RootModel = <RootModel> JSON.parse(fileContents);
+              // TODO: Validate this
+              self.$store.commit('setEverything', { uploadedState: json } );
+            }
+          }
+        };
+        reader.readAsText(file);
+      } catch (err) {
+        // console.error(err);
+        // TODOK: logging?
+      }
+
+      // // test some async handling
+      // new Promise(function(resolve) {
+      //   setTimeout(function() { console.log(self.tempUploadElement.files); resolve(); }, 1000);
+      // })
+      //   .then(function() {
+      //     // clear / free reference
+      //     self.tempUploadElement = null;
+      //   });
+
+    });
+
+    this.tempUploadElement.click(); // open
+  }
 }
 </script>
 
 <style lang="less">
+  @import 'https://code.getmdl.io/1.3.0/material.indigo-red.min.css';
   .unit-line-item {
     list-style-type: none;
     padding: 2px 0;
@@ -110,5 +190,34 @@ export default class UnitEditor extends Vue {
       &.red-army { background-color: red }
       &.blue-army { background-color: blue }
     }
+  }
+
+  .mu-btn.new-unit-btn {
+    display: block;
+    font-size: 11px;
+    line-height: 21px;
+    height: 21px;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  .bottom-btn-container {
+    position: absolute;
+    /*display: flex;*/
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 5px;
+  }
+
+  .btn-row {
+    display: flex;
+    width: 100%;
+  }
+
+  .mu-btn.bottom-btn {
+    float: bottom;
+    flex-grow: 1;
+    margin: 5px;
   }
 </style>

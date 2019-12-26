@@ -2,6 +2,22 @@ div {
   box-sizing: border-box;
 }
 
+.mu-btn {
+  &:hover {
+    filter: brightness(115%);
+  }
+}
+
+@card-width: 400px;
+@border-slice: 120;
+@border-width: 60px;
+@padding-width: 40px;
+
+@dark-red: rgb(140, 36, 32);
+@light-red: rgb(186, 14, 32);
+@light-blue: rgb(33, 52, 135);
+@dark-blue: rgb(40, 91, 193);
+
 @unit-editor-width: 300px;
 @army-editor-width: 300px;
 @unified-editor-width: max(@unit-editor-width, @army-editor-width);

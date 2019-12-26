@@ -29,7 +29,7 @@ export const Traits: {[key: string]: Trait } = {
   },
   SHOCK_TROOPS: {
     name: 'Surprise attack',
-    description: 'The first time this unit attacks each unit in battle, a successful power check deals two casualties.',
+    description: 'The first time this unit attacks in battle, a successful power check deals two casualties.',
   },
   AMPHIBIOUS: {
     name: 'Amphibious',

@@ -10,12 +10,14 @@
                 :activeUnitId="activeUnitId"
                 @select-unit="selectUnit($event)"/>
     <ArmyEditor :activeUnitId="activeUnitId"
+                class="army-editor-container"
                 @select-unit="selectUnit($event)"/>
   </div>
 </template>
 
 <script lang="ts">
 import {ArmyModel} from 'src/models/armyModel';
+import {RootModel} from 'src/models/rootModel';
 import {UnitModel} from 'src/models/unitModel';
 import {createDefaultArmies, NO_ARMY_ID} from '../models/defaultRootModel';
 import ArmyEditor from './armyEditor.vue';
@@ -34,6 +36,7 @@ import {Component, Vue} from 'vue-property-decorator';
 })
 export default class RootEditor extends Vue {
   private activeUnitId = this.$store.state.units.length ? this.$store.state.units[0].id : '';
+  public static initialState: RootModel | null = null; // should only be set once when the page loads, by
 
   private selectUnit(unitId: string) {
     if (unitId === 'NEXT') {
@@ -54,7 +57,7 @@ export default class RootEditor extends Vue {
   public rectifyArmiesAndUnits(): void {
     if (!this.$store.state.armies || !this.$store.state.armies.length) {
       this.$store.commit('setArmies', {
-        armies: createDefaultArmies() ,
+        armies: createDefaultArmies(),
       });
     }
     const armies: ArmyModel[] = this.$store.getters.allArmies;
@@ -76,8 +79,13 @@ export default class RootEditor extends Vue {
 
 <style scoped lang="less">
   #root-editor {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 40px;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 40px);
   }
   .army-editor-container,
   .unit-editor-container,
@@ -85,7 +93,7 @@ export default class RootEditor extends Vue {
     position: absolute;
   }
   .army-editor-container {
-
+    left: 0;
   }
   .unit-editor-container {
     left: @army-editor-width;

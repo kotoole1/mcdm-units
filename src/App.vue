@@ -1,24 +1,25 @@
 <template>
   <div id="app">
-    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Martel|Bitter|Kameron|Open+Sans|Raleway">
-    <!--<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-red.min.css">-->
+    <title>MCDM Unit Lab</title>
     <RootEditor/>
+    <NavBar></NavBar>
   </div>
 </template>
 
 <script lang="ts">
-import RootEditor from './components/rootEditor.vue';
-import { Component, Vue } from 'vue-property-decorator';
+  import NavBar from './components/navBar.vue';
+  import RootEditor from './components/rootEditor.vue';
+  import { Component, Vue } from 'vue-property-decorator';
 
 
-@Component({
-  components: {
-    RootEditor,
-  },
-})
-export default class App extends Vue {
-}
+  @Component({
+    components: {
+      NavBar,
+      RootEditor,
+    },
+  })
+  export default class App extends Vue {
+  }
 </script>
 
 <style lang="less">

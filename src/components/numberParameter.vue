@@ -7,7 +7,7 @@
                   :max="max"
                   :step="step"
                   size="small"
-                  @change="$emit('input', $event)"
+                  @change="onChange($event)"
                   inline controls center>
     </number-input>
   </div>
@@ -37,6 +37,12 @@
       // prevent tabbing into +/- buttons (the text here is more useful)
       this.$el.querySelectorAll('button').forEach((button: HTMLElement) => button.setAttribute('tabindex', '-1'));
     }
+
+    private onChange(event: number): void {
+      if (event !== this.value) {
+        this.$emit('input', event);
+      }
+    }
   }
 </script>
 <style lang="less">
@@ -53,6 +59,10 @@
         box-sizing: border-box;
         width: 100% !important;
         border-color: rgba(60,60,60,.26); // TODO: lighten this?
+        height: 100%;
+      }
+      button {
+        padding-bottom: 0;
       }
     }
   }

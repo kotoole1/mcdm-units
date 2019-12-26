@@ -19,9 +19,15 @@ export class UnitBase extends Vue {
   @Prop({ type: String, required: true })
   public activeUnitId!: string;
 
-  private updated() {
-    const node = document.getElementById('unit-card-html');
+  protected mounted() {
+    this.emitHeight();
+    setTimeout(() => {
+      this.emitHeight();
+    }, 1000);
+  }
 
+  protected updated() {
+    this.emitHeight();
     // Doesn't work, sadly =(
     // domtoimage.toPng(node)
     //   .then((dataUrl: string) => {
@@ -49,6 +55,10 @@ export class UnitBase extends Vue {
     // }
   }
 
+  protected emitHeight(): void {
+    this.$emit('height', (<HTMLElement> this.$el).offsetHeight);
+  }
+
   protected get activeUnit(): UnitModel {
     return this.$store.getters.unit(this.activeUnitId);
   }
@@ -71,6 +81,14 @@ export class UnitBase extends Vue {
       }
     }
     return backgroundAttribute;
+  }
+
+  protected get hasCost(): boolean {
+    return false;
+  }
+
+  protected get cost(): string {
+    return '400gp';
   }
 
   /**

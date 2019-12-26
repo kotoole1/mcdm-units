@@ -1,7 +1,6 @@
 <template>
-  <div class="std"
-       :class="[ color ]"
-       id="unit-card-html">
+  <div class="std unit-card-html"
+       :class="[ color ]">
     <div class="content">
       <div class="banner-wrapper">
         <div class="banner std-banner-left"
@@ -21,7 +20,7 @@
       </div>
       <div class="main-content">
         <div class="std-table">
-          <div class="optional-cost"></div>
+          <div class="optional-cost"><span v-if="hasCost">{{ cost }}</span></div>
           <div class="std-tr">
             <div class="std-td"><span>ATTACK:</span><span>{{ attack }}</span></div>
             <div class="std-td"><span>DEFENSE:</span><span>{{ defense }}</span></div></div>
@@ -54,31 +53,25 @@ export default class UnitCard extends UnitBase {
 </script>
 
 <style scoped lang="less">
-  @overall-width: 400px;
-  @overall-height: 500px;
-  @border-slice: 120;
-  @border-width: 60px;
-  @padding-width: 40px;
-
-  @dark-red: rgb(140, 36, 32);
-  @light-red: rgb(186, 14, 32);
-  @light-blue: rgb(33, 52, 135);
-  @dark-blue: rgb(40, 91, 193);
-
   p {
     hyphens: auto;
     font-size: 16px;
   }
 
   .std {
-    width: @overall-width;
-    text-align: left;
     position: absolute;
+    width: @card-width;
+    text-align: left;
     border: @border-width solid;
     border-image-slice: @border-slice fill;
     border-image-repeat: stretch;
+    line-height: normal;
     &.red-army { border-image-source: url(../assets/original-background.png); }
     &.blue-army { border-image-source: url(../assets/original-background-blue.png); }
+
+    p {
+      line-height: normal;
+    }
 
     .content {
       margin: -@border-width;
@@ -128,6 +121,7 @@ export default class UnitCard extends UnitBase {
     .optional-cost {
       font-family: 'Open Sans', sans-serif;
       font-weight: 400;
+      font-size: 16px;
       color: @dark-red;
       text-align: right;
       height: 1.5em;
@@ -177,6 +171,7 @@ export default class UnitCard extends UnitBase {
 
     .section-title {
       margin-top: 10px;
+      font-size: 16px;
       font-family: 'Bitter', serif;
       font-weight: 800;
       color: @light-red;
