@@ -31,7 +31,7 @@
       <div class="btn-row">
         <div :class="['bottom-btn', ...btn('colored')]"
              @click="openPrintPage()">
-          <i class="material-icons">print</i> Print</div>
+          <i class="material-icons">print</i> Print Armies</div>
       </div>
       <div class="btn-row">
         <div :class="['bottom-btn', ...btn('accent')]"
@@ -115,7 +115,7 @@ export default class UnitEditor extends Vue {
   }
 
   private openPrintPage(): void {
-    window.open('/print', '_blank');
+    window.open('./print', '_blank');
   }
 
   private saveDataAsJSON(): void {
