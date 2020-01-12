@@ -13,6 +13,9 @@ module.exports = {
       title: 'Print MCDM Units'
     }
   },
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/mcdm-units/'
+    : '/',
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',
