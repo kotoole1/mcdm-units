@@ -22,7 +22,6 @@
                       :value="activeUnit.hasDomain"
                       @input="setField('hasDomain', $event)"></BooleanParameter>
     <DropdownParameter v-if="activeUnit.hasDomain"
-                       :inline="true"
                        :value="activeUnit.domainId"
                        :options="DomainOptions"
                        @input="setField('domainId', $event)"></DropdownParameter>

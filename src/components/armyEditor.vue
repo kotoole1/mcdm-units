@@ -1,10 +1,13 @@
 <template>
   <div class="editor-panel army-editor-panel">
     <div v-for="army in allArmies">
-      <div class="title">{{ army.name }}</div>
-      <DropdownParameter :value="army.colorId"
-                         :options="ColorOptions"
-                         @input="setField(army.id, 'colorId', $event)"></DropdownParameter>
+      <div class="param-line">
+        <div class="title">{{ army.name }}</div>
+        <DropdownParameter v-if="army.id !== NO_ARMY_ID"
+                           :value="army.colorId"
+                           :options="ColorOptions"
+                           @input="setField(army.id, 'colorId', $event)"></DropdownParameter>
+      </div>
       <ul>
         <li v-for="unitId in army.unitIds"
             class="unit-line-item"
@@ -174,6 +177,9 @@ export default class UnitEditor extends Vue {
 
 <style lang="less">
   @import 'https://code.getmdl.io/1.3.0/material.indigo-red.min.css';
+  .title {
+    align-self: center;
+  }
   .unit-line-item {
     list-style-type: none;
     padding: 2px 0;
