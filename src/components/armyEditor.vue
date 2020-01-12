@@ -2,6 +2,9 @@
   <div class="editor-panel army-editor-panel">
     <div v-for="army in allArmies">
       <div class="title">{{ army.name }}</div>
+      <DropdownParameter :value="army.colorId"
+                         :options="ColorOptions"
+                         @input="setField(army.id, 'colorId', $event)"></DropdownParameter>
       <ul>
         <li v-for="unitId in army.unitIds"
             class="unit-line-item"
@@ -47,12 +50,14 @@ import {ColorOptions} from '@/options/color';
 import {NO_ARMY_ID} from '@/models/defaultRootModel';
 import {RootModel} from 'src/models/rootModel';
 import {Component, Vue, Prop} from 'vue-property-decorator';
+import DropdownParameter from './dropdownParameter.vue';
 
 @Component({
-  components: {},
+  components: {DropdownParameter},
   data: () => {
     return {
       NO_ARMY_ID,
+      ColorOptions,
     };
   },
 })
@@ -100,6 +105,10 @@ export default class UnitEditor extends Vue {
     this.$store.commit('addUnit', {
       unit: newUnit,
     });
+  }
+
+  private setField(armyId: string, field: keyof ArmyModel, value: any): void {
+    this.$store.commit('changeArmyField', { armyId, field, value });
   }
 
   private openPrintPage(): void {

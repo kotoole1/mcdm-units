@@ -59,8 +59,11 @@ export default new Vuex.Store<RootModel>({
     },
     changeUnitField: (state, { unitId, field, value }:
       { unitId: string, field: keyof UnitModel, value: any}) => {
-      console.log('change from ' + getUnit(state, unitId)[field] + ' to ' + value);
       getUnit(state, unitId)[field] = value;
+    },
+    changeArmyField: (state, { armyId, field, value }:
+      { armyId: string, field: keyof ArmyModel, value: any}) => {
+      getArmy(state, armyId)[field] = value;
     },
     changeTitle: (state, { id, title }) => {
       getUnit(state, id).title = title;

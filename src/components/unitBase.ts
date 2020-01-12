@@ -17,7 +17,7 @@ import {Vue, Prop} from 'vue-property-decorator';
 @Component({})
 export class UnitBase extends Vue {
   @Prop({ type: String, default: '' })
-  public unitId: string;
+  public unitId!: string;
 
   protected mounted() {
     this.emitHeight();

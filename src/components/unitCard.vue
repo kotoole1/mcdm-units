@@ -68,6 +68,8 @@ export default class UnitCard extends UnitBase {
     line-height: normal;
     &.red-army { border-image-source: url(../assets/original-background.png); }
     &.blue-army { border-image-source: url(../assets/original-background-blue.png); }
+    &.green-army { border-image-source: url(../assets/original-background-green.png); }
+    &.black-army { border-image-source: url(../assets/original-background-black.png); }
 
     p {
       line-height: normal;
@@ -97,9 +99,8 @@ export default class UnitCard extends UnitBase {
       font-size: 14pt;
       display: inline-block;
       align-self: flex-end;
+      .light-color();
     }
-    &.red-army .title { color: @light-red; }
-    &.blue-army .title { color: @light-blue; }
 
     .underlined {
       border-bottom: 1px solid black;
@@ -111,9 +112,8 @@ export default class UnitCard extends UnitBase {
       font-weight: 900;
       font-size: 11pt;
       line-height: 1.3em;
+      .dark-color();
     }
-    &.red-army .descriptor-line { color: @dark-red; }
-    &.blue-army .descriptor-line { color: @dark-blue; }
 
     .main-content {
       margin-top: 20px;
@@ -122,12 +122,10 @@ export default class UnitCard extends UnitBase {
       font-family: 'Open Sans', sans-serif;
       font-weight: 400;
       font-size: 16px;
-      color: @dark-red;
       text-align: right;
       height: 1.5em;
+      .dark-color();
     }
-    &.red-army .optional-cost { color: @dark-red; }
-    &.blue-army .optional-cost { color: @dark-blue; }
 
     .std-table {
       margin-bottom: 5px;
@@ -141,14 +139,13 @@ export default class UnitCard extends UnitBase {
       font-weight: 600;
       font-size: 11pt;
       line-height: 1.1em;
+      .light-color();
 
       span {
         display: inline-block;
         flex-direction: column;
       }
     }
-    &.red-army .std-tr { color: @light-red; }
-    &.blue-army .std-tr { color: @light-blue; }
 
     .std-td {
       display: inline-block;
@@ -174,18 +171,14 @@ export default class UnitCard extends UnitBase {
       font-size: 16px;
       font-family: 'Bitter', serif;
       font-weight: 800;
-      color: @light-red;
+      .light-color();
     }
-    &.red-army .section-title { color: @light-red; }
-    &.blue-army .section-title { color: @light-blue; }
 
     .section-content {
-      color: @dark-red;
       margin-top: 2px;
       margin-bottom: 5px;
+      .dark-color();
     }
-    &.red-army .section-content { color: @dark-red; }
-    &.blue-army .section-content { color: @dark-blue; }
   } // .std
 
   .banner {

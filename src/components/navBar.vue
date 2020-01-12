@@ -3,7 +3,9 @@
     <button class="navbar-btn-right-end"
          :class="btnFlat()"
          :disabled="!canUndo"
-         @click="undoEdit()">
+         @shortkey="undoEdit()"
+         @click="undoEdit()"
+         v-shortkey.once="['cmd', 'z']">
       <i class="material-icons">undo</i> Undo</button>
     <button class="navbar-btn-right"
             :class="btnFlat()"

@@ -9,4 +9,10 @@ export const ColorOptions: {[key: string]: UnitColor } = {
   BLUE: {
     cssClass: 'blue-army',
   },
+  GREEN: {
+    cssClass: 'green-army',
+  },
+  BLACK: {
+    cssClass: 'black-army',
+  },
 };
