@@ -131,6 +131,5 @@ export default class UnitEditor extends Vue {
   }
 }
 </script>
-<style>
-  @import 'https://code.getmdl.io/1.3.0/material.indigo-red.min.css';
+<style scoped src="../styles/material.indigo-red.min.css">
 </style>

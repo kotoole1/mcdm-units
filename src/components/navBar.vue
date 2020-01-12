@@ -34,7 +34,7 @@
     }
   }
 </script>
-
+<style scoped src="../styles/material.indigo-red.min.css"></style>
 <style scoped lang="less">
   #nav-bar {
     position: absolute;

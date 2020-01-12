@@ -174,9 +174,8 @@ export default class UnitEditor extends Vue {
   }
 }
 </script>
-
+<style scoped src="../styles/material.indigo-red.min.css"></style>
 <style lang="less">
-  @import 'https://code.getmdl.io/1.3.0/material.indigo-red.min.css';
   .title {
     align-self: center;
   }
