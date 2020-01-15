@@ -91,11 +91,33 @@ export class UnitBase extends Vue {
   }
 
   protected get hasCost(): boolean {
-    return false;
+    return true;
   }
 
   protected get cost(): string {
-    return '400gp';
+    const totalBonus = this.attackScore + this.powerScore + this.toughnessScore + this.defenseScore + 2 * this.moraleScore;
+    let cost = totalBonus;
+    cost *= this.unitType.costMultiplier;
+    const size = this.size.numberOfSides * this.size.numberOfDice;
+    cost *= size / 6;
+    if (this.activeUnit.hasDomain) {
+      cost *= this.domain.costMultiplier;
+    }
+    cost *= 10;
+
+    this.traits.forEach((trait: Trait) => {
+      if (trait.cost) {
+        cost += trait.cost;
+      }
+    });
+    this.orders.forEach((order: Order) => {
+      if (order.cost) {
+        cost += order.cost;
+      }
+    });
+
+    cost += 30;
+    return Math.round(cost) + ' gp';
   }
 
   /**
@@ -168,43 +190,63 @@ export class UnitBase extends Vue {
   }
 
   protected get attack(): string {
-    return this.formatBonus(this.ancestry.attack +
+    return this.formatBonus(this.attackScore);
+  }
+
+  protected get attackScore(): number {
+    return this.ancestry.attack +
       this.unitType.attack +
       this.experience.attack +
       (this.activeUnit.hasDomain ? this.domain.attack : 0) +
-      this.equipment.attack);
+      this.equipment.attack;
   }
 
   protected get power(): string {
-    return this.formatBonus(this.ancestry.power +
+    return this.formatBonus(this.powerScore);
+  }
+
+  protected get powerScore(): number {
+    return this.ancestry.power +
       this.unitType.power +
       this.experience.power +
       (this.activeUnit.hasDomain ? this.domain.power : 0) +
-      this.equipment.power);
+      this.equipment.power;
   }
 
   protected get defense(): string {
-    return this.formatBonus(this.ancestry.defense +
+    return this.formatBonus(this.defenseScore);
+  }
+
+  protected get defenseScore(): number {
+    return this.ancestry.defense +
       this.unitType.defense +
       this.experience.defense +
       (this.activeUnit.hasDomain ? this.domain.defense : 0) +
-      this.equipment.defense);
+      this.equipment.defense;
   }
 
   protected get toughness(): string {
-    return this.formatBonus(this.ancestry.toughness +
+    return this.formatBonus(this.toughnessScore);
+  }
+
+  protected get toughnessScore(): number {
+    return this.ancestry.toughness +
       this.unitType.toughness +
       this.experience.toughness +
       (this.activeUnit.hasDomain ? this.domain.toughness : 0) +
-      this.equipment.toughness);
+      this.equipment.toughness;
   }
 
   protected get morale(): string {
-    return this.formatBonus(this.ancestry.morale +
+    return this.formatBonus(this.moraleScore);
+  }
+
+  protected get moraleScore(): number {
+    return this.ancestry.morale +
       this.unitType.morale +
       this.experience.morale +
       (this.activeUnit.hasDomain ? this.domain.morale : 0) +
-      this.equipment.morale);
+      this.equipment.morale;
   }
 
   protected formatBonus(bonus: number): string {

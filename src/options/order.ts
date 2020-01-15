@@ -2,6 +2,7 @@ export interface Order {
   name: string;
   dropdownName?: string;
   description: string;
+  cost?: number;
 }
 
 export const Orders: {[key: string]: Order } = {

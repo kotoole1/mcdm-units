@@ -6,6 +6,7 @@ export interface Domain extends DropdownOption {
   defense: number;
   toughness: number;
   morale: number;
+  costMultiplier: number;
 }
 
 export const DomainOptions: {[key: string]: Domain} = {
@@ -16,6 +17,7 @@ export const DomainOptions: {[key: string]: Domain} = {
     defense: 0,
     toughness: 0,
     morale: 3,
+    costMultiplier: 2,
   },
   NONE: {
     name: 'Ground',
@@ -24,6 +26,7 @@ export const DomainOptions: {[key: string]: Domain} = {
     defense: 0,
     toughness: 0,
     morale: 0,
+    costMultiplier: 1,
   },
   BURROWING: {
     name: 'Burrowing',
@@ -32,5 +35,6 @@ export const DomainOptions: {[key: string]: Domain} = {
     defense: 3,
     toughness: 0,
     morale: 0,
+    costMultiplier: 2,
   },
 };
