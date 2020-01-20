@@ -30,6 +30,7 @@
     <div class="bottom-btn-container">
       <div class="btn-row">
         <div :class="['bottom-btn', ...btn('colored')]"
+             :disabled="!isPrintEnabled"
              @click="openPrintPage()">
           <i class="material-icons">print</i> Print Armies</div>
       </div>
@@ -97,7 +98,7 @@ export default class UnitEditor extends Vue {
 
   private newUnitClicked(owningArmyId: string) {
     const newUnit = new UnitModel(randomId(), owningArmyId);
-    this.$store.commit('addUnit', { unit: newUnit } );
+    this.$store.commit('addUnit', { unit: newUnit });
   }
 
   private addToArmy(unitId: string, owningArmyId: string) {
@@ -112,6 +113,16 @@ export default class UnitEditor extends Vue {
 
   private setField(armyId: string, field: keyof ArmyModel, value: any): void {
     this.$store.commit('changeArmyField', { armyId, field, value });
+  }
+
+  private get isPrintEnabled(): boolean {
+    let anyArmyHasUnits = false;
+    this.$store.state.armies.forEach((army: ArmyModel) => {
+      if (army.unitIds.length) {
+        anyArmyHasUnits = true;
+      }
+    });
+    return anyArmyHasUnits;
   }
 
   private openPrintPage(): void {

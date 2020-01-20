@@ -9,14 +9,17 @@ export const Orders: {[key: string]: Order } = {
   STAND_YOUR_GROUND: {
     name: 'Stand Your Ground',
     description: 'Once per battle, for the next round all successful enemy Power checks against this unit must be rerolled.',
+    cost: 50,
   },
   THE_ODDS: {
     name: 'May the odds be never in your favor',
     description: 'Choose an enemy unit, and place a d12 on their unit card. The next time that unit attacks, it rolls a d12 in place of a d20 on the attack check',
+    cost: 100,
   },
   BLOT_OUT_THE_SUN: {
     name: 'Our arrows will blot out the sun',
     description: 'Make an attack roll at with advantage. A successful attack roll will engage the attacked unit. Make the power check with disadvantage',
+    cost: 100,
   },
   CHARGE: {
     name: 'Charge',
