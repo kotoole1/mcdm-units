@@ -1,6 +1,17 @@
 import {DropdownOption} from '@/components/dropdownOption';
+import {RootModel} from '@/models/rootModel';
+import {OptionSource} from '@/options/optionSource';
 import {Trait, Traits} from '@/options/trait';
 import {UnitType, UnitTypeOptions} from '@/options/unitType';
+
+export function getAllAncestries(state: RootModel): {[key: string]: Ancestry} {
+  // TODO: homebrews from state
+  return AncestryOptions;
+}
+
+export function getAncestry(state: RootModel, ancestryId: string): Ancestry {
+  return getAllAncestries(state)[ancestryId];
+}
 
 export interface Ancestry extends DropdownOption {
   name: string;
@@ -10,19 +21,23 @@ export interface Ancestry extends DropdownOption {
   defense: number;
   toughness: number;
   morale: number;
-  traits?: Trait[];
+  traitIds?: string[];
+  orderIds?: string[];
   forcedTypes?: UnitType[]; // TODO
+  source?: OptionSource;
 }
 
 export const AncestryOptions: {[key: string]: Ancestry} = {
   DIRE_BAT: {
     name: 'Dire bat',
     attack: -1, power: -1, defense: 0, toughness: 0, morale: -1,
+    source: OptionSource.HOMEBREW,
   },
   DRAGON: {
     name: 'Dragon',
     attack: 1, power: 4, defense: 0, toughness: 0, morale: 2,
-    traits: [],
+    traitIds: [],
+    source: OptionSource.HOMEBREW,
   },
   BUGBEAR: {
     name: 'Bugbear',
@@ -31,7 +46,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: -2,
     toughness: -2,
     morale: 1,
-    traits: [ Traits.MARTIAL ],
+    traitIds: [ 'MARTIAL' ],
   },
   DRAGONBORN: {
     name: 'Dragonborn',
@@ -40,7 +55,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 1,
     toughness: 1,
     morale: 1,
-    traits: [ Traits.COURAGEOUS ],
+    traitIds: [ 'COURAGEOUS' ],
   },
   DWARF: {
     name: 'Dwarf',
@@ -49,7 +64,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 1,
     toughness: 1,
     morale: 2,
-    traits: [ Traits.STALWART ],
+    traitIds: [ 'STALWART' ],
   },
   EAGLE: {
     name: 'Eagle',
@@ -58,6 +73,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: -1,
     toughness: -1,
     morale: 1,
+    source: OptionSource.HOMEBREW,
   },
   ELF : {
     name: 'Elf ',
@@ -66,7 +82,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 0,
     toughness: 0,
     morale: 1,
-    traits: [ Traits.ETERNAL ],
+    traitIds: [ 'ETERNAL' ],
   },
   ELF_WINGED: {
     name: 'Elf (winged)',
@@ -75,7 +91,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 0,
     toughness: 0,
     morale: 1,
-    traits: [ Traits.ETERNAL ],
+    traitIds: [ 'ETERNAL' ],
   },
   GHOUL: {
     name: 'Ghoul',
@@ -84,7 +100,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 2 ,
     toughness: 2,
     morale: 0,
-    traits: [ Traits.UNDEAD, Traits.HORRIFY, Traits.RAVENOUS ],
+    traitIds: [ 'UNDEAD', 'HORRIFY', 'RAVENOUS' ],
   },
   GNOLL: {
     name: 'Gnoll',
@@ -93,7 +109,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 0,
     toughness: 0,
     morale: 1,
-    traits: [ Traits.FRENZY ],
+    traitIds: [ 'FRENZY' ],
   },
   GNOME : {
     name: 'Gnome ',
@@ -102,7 +118,6 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 1,
     toughness: -1 ,
     morale: 1,
-    traits: [],
   },
   GOBLIN: {
     name: 'Goblin',
@@ -111,7 +126,6 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 1,
     toughness: -1,
     morale: 0,
-    traits: [],
   },
   HARPY: {
     name: 'Harpy',
@@ -120,7 +134,9 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 0,
     toughness: 0,
     morale: 0,
-    traits: [],
+    traitIds: [],
+    orderIds: ['CAPTIVATE'],
+    source: OptionSource.HOMEBREW,
   },
   HIPPOGRIFF: {
     name: 'Hippogriff',
@@ -129,7 +145,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 3,
     toughness: 4,
     morale: 2,
-    traits: [],
+    source: OptionSource.HOMEBREW,
   },
   HOBGOBLIN : {
     name: 'Hobgoblin',
@@ -138,7 +154,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 0,
     toughness: 0 ,
     morale: 1,
-    traits: [ Traits.BRED_FOR_WAR, Traits.MARTIAL ],
+    traitIds: [ 'BRED_FOR_WAR', 'MARTIAL' ],
   },
   HUMAN: {
     name: 'Human',
@@ -147,7 +163,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 0,
     toughness: 0,
     morale: 1,
-    traits: [ Traits.COURAGEOUS ],
+    traitIds: [ 'COURAGEOUS' ],
   },
   KOBOLD: {
     name: 'Kobold',
@@ -156,7 +172,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 1,
     toughness: -1,
     morale: -1,
-    traits: [],
+    traitIds: [],
   },
   LIZARDFOLK: {
     name: 'Lizardfolk',
@@ -165,7 +181,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: -1,
     toughness: 1,
     morale: 1,
-    traits: [ Traits.AMPHIBIOUS ],
+    traitIds: [ 'AMPHIBIOUS' ],
   },
   RAZORFIEND: {
     name: 'Razorfiend',
@@ -174,6 +190,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: -1,
     toughness: 1,
     morale: 1,
+    source: OptionSource.HOMEBREW,
   },
   OGRE: {
     name: 'Ogre',
@@ -182,7 +199,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 0 ,
     toughness: 2 ,
     morale: 1,
-    traits: [ Traits.BRUTAL ],
+    traitIds: [ 'BRUTAL' ],
   },
   ORC: {
     name: 'Orc',
@@ -191,7 +208,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 1,
     toughness: 1,
     morale: 2,
-    traits: [ Traits.SAVAGE ],
+    traitIds: [ 'SAVAGE' ],
   },
   ROC: {
     name: 'Roc',
@@ -200,7 +217,8 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 0 ,
     toughness: 2 ,
     morale: 1,
-    traits: [ Traits.BRUTAL ],
+    traitIds: [ 'BRUTAL' ],
+    source: OptionSource.HOMEBREW,
   },
   SKELETON: {
     name: 'Skeleton',
@@ -209,7 +227,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 1 ,
     toughness: 1 ,
     morale: 1,
-    traits: [ Traits.UNDEAD, Traits.MINDLESS ],
+    traitIds: [ 'UNDEAD', 'MINDLESS' ],
   },
   TARRASQUE: {
     name: 'Tarrasque',
@@ -218,8 +236,9 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 4,
     toughness: 15,
     morale: 0,
-    traits: [],
+    traitIds: [],
     forcedTypes: [ UnitTypeOptions.INFANTRY ],
+    source: OptionSource.HOMEBREW,
   },
   TREANT: {
     name: 'Treant',
@@ -228,7 +247,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 0,
     toughness: 2,
     morale: 0,
-    traits: [ Traits.TWISTING_ROOTS, Traits.HURL_ROCKS ],
+    traitIds: [ 'TWISTING_ROOTS', 'HURL_ROCKS' ],
     forcedTypes: [ UnitTypeOptions.SEIGE_ENGINE ],
   },
   TROLL: {
@@ -238,7 +257,7 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 0 ,
     toughness: 2,
     morale: 0,
-    traits: [ Traits.REGENERATE ],
+    traitIds: [ 'REGENERATE' ],
   },
   ZOMBIE: {
     name: 'Zombie',
@@ -247,6 +266,6 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     defense: 2,
     toughness: 2,
     morale: 2,
-    traits: [ Traits.UNDEAD, Traits.MINDLESS ],
+    traitIds: [ 'UNDEAD', 'MINDLESS' ],
   },
 };

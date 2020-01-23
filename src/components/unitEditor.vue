@@ -50,7 +50,7 @@
                      @input="setField('imageUrl', $event)"></StringParameter>
     <NumberParameter :name="'Scale (%)'"
                      :value="activeUnit.imageScale"
-                     :min="100"
+                     :min="50"
                      :max="10000"
                      :step="10"
                      @input="setField('imageScale', $event)"></NumberParameter>
@@ -67,6 +67,21 @@
                      :step="5"
                      @input="setField('imageYPos', $event)"></NumberParameter>
   </div>
+  <div class="editor-section" v-if="true">
+    <label><b>Cost</b></label>
+    <BooleanParameter :name="'Hide cost'"
+                      :value="activeUnit.hideCost"
+                      @input="setField('hideCost', $event)"></BooleanParameter>
+    <div class="param-line">
+      <BooleanParameter :name="'Attitude'"
+                        :value="activeUnit.hasAttitude"
+                        @input="setField('hasAttitude', $event)"></BooleanParameter>
+      <DropdownParameter v-if="activeUnit.hasAttitude"
+                         :value="activeUnit.attitudeId"
+                         :options="AttitudeOptions"
+                         @input="setField('attitudeId', $event)"></DropdownParameter>
+    </div>
+  </div>
   <div class="bottom-buttons">
     <button @click="deleteUnit()">Delete unit</button>
   </div>
@@ -82,6 +97,7 @@ import {Equipment, EquipmentOptions} from '@/options/equipment';
 import {Experience, ExperienceOptions} from '@/options/experience';
 import {UnitType, UnitTypeOptions} from '@/options/unitType';
 import {UnitSize, UnitSizeOptions} from '@/options/unitSize';
+import {AttitudeOptions} from '@/options/attitude';
 import {Traits} from '@/options/trait';
 import {Orders} from '@/options/order';
 import {Domain, DomainOptions} from '@/options/domain';
@@ -107,6 +123,7 @@ import StringParameter from './stringParameter.vue';
       UnitTypeOptions,
       DomainOptions,
       UnitSizeOptions,
+      AttitudeOptions,
       Traits,
       Orders,
     };

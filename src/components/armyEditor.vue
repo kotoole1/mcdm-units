@@ -47,6 +47,8 @@
 </template>
 
 <script lang="ts">
+import * as _ from 'lodash';
+
 import {UnitModel} from '@/models/unitModel';
 import {randomId} from '@/models/uuid';
 import {ArmyModel} from 'src/models/armyModel';
@@ -103,7 +105,7 @@ export default class UnitEditor extends Vue {
 
   private addToArmy(unitId: string, owningArmyId: string) {
     const originalUnit: UnitModel = this.$store.getters.unit(unitId);
-    const newUnit = <UnitModel> Object.assign({}, originalUnit);
+    const newUnit = _.cloneDeep(originalUnit);
     newUnit.id = randomId();
     newUnit.owningArmyId = owningArmyId;
     this.$store.commit('addUnit', {

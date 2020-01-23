@@ -9,7 +9,8 @@ export class UnitModel {
   public domainId: string = 'FLYING';
   public unitTypeId: string = 'INFANTRY';
 
-  public overrideStyle = OverrideStyle.NONE;
+  public overrideStyle = OverrideStyle.NONE; // TODOK
+
   public traitIds: string[] = [];
   public orderIds: string[] = [];
 
@@ -19,6 +20,10 @@ export class UnitModel {
   public imageScale: number = 120;
   public imageXPos: number = 50;
   public imageYPos: number = 50;
+
+  public hideCost: boolean = false; // `true` overrides global setting to show cost
+  public hasAttitude: boolean = false;
+  public attitudeId: string = 'ALLIED';
 
   constructor(public id: string,
               public owningArmyId: string) {}

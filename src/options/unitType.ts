@@ -8,6 +8,7 @@ export interface UnitType extends DropdownOption {
   toughness: number;
   morale: number;
   costMultiplier: number;
+  orderIds?: string[];
 }
 
 export const UnitTypeOptions: {[key: string]: UnitType} = {
@@ -37,6 +38,7 @@ export const UnitTypeOptions: {[key: string]: UnitType} = {
     toughness: 0,
     morale: 2,
     costMultiplier: 1.5,
+    orderIds: [ 'CHARGE_BRIEF' ],
   },
   LEVIES: {
     name: 'Levies',

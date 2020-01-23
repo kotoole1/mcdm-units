@@ -1,6 +1,7 @@
 import {ArmyModel} from '@/models/armyModel';
 import {UnitModel} from '@/models/unitModel';
 import {Ancestry, AncestryOptions} from '@/options/ancestry';
+import {AttitudeOptions} from '@/options/attitude';
 import {ColorOptions} from '@/options/color';
 import {DomainOptions, Domain} from '@/options/domain';
 import {Equipment, EquipmentOptions} from '@/options/equipment';
@@ -91,7 +92,7 @@ export class UnitBase extends Vue {
   }
 
   protected get hasCost(): boolean {
-    return true;
+    return !this.activeUnit.hideCost;
   }
 
   protected get cost(): string {
@@ -117,6 +118,13 @@ export class UnitBase extends Vue {
     });
 
     cost += 30;
+    if (this.activeUnit.hasAttitude) {
+      const attitude = AttitudeOptions[this.activeUnit.attitudeId];
+      if (attitude) {
+        cost *= attitude.costMultiplier;
+      }
+    }
+
     return Math.round(cost) + ' gp';
   }
 

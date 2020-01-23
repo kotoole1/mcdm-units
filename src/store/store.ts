@@ -1,3 +1,7 @@
+import {createDefaultArmies, NO_ARMY_ID} from '@/models/defaultRootModel';
+import {removeIf} from '@/models/utils';
+import {getAllAncestries} from '@/options/ancestry';
+import {vuexLocal} from '@/store/persistence';
 import * as _ from 'lodash';
 
 import {ArmyModel} from '@/models/armyModel';
@@ -6,36 +10,11 @@ import {UnitModel} from '@/models/unitModel';
 import RootEditor from '@/components/rootEditor.vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import VuexPersistence, {AsyncStorage} from 'vuex-persist';
 // @ts-ignore
 import VuexUndoRedo from 'vuex-undo-redo';
 
 Vue.use(Vuex);
 Vue.use(VuexUndoRedo);
-
-
-const vuexLocal = new VuexPersistence<RootModel>({
-  storage: window.localStorage,
-});
-
-const localRestoreState: (key: string, storage?: AsyncStorage | Storage) => Promise<RootModel> | RootModel = vuexLocal.restoreState;
-const localSaveState: (key: string, state: {}, storage?: AsyncStorage | Storage) => Promise<void> | void = vuexLocal.saveState;
-
-vuexLocal.restoreState = (key: string, storage?: AsyncStorage | Storage) => {
-  const state = localRestoreState(key, storage);
-  if (state instanceof Promise) {
-    state.then((loadedState: RootModel) => {
-      RootEditor.initialState = loadedState;
-    });
-  } else {
-    RootEditor.initialState = state;
-  }
-
-  return localRestoreState(key, storage); // Do it again to ensure deep clone
-};
-vuexLocal.saveState = (key: string, state: {}, storage?: AsyncStorage | Storage) => {
-  return localSaveState(key, state, storage);
-};
 
 export default new Vuex.Store<RootModel>({
   state: new RootModel(), // VuexPersistence should override this
@@ -59,17 +38,17 @@ export default new Vuex.Store<RootModel>({
     },
     changeUnitField: (state, { unitId, field, value }:
       { unitId: string, field: keyof UnitModel, value: any}) => {
-      getUnit(state, unitId)[field] = value;
+      const unit = getUnit(state, unitId);
+      const oldValue: any = unit[field];
+      unit[field] = value;
+      if (field === 'ancestryId') {
+        const ancestries = getAllAncestries(state);
+        fixTraitsAndOrders(state, unitId, ancestries[oldValue], ancestries[value]);
+      }
     },
     changeArmyField: (state, { armyId, field, value }:
       { armyId: string, field: keyof ArmyModel, value: any}) => {
       getArmy(state, armyId)[field] = value;
-    },
-    changeTitle: (state, { id, title }) => {
-      getUnit(state, id).title = title;
-    },
-    changeAncestry: (state, {id, ancestryId}) => {
-      getUnit(state, id).ancestryId = ancestryId;
     },
     addUnit: (state, { unit }: {unit: UnitModel}) => {
       state.units.push(unit);
@@ -89,7 +68,7 @@ export default new Vuex.Store<RootModel>({
         });
       });
       if (unitId === state.selectedItemId) {
-        state.selectedItemId = getFirstUnit(state);
+        state.selectedItemId = getFirstUnitId(state);
       }
     },
     setArmies: (state, { armies }: {armies: ArmyModel[]}) => {
@@ -129,6 +108,43 @@ export default new Vuex.Store<RootModel>({
   plugins: [vuexLocal.plugin],
 });
 
+function fixTraitsAndOrders(state: RootModel, unitId: string,
+                            oldThing: {traitIds?: string[], orderIds?: string[]},
+                            newThing: {traitIds?: string[], orderIds?: string[]}): void {
+  const unit = getUnit(state, unitId);
+  if (!unit) {
+    return;
+  }
+
+  if (oldThing && oldThing.orderIds && unit.orderIds) {
+    oldThing.orderIds.forEach((orderId: string) => {
+      removeIf(unit.orderIds, (unitOrderId: string) => unitOrderId === orderId);
+    });
+  }
+
+  if (newThing && newThing.orderIds) {
+    newThing.orderIds.forEach((orderId: string) => {
+      if (!unit.orderIds.includes(orderId)) {
+        unit.orderIds.push(orderId);
+      }
+    });
+  }
+
+  if (oldThing && oldThing.traitIds && unit.traitIds) {
+    oldThing.traitIds.forEach((traitId: string) => {
+      removeIf(unit.traitIds, (unitTraitId: string) => unitTraitId === traitId);
+    });
+  }
+
+  if (newThing && newThing.traitIds) {
+    newThing.traitIds.forEach((traitId: string) => {
+      if (!unit.traitIds.includes(traitId)) {
+        unit.traitIds.push(traitId);
+      }
+    });
+  }
+}
+
 function getUnit(state: RootModel, id: string): UnitModel {
   return state.units.find((unit) => unit.id === id)!;
 }
@@ -137,7 +153,7 @@ function getArmy(state: RootModel, id: string): ArmyModel {
   return state.armies.find((army) => army.id === id)!;
 }
 
-function getFirstUnit(state: RootModel): string {
+function getFirstUnitId(state: RootModel): string {
   if (state.armies.length && state.armies[0].unitIds.length) {
     return state.armies[0].unitIds[0];
   }

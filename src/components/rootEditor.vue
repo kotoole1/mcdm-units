@@ -16,6 +16,7 @@ import {ArmyModel} from 'src/models/armyModel';
 import {RootModel} from 'src/models/rootModel';
 import {UnitModel} from 'src/models/unitModel';
 import {createDefaultArmies, NO_ARMY_ID} from '../models/defaultRootModel';
+import {removeIf} from '../models/utils';
 import ArmyEditor from './armyEditor.vue';
 import UnitCard from './unitCard.vue';
 import UnitCardPng from './unitCardPng.vue';
@@ -32,6 +33,7 @@ import {Component, Vue} from 'vue-property-decorator';
 })
 export default class RootEditor extends Vue {
   public static initialState: RootModel | null = null; // should only be set once when the page loads, by
+  // TODO: store selected unit here, have undo-redo introspect into its undo stack and to select the last changed unit
 
   // private selectUnit(unitId: string) {
   //   if (unitId === 'NEXT') {
@@ -47,37 +49,6 @@ export default class RootEditor extends Vue {
 
   private get selectedItemId(): string {
     return this.$store.state.selectedItemId;
-  }
-
-  private mounted() {
-    this.rectifyArmiesAndUnits();
-  }
-
-  // TODOK: make static, don't use mutators, call in initializer
-  public rectifyArmiesAndUnits(): void {
-    if (!this.$store.state.armies || !this.$store.state.armies.length) {
-      this.$store.commit('setArmies', {
-        armies: createDefaultArmies(),
-      });
-    }
-    const armies: ArmyModel[] = this.$store.getters.allArmies;
-    const armiesById: {[key: string]: ArmyModel} = armies.reduce((indexed: {[key: string]: ArmyModel}, army) => {
-      indexed[army.id] = army;
-      return indexed;
-    }, {});
-    this.$store.getters.allUnits.forEach((unit: UnitModel) => {
-      if (!unit.owningArmyId || !armiesById[unit.owningArmyId]) {
-        unit.owningArmyId = NO_ARMY_ID;
-      }
-      if (!armiesById[unit.owningArmyId].unitIds.includes(unit.id)) {
-        armiesById[unit.owningArmyId].unitIds.push(unit.id);
-      }
-    });
-    if (!this.$store.state.selectedItemId && this.$store.getters.allUnits.length) {
-      this.$store.commit('selectItem', {
-        unitId: this.$store.getters.allUnits[0].id,
-      });
-    }
   }
 }
 </script>

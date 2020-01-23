@@ -1,6 +1,5 @@
 export enum OptionSource {
   MCDM_CANON,
-  MCDM_CANON_WITH_CAVEAT,
   HOMEBREW,
   YOUR_HOMEBREW,
 }

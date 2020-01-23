@@ -12,7 +12,7 @@ export const Traits: {[key: string]: Trait } = {
     description: 'Enemy battle magic has disadvantage on Power checks.',
   },
   ANGRY: {
-    name: 'Now you made them angry',
+    name: 'That Just Made Them Angry',
     description: 'While diminished, this unit has advantage on attack checks. Enemy Power checks against this unit have disadvantage.',
   },
   AMORPHOUS: {
@@ -20,15 +20,15 @@ export const Traits: {[key: string]: Trait } = {
     description: ' The legion can move into another unit, occupying its space and engaging that unit. As such, the legion can attack archers while enemy infantry is still on the field.',
   },
   STRENGTH_DRAIN: {
-    name: 'Strength drain',
+    name: 'Strength Drain',
     description: 'If the legion inflicts a casualty on an engaged unit, that unit loses 1 Power. Lost Power regenerates the next day.',
   },
   LIFE_DRAIN: {
-    name: 'Life drain',
+    name: 'Life Drain',
     description: 'Successful Power checks exhaust enemy units.',
   },
   SHOCK_TROOPS: {
-    name: 'Surprise attack',
+    name: 'Surprise Attack',
     description: 'The first time this unit attacks in battle, a successful power check deals two casualties.',
   },
   AMPHIBIOUS: {
@@ -37,7 +37,7 @@ export const Traits: {[key: string]: Trait } = {
     cost: 50,
   },
   BRED_FOR_WAR: {
-    name: 'Bred for war',
+    name: 'Bred For War',
     description: 'This unit cannot be diminished, and cannot have disadvantage on morale checks.',
     cost: 100,
   },
@@ -102,7 +102,7 @@ export const Traits: {[key: string]: Trait } = {
     cost: 50,
   },
   TWISTING_ROOTS: {
-    name: 'Twisting roots',
+    name: 'Twisting Roots',
     description: 'As an action, this unit can sap the walls of a fortification. siege units have advantage 200 on power checks against sapped fortifications.',
     cost: 200,
   },
