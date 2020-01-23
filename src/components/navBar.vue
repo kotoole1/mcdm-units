@@ -1,12 +1,13 @@
 <template>
   <div id="nav-bar">
+    <div class="title">Unit lab</div>
     <button class="navbar-btn-right-end"
          :class="btnFlat()"
          :disabled="!canUndo"
          @shortkey="undoEdit()"
          @click="undoEdit()"
          v-shortkey.once="['cmd', 'z']">
-      <i class="material-icons">undo</i> Undo</button>
+      <i class="material-icons md-light">undo</i> Undo</button>
     <button class="navbar-btn-right"
             :class="btnFlat()"
             :disabled="!canRedo"
@@ -43,8 +44,23 @@
     top: 0;
     width: 100%;
     height: 40px;
-    box-shadow: 10px 0 10px #888;
+    /*box-shadow: 10px 0 10px #888;*/
     display: flex;
+    align-items: center;
+    background-color: @dark-red;
+    .mdl-button {
+      color: white !important;
+    }
+    .mdl-button:disabled {
+      color: rgba(255, 255, 255, 0.3) !important;
+    }
+  }
+
+  .title {
+    font-size: 18pt;
+    margin-left: 10px;
+    color: white;
+    text-transform: uppercase;
   }
 
   .navbar-btn-right-end {

@@ -8,23 +8,32 @@
                            :options="ColorOptions"
                            @input="setField(army.id, 'colorId', $event)"></DropdownParameter>
       </div>
-      <ul>
-        <li v-for="unitId in army.unitIds"
-            class="unit-line-item"
-            :class="{ active: isActive(unitId) }"
-            @click="selectUnit(unitId)">
-          <label>{{getUnit(unitId).title}}</label>
-          <div v-for="armyButton in allArmies"
-               v-if="army.id === NO_ARMY_ID && armyButton.id !== NO_ARMY_ID"
-               class="add-to-army-button"
-               :class="getColor(armyButton)"
-               @click="addToArmy(unitId, armyButton.id)"
-          ></div>
-        </li>
-      </ul>
-      <div class="btn-container">
-        <button :class="[ 'new-unit-btn', ...btnFlat()]"
-                @click="newUnitClicked(army.id)">New Unit</button>
+      <div class="army-content">
+        <p v-if="!army.unitIds.length"
+           class="empty-army-description">
+          <i>To add units to this army, click the <b>NEW UNIT</b> button<span v-if="army.id !== NO_ARMY_ID">, or click the <div
+            class="add-to-army-button inline-army-button"
+            :class="getColor(army)"
+          ></div> button next to any unassigned unit.</span></i>
+        </p>
+        <ul>
+          <li v-for="unitId in army.unitIds"
+              class="unit-line-item"
+              :class="{ active: isActive(unitId) }"
+              @click="selectUnit(unitId)">
+            <label>{{getUnit(unitId).title}}</label>
+            <div v-for="armyButton in allArmies"
+                 v-if="army.id === NO_ARMY_ID && armyButton.id !== NO_ARMY_ID"
+                 class="add-to-army-button"
+                 :class="getColor(armyButton)"
+                 @click="addToArmy(unitId, armyButton.id)"
+            ></div>
+          </li>
+        </ul>
+        <div class="btn-container">
+          <button :class="[ 'new-unit-btn', ...btn('raised')]"
+                  @click="newUnitClicked(army.id)">New Unit</button>
+        </div>
       </div>
     </div>
     <div class="bottom-btn-container">
@@ -188,10 +197,11 @@ export default class UnitEditor extends Vue {
 }
 </script>
 <style scoped src="../styles/material.indigo-red.min.css"></style>
-<style lang="less">
+<style scoped lang="less">
   .title {
     align-self: center;
   }
+
   .unit-line-item {
     list-style-type: none;
     padding: 2px 0;
@@ -206,25 +216,41 @@ export default class UnitEditor extends Vue {
 
     label {
       margin-right: auto;
+      margin-left: 8px;
     }
+  }
 
-    .add-to-army-button {
-      width: 20px;
-      height: 20px;
-      align-self: center;
-      margin: 0 2px;
-      &.red-army { background-color: red }
-      &.blue-army { background-color: blue }
-    }
+  .empty-army-description {
+    color: #666;
+    margin: 0 0 0 10px;
+  }
+
+  .add-to-army-button {
+    width: 20px;
+    height: 20px;
+    align-self: center;
+    margin: 0 2px;
+    &.red-army { background-color: @dark-red }
+    &.blue-army { background-color: @dark-blue }
+    &.inline-army-button { display: inline-block }
+  }
+
+  .btn-container {
+    width: 100%;
+    display: block;
+    height: 30px;
   }
 
   .mu-btn.new-unit-btn {
     display: block;
+    position: absolute;
     font-size: 11px;
     line-height: 21px;
     height: 21px;
     text-align: left;
     margin-bottom: 10px;
+    margin-right: 4px;
+    right: 0;
   }
 
   .bottom-btn-container {
