@@ -268,4 +268,13 @@ export const AncestryOptions: {[key: string]: Ancestry} = {
     morale: 2,
     traitIds: [ 'UNDEAD', 'MINDLESS' ],
   },
+  BLANK: {
+    name: '',
+    dropdownName: 'Blank',
+    attack: 0,
+    power: 0,
+    defense: 0,
+    toughness: 0,
+    morale: 0,
+  },
 };

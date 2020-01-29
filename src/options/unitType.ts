@@ -67,4 +67,13 @@ export const UnitTypeOptions: {[key: string]: UnitType} = {
     morale: 0,
     costMultiplier: 1.5,
   },
+  ITEM: {
+    name: 'Physical spell',
+    attack: 0,
+    power: 0,
+    defense: 5,
+    toughness: 3,
+    morale: 0,
+    costMultiplier: 1,
+  },
 };

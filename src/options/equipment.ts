@@ -1,4 +1,6 @@
-export interface Equipment {
+import { DropdownOption } from '@/components/dropdownOption';
+
+export interface Equipment extends DropdownOption {
   name: string;
   attack: number;
   power: number;
@@ -37,6 +39,15 @@ export const EquipmentOptions: {[key: string]: Equipment} = {
     attack: 0,
     power: 6,
     defense: 6,
+    toughness: 0,
+    morale: 0,
+  },
+  BLANK: {
+    name: '',
+    dropdownName: 'Blank',
+    attack: 0,
+    power: 0,
+    defense: 0,
     toughness: 0,
     morale: 0,
   },

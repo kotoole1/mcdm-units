@@ -35,6 +35,8 @@
         <p class="section-content" v-for="trait in traits"><b>{{ trait.name }}.</b> {{ trait.description }}</p>
         <div v-if="orders.length" class="section-title">ORDERS</div>
         <p class="section-content" v-for="order in orders"><b>{{ order.name }}!</b> {{ order.description }}</p>
+        <div v-if="conditions.length" class="section-title">CONDITIONS</div>
+        <p class="section-content" v-for="condition in conditions"><b>{{ condition.name }}.</b> {{ condition.description }}</p>
       </div>
     </div>
   </div>

@@ -12,6 +12,8 @@ import {UnitSize, UnitSizeOptions} from '@/options/unitSize';
 import {UnitType, UnitTypeOptions} from '@/options/unitType';
 import Component from 'vue-class-component';
 import {Vue, Prop} from 'vue-property-decorator';
+import { Condition } from '@/options/condition';
+import { Conditions } from '@/options/conditions';
 // import domtoimage from 'dom-to-image';
 // import html2canvas from 'html2canvas';
 
@@ -276,6 +278,14 @@ export class UnitBase extends Vue {
     const ret: Order[] = [];
     if (this.activeUnit.orderIds) {
       this.activeUnit.orderIds.forEach((orderId) => ret.push(Orders[orderId]));
+    }
+    return ret;
+  }
+
+  protected get conditions(): Condition[] {
+    const ret: Condition[] = [];
+    if (this.activeUnit.conditionIds) {
+      this.activeUnit.conditionIds.forEach((conditionId) => ret.push(Conditions[conditionId]));
     }
     return ret;
   }

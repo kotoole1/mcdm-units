@@ -1,4 +1,6 @@
-export interface Experience {
+import { DropdownOption } from '@/components/dropdownOption';
+
+export interface Experience extends DropdownOption {
   name: string;
   attack: number;
   power: number;
@@ -56,5 +58,13 @@ export const ExperienceOptions: {[key: string]: Experience} = {
     toughness: 2,
     morale: 5,
   },
+  BLANK: {
+    name: '',
+    dropdownName: 'Blank',
+    attack: 0,
+    power: 0,
+    defense: 0,
+    toughness: 0,
+    morale: 0,
+  },
 };
-

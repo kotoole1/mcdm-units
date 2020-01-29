@@ -68,8 +68,8 @@ function rectifyState(state: RootModel): void {
     if (!armiesById[unit.owningArmyId].unitIds.includes(unit.id)) {
       armiesById[unit.owningArmyId].unitIds.push(unit.id);
     }
-    removeIf(unit.traitIds, (id) => !!id);
-    removeIf(unit.orderIds, (id) => !!id);
+    removeIf(unit.traitIds, (id) => !id);
+    removeIf(unit.orderIds, (id) => !id);
   });
 
   if (!state.selectedItemId && state.units.length) {

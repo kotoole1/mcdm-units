@@ -111,4 +111,12 @@ export const Traits: {[key: string]: Trait } = {
     description: 'Green and regular troops must pass a morale check to attack this unit. each enemy unit need only do this once.',
     cost: 50,
   },
+  GROWING_SPELL: {
+    name: 'Growing spell',
+    description: 'When cast, set this unit\'s causalty die to 1 and select a unit to banish. At the end of each round, increase the casualty die by 1. This unit cannot attack.'
+  },
+  SHATTER_PROF: {
+    name: 'Shatter-proof',
+    description: 'Before increasing unit\'s casualty die, note its current value. From now on, successful power checks can never decrease the die below that value.'
+  }
 };

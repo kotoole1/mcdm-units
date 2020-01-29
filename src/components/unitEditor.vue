@@ -42,6 +42,10 @@
                         :value="activeUnit.orderIds"
                         :options="Orders"
                         @input="setField('orderIds', $event)"></MultiselectParameter>
+  <MultiselectParameter :name="'Conditions'"
+                        :value="activeUnit.conditionIds"
+                        :options="Conditions"
+                        @input="setField('conditionIds', $event)"></MultiselectParameter>
   <!--TODO: assign extra parameters dynamically-->
   <div class="editor-section" v-if="true">
     <label><b>Banner image</b></label>
@@ -100,6 +104,7 @@ import {UnitSize, UnitSizeOptions} from '@/options/unitSize';
 import {AttitudeOptions} from '@/options/attitude';
 import {Traits} from '@/options/trait';
 import {Orders} from '@/options/order';
+import {Conditions} from '@/options/conditions';
 import {Domain, DomainOptions} from '@/options/domain';
 import {Component, Prop, Vue} from 'vue-property-decorator';
 import DropdownParameter from './dropdownParameter.vue';
@@ -126,6 +131,7 @@ import StringParameter from './stringParameter.vue';
       AttitudeOptions,
       Traits,
       Orders,
+      Conditions,
     };
   },
 })

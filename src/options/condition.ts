@@ -6,7 +6,7 @@ export interface Condition {
   description: string;
 }
 
-export const Conditionss: {[key: string]: Order } = {
+export const Conditions: {[key: string]: Order } = {
   NARROW_DIES: {
     name: 'If the casualty die decreases to 2',
     description: 'Narrow Winston dies in battle',
