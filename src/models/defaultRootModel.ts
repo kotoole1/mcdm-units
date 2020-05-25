@@ -1,3 +1,4 @@
+import {UnitModel} from '@/models/unitModel';
 import {ArmyModel} from './armyModel';
 
 export const GOOD_GUYS_ID = 'GOOD_GUYS';
@@ -10,4 +11,10 @@ export function createDefaultArmies(): ArmyModel[] {
     new ArmyModel(BAD_GUYS_ID, 'RED', 'Bad guys'),
     new ArmyModel(NO_ARMY_ID, 'RED', 'Unassigned units'),
   ];
+}
+
+
+export function createDefaultUnits(): UnitModel[] {
+  // For now, no units is fine. Eventually we want cool examples of nifty things.
+  return [];
 }

@@ -2,7 +2,7 @@ import {randomId} from '@/models/uuid';
 import * as _ from 'lodash';
 
 import {ArmyModel} from '@/models/armyModel';
-import {createDefaultArmies, NO_ARMY_ID} from '@/models/defaultRootModel';
+import {createDefaultArmies, createDefaultUnits, NO_ARMY_ID} from '@/models/defaultRootModel';
 import {RootModel, RootModelVersionNumber} from '@/models/rootModel';
 import {UnitModel} from '@/models/unitModel';
 import {removeIf} from '@/models/utils';
@@ -50,6 +50,9 @@ function rectifyState(state: RootModel): void {
   if (!state.armies || !state.armies.length) {
     state.armies = createDefaultArmies();
   }
+  if (!state.units || !state.units.length) {
+    state.units = createDefaultUnits();
+  }
 
   const armies: ArmyModel[] = state.armies;
   const armiesById: {[key: string]: ArmyModel} = armies.reduce((indexed: {[key: string]: ArmyModel}, army) => {
@@ -57,20 +60,23 @@ function rectifyState(state: RootModel): void {
     return indexed;
   }, {});
 
-  const defaultUnit = new UnitModel('fakeId', 'fakeArmy');
-  state.units.forEach((unit: UnitModel) => {
-    if (!unit.owningArmyId || !armiesById[unit.owningArmyId]) {
-      unit.owningArmyId = NO_ARMY_ID;
-    }
+  const defaultUnit = new UnitModel('fakeId', NO_ARMY_ID);
+  if (state.units.length) {
+    state.units.forEach((unit: UnitModel) => {
+      if (!unit.owningArmyId || !armiesById[unit.owningArmyId]) {
+        unit.owningArmyId = NO_ARMY_ID;
+      }
 
-    mergeInDefaults(unit, defaultUnit);
+      mergeInDefaults(unit, defaultUnit);
 
-    if (!armiesById[unit.owningArmyId].unitIds.includes(unit.id)) {
-      armiesById[unit.owningArmyId].unitIds.push(unit.id);
-    }
-    removeIf(unit.traitIds, (id) => !!id);
-    removeIf(unit.orderIds, (id) => !!id);
-  });
+      // unit.owningArmyId is the source of truth - fix armies if needed.
+      if (!armiesById[unit.owningArmyId].unitIds.includes(unit.id)) {
+        armiesById[unit.owningArmyId].unitIds.push(unit.id);
+      }
+      removeIf(unit.traitIds, (id) => !!id);
+      removeIf(unit.orderIds, (id) => !!id);
+    });
+  }
 
   if (!state.selectedItemId && state.units.length) {
     state.selectedItemId = state.units[0].id;
