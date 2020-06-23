@@ -13,7 +13,6 @@ export function createDefaultArmies(): ArmyModel[] {
   ];
 }
 
-
 export function createDefaultUnits(): UnitModel[] {
   // For now, no units is fine. Eventually we want cool examples of nifty things.
   return [];

@@ -206,6 +206,7 @@ export default class UnitEditor extends Vue {
     list-style-type: none;
     padding: 2px 0;
     display: flex;
+    min-height: 24px;
 
     &.active {
       background-color: aqua;

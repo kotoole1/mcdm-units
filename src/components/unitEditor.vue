@@ -1,9 +1,10 @@
 <template>
 <div class="editor-panel unit-editor-panel">
-  <div class="title">{{activeUnit.title}}</div>
-  <StringParameter :name="'Title'"
-                   :value="activeUnit.title"
-                   @input="setField('title', $event)"></StringParameter>
+  <EditableTextParameter :value="activeUnit.title"
+                         @input="setField('title', $event)"></EditableTextParameter>
+<!--  <StringParameter :name="'Title'"-->
+<!--                   :value="activeUnit.title"-->
+<!--                   @input="setField('title', $event)"></StringParameter>-->
   <DropdownParameter :name="'Ancestry'"
                      :alphabetical="true"
                      :value=activeUnit.ancestryId
@@ -90,6 +91,7 @@
 
 <script lang="ts">
 import 'vue-select/dist/vue-select.css';
+import EditableTextParameter from '@/components/editableTextParameter.vue';
 import MultiselectParameter from '@/components/multiselectParameter.vue';
 import {UnitModel} from 'src/models/unitModel';
 import {Ancestry, AncestryOptions} from '@/options/ancestry';
@@ -109,6 +111,7 @@ import StringParameter from './stringParameter.vue';
 
 @Component({
   components: {
+    EditableTextParameter,
     MultiselectParameter,
     StringParameter,
     NumberParameter,

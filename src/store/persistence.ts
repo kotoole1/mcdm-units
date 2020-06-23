@@ -39,8 +39,8 @@ vuexLocal.saveState = (key: string, state: {}, storage?: AsyncStorage | Storage)
 };
 
 /**
- * Handle old versions and corrupted data. The goal here is, no matter how bad the data is, something should be rendered
- * without crashing.
+ * Handle old versions and corrupted data. The goal here is: No matter
+ * how bad the data is, something should be rendered without throwing
  */
 function rectifyState(state: RootModel): void {
   if (!state.version) {
