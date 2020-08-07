@@ -22,12 +22,13 @@ const localSaveState: (key: string, state: {}, storage?: AsyncStorage | Storage)
 
 vuexLocal.restoreState = (key: string, storage?: AsyncStorage | Storage) => {
   const state = localRestoreState(key, storage);
-  // rectifyState(state);
   if (state instanceof Promise) {
     state.then((loadedState: RootModel) => {
+      rectifyState(loadedState);
       setInitialState(loadedState);
     });
   } else {
+    rectifyState(state);
     setInitialState(state);
   }
 
@@ -52,6 +53,15 @@ function rectifyState(state: RootModel): void {
   }
   if (!state.units || !state.units.length) {
     state.units = createDefaultUnits();
+  }
+  if (!state.homebrewOrders) {
+    state.homebrewOrders = [];
+  }
+  if (!state.homebrewTraits) {
+    state.homebrewTraits = [];
+  }
+  if (!state.homebrewAncestries) {
+    state.homebrewAncestries = [];
   }
 
   const armies: ArmyModel[] = state.armies;

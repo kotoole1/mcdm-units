@@ -1,4 +1,11 @@
+import {HomebrewType} from '@/options/homebrew';
 import {OptionSource} from '@/options/optionSource';
+
+export interface EditOptionData {
+  option: PopulatedDropdownOption;
+  finishedEditCallback: () => void;
+  homebrewType: HomebrewType;
+}
 
 export interface DropdownOption {
   id?: string;

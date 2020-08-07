@@ -1,6 +1,7 @@
 import {DropdownOption} from '@/components/dropdownOption';
 
 export interface Trait extends DropdownOption {
+  id?: string;
   name: string;
   description: string;
   cost?: number;
@@ -83,7 +84,7 @@ export const Traits: {[key: string]: Trait } = {
   },
   RAVENOUS: {
     name: 'Ravenous',
-    description: 'While any enemy unit is diminished, this unit can spend a round feeding on the corpses 50 to increment their casualty die.',
+    description: 'While any enemy unit is diminished, this unit can spend a round feeding on the corpses to increment their casualty die.',
     cost: 50,
   },
   HURL_ROCKS: {

@@ -1,4 +1,5 @@
 export interface Order {
+  id?: string;
   name: string;
   dropdownName?: string;
   description: string;

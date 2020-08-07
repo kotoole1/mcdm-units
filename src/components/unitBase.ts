@@ -1,6 +1,6 @@
 import {ArmyModel} from '@/models/armyModel';
 import {UnitModel} from '@/models/unitModel';
-import {Ancestry, AncestryOptions} from '@/options/ancestry';
+import {Ancestry, AncestryOptions, getAncestry} from '@/options/ancestry';
 import {AttitudeOptions} from '@/options/attitude';
 import {ColorOptions} from '@/options/color';
 import {DomainOptions, Domain} from '@/options/domain';
@@ -107,12 +107,16 @@ export class UnitBase extends Vue {
     cost *= 10;
 
     this.traits.forEach((trait: Trait) => {
-      if (trait.cost) {
+      const id = trait.id || trait.name;
+      const isFree = this.ancestry.traitIds && this.ancestry.traitIds.includes(id);
+      if (trait.cost && !isFree) {
         cost += trait.cost;
       }
     });
     this.orders.forEach((order: Order) => {
-      if (order.cost) {
+      const id = order.id || order.name;
+      const isFree = this.ancestry.orderIds && this.ancestry.orderIds.includes(id);
+      if (order.cost && !isFree) {
         cost += order.cost;
       }
     });
@@ -158,7 +162,7 @@ export class UnitBase extends Vue {
   }
 
   protected get ancestry(): Ancestry {
-    return AncestryOptions[this.activeUnit.ancestryId];
+    return getAncestry(this.$store.state, this.activeUnit.ancestryId)!;
   }
 
   protected get equipment(): Equipment {

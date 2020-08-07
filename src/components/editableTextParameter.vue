@@ -5,7 +5,7 @@
        @focus="onFocus()"
        @blur="confirmEditing()"
        @input="$emit('input', $event.target.textContent)"
-  >{{ confirmedValue }}</div>
+  >{{ isEditing ? confirmedValue : value }}</div>
 </template>
 
 <script lang="ts">
@@ -20,14 +20,10 @@
   export default class EditableTextParameter extends Vue {
     @Prop({type: String, required: true})
     public value!: string;
-    // We don't tie directly to value, because setting contentEditable HTML, unlike <input>s,
-    // will lose the cursor position
+    // While editing, we don't tie directly to value, because setting contentEditable HTML,
+    // unlike <input>s, will lose the cursor position
     public confirmedValue: string = this.value;
     private isEditing = false;
-
-    public mounted(): void {
-      this.confirmedValue = this.value;
-    }
 
     public getClasses(): {[key: string]: boolean } {
       return {
@@ -36,6 +32,8 @@
     }
 
     public onFocus() {
+      this.isEditing = true;
+      this.confirmedValue = this.value;
       this.selectAll(this.$el);
     }
 
@@ -51,6 +49,7 @@
 
     public confirmEditing(): void {
       this.confirmedValue = this.value;
+      this.isEditing = false;
     }
   }
 </script>

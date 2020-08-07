@@ -2,13 +2,14 @@
 <div class="editor-panel unit-editor-panel">
   <EditableTextParameter :value="activeUnit.title"
                          @input="setField('title', $event)"></EditableTextParameter>
-<!--  <StringParameter :name="'Title'"-->
-<!--                   :value="activeUnit.title"-->
-<!--                   @input="setField('title', $event)"></StringParameter>-->
   <DropdownParameter :name="'Ancestry'"
                      :alphabetical="true"
                      :value=activeUnit.ancestryId
-                     :options="AncestryOptions"
+                     :options="getAllAncestries()"
+                     :homebrewLabel="'New homebrew'"
+                     :homebrewType="HomebrewType.ANCESTRY"
+                     @newHomebrew="newHomebrewClicked(HomebrewType.ANCESTRY)"
+                     @editOption="editItem($event)"
                      @input="setField('ancestryId', $event)"></DropdownParameter>
   <DropdownParameter :name="'Experience'"
                      :value=activeUnit.experienceId
@@ -91,10 +92,12 @@
 
 <script lang="ts">
 import 'vue-select/dist/vue-select.css';
+import {DropdownOption, EditOptionData} from '@/components/dropdownOption';
 import EditableTextParameter from '@/components/editableTextParameter.vue';
 import MultiselectParameter from '@/components/multiselectParameter.vue';
+import {HomebrewType} from '@/options/homebrew';
 import {UnitModel} from 'src/models/unitModel';
-import {Ancestry, AncestryOptions} from '@/options/ancestry';
+import {Ancestry, getAllAncestries} from '@/options/ancestry';
 import {Equipment, EquipmentOptions} from '@/options/equipment';
 import {Experience, ExperienceOptions} from '@/options/experience';
 import {UnitType, UnitTypeOptions} from '@/options/unitType';
@@ -120,9 +123,9 @@ import StringParameter from './stringParameter.vue';
   },
   data: () => {
     return {
-      AncestryOptions,
       EquipmentOptions,
       ExperienceOptions,
+      HomebrewType,
       UnitTypeOptions,
       DomainOptions,
       UnitSizeOptions,
@@ -141,13 +144,25 @@ export default class UnitEditor extends Vue {
     return this.$store.getters.unit(this.activeUnitId);
   }
 
-  public setField(field: keyof UnitModel, value: any) {
+  public setField(field: keyof UnitModel, value: any): void {
     this.$store.commit('changeUnitField', { unitId: this.activeUnitId, field, value });
   }
 
-  public deleteUnit() {
+  public deleteUnit(): void {
     this.$emit('select-unit', 'NEXT');
     this.$store.commit('deleteUnit', { unitId: this.activeUnitId });
+  }
+
+  public newHomebrewClicked(itemType: HomebrewType): void {
+    this.$emit('newHomebrew', itemType);
+  }
+
+  public editItem(editOptionData: EditOptionData): void {
+    this.$emit('editItem', editOptionData);
+  }
+
+  public getAllAncestries(): {[key: string]: Ancestry} {
+    return getAllAncestries(this.$store.state);
   }
 }
 </script>

@@ -1,13 +1,13 @@
-import {createDefaultArmies, NO_ARMY_ID} from '@/models/defaultRootModel';
-import {removeIf} from '@/models/utils';
-import {getAllAncestries} from '@/options/ancestry';
-import {vuexLocal} from '@/store/persistence';
-import * as _ from 'lodash';
+import RootEditor from '@/components/rootEditor.vue';
 
 import {ArmyModel} from '@/models/armyModel';
 import {RootModel} from '@/models/rootModel';
 import {UnitModel} from '@/models/unitModel';
-import RootEditor from '@/components/rootEditor.vue';
+import {removeIf} from '@/models/utils';
+import {Ancestry, getAllAncestries} from '@/options/ancestry';
+import {HomebrewItem, HomebrewType} from '@/options/homebrew';
+import {vuexLocal} from '@/store/persistence';
+import * as _ from 'lodash';
 import Vue from 'vue';
 import Vuex from 'vuex';
 // @ts-ignore
@@ -20,11 +20,23 @@ export default new Vuex.Store<RootModel>({
   state: new RootModel(), // VuexPersistence should override this
   mutations: {
     setEverything: (state, { uploadedState }: { uploadedState: RootModel}) => {
-      // WARNING: This overwrites the entire state. For anything other than opload, more
+      // WARNING: This overwrites the entire state. For anything other than upload, more
       // incremental mutations should be used
-      state.units = uploadedState.units;
-      state.armies = uploadedState.armies;
-      // TODOK
+      const fieldsToImport: Array<keyof RootModel> = [
+        'version',
+        'armies',
+        'units',
+        'homebrewAncestries',
+        'homebrewTraits',
+        'homebrewOrders',
+      ];
+      for (const key in fieldsToImport) {
+        // @ts-ignore
+        if (uploadedState[key]) {
+          // @ts-ignore
+          state[key] = uploadedState[key];
+        }
+      }
     },
     emptyState() { // For vuex-undo-redo
       if (RootEditor.initialState) {
@@ -39,16 +51,28 @@ export default new Vuex.Store<RootModel>({
     changeUnitField: (state, { unitId, field, value }:
       { unitId: string, field: keyof UnitModel, value: any}) => {
       const unit = getUnit(state, unitId);
-      const oldValue: any = unit[field];
-      unit[field] = value;
-      if (field === 'ancestryId') {
-        const ancestries = getAllAncestries(state);
-        fixTraitsAndOrders(state, unitId, ancestries[oldValue], ancestries[value]);
+      if (unit) {
+        const oldValue: any = unit[field];
+        unit[field] = value;
+        if (field === 'ancestryId') { // Set traits and orders associated with this ancestry
+          const ancestries = getAllAncestries(state);
+          fixTraitsAndOrders(state, unitId, ancestries[oldValue], ancestries[value]);
+        }
+      }
+    },
+    changeHomebrewItemField: (state, { itemId, itemType, field, value }:
+      { itemId: string, itemType: HomebrewType, field: keyof HomebrewItem, value: any }) => {
+      const item = getHomebrewItem(state, itemId, itemType);
+      if (item) {
+        item[field] = value;
       }
     },
     changeArmyField: (state, { armyId, field, value }:
       { armyId: string, field: keyof ArmyModel, value: any}) => {
-      getArmy(state, armyId)[field] = value;
+      const army = getArmy(state, armyId);
+      if (army) {
+        army[field] = value;
+      }
     },
     addUnit: (state, { unit }: {unit: UnitModel}) => {
       state.units.push(unit);
@@ -75,34 +99,43 @@ export default new Vuex.Store<RootModel>({
       state.armies = armies;
     },
     selectItem: (state, { unitId }: { unitId: string}) => {
-      // if (unitId === 'NEXT') {
-      //   const oldIndex = state.units.find((unit) => unit.id === state.selectedUnitId);
-      //   if (!oldIndex) {
-      //     state.selectedUnitId = '';
-      //     return;
-      //   } else {
-      //     const newIndex = (oldIndex + 1) % state.units.length;
-      //     const newUnit: UnitModel = state.units[newIndex];
-      //     if (newUnit) {
-      //       unitId = newUnit.id;
-      //     }
-      //   }
-      // }
+      if (unitId === 'NEXT') {
+        const oldIndex = state.units.findIndex((unit) => unit.id === state.selectedItemId);
+        if (!oldIndex) {
+          state.selectedItemId = '';
+          return;
+        } else {
+          const newIndex = (oldIndex + 1) % state.units.length;
+          const newUnit: UnitModel = state.units[newIndex];
+          if (newUnit) {
+            unitId = newUnit.id;
+          }
+        }
+      }
       state.selectedItemId = unitId;
+    },
+    addHomebrewAncestry: (state, ancestry: Ancestry) => {
+      state.homebrewAncestries.push(ancestry);
     },
   },
   getters: {
-    unit: (state) => (id: string) => {
+    unit: (state) => (id: string): UnitModel | undefined => {
       return getUnit(state, id);
     },
-    allUnits: (state) => {
+    allUnits: (state): UnitModel[] => {
       return state.units;
     },
-    army: (state) => (id: string) => {
+    army: (state) => (id: string): ArmyModel | undefined => {
       return getArmy(state, id);
     },
-    allArmies: (state) => {
+    allArmies: (state): ArmyModel[] => {
       return state.armies;
+    },
+    homebrewItem: (state) => (id: string, type: HomebrewType): HomebrewItem | undefined => {
+      return getHomebrewItem(state, id, type);
+    },
+    allHomebrewItems: (state) => (type: HomebrewType): HomebrewItem[] => {
+      return getHomebrewItems(state, type);
     },
   },
   plugins: [vuexLocal.plugin],
@@ -145,12 +178,27 @@ function fixTraitsAndOrders(state: RootModel, unitId: string,
   }
 }
 
-function getUnit(state: RootModel, id: string): UnitModel {
-  return state.units.find((unit) => unit.id === id)!;
+function getUnit(state: RootModel, id: string): UnitModel | undefined {
+  return state.units.find((unit) => unit.id === id);
 }
 
-function getArmy(state: RootModel, id: string): ArmyModel {
-  return state.armies.find((army) => army.id === id)!;
+function getHomebrewItem(state: RootModel, id: string, type: HomebrewType): HomebrewItem | undefined {
+  return getHomebrewItems(state, type).find((item) => item.id === id);
+}
+
+function getHomebrewItems(state: RootModel, type: HomebrewType): HomebrewItem[] {
+  switch (type) {
+    case HomebrewType.ANCESTRY:
+      return state.homebrewAncestries;
+    case HomebrewType.TRAIT:
+      return state.homebrewTraits;
+    case HomebrewType.ORDER:
+      return state.homebrewOrders;
+  }
+}
+
+function getArmy(state: RootModel, id: string): ArmyModel | undefined {
+  return state.armies.find((army) => army.id === id);
 }
 
 function getFirstUnitId(state: RootModel): string {
