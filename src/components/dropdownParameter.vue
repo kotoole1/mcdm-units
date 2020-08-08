@@ -17,6 +17,7 @@
           <label class="option-label">{{ option.label }}</label>
           <i v-if="option.source === OptionSource.YOUR_HOMEBREW"
              class="option-icon material-icons"
+             v-tooltip.right-end="'Edit your homebrew ' + getHomebrewTypeName()"
              @mousedown="$emit('editOption', {
                option,
                finishedEditCallback,
@@ -29,7 +30,7 @@
 </template>
 <script lang="ts">
   import {DropdownOption, getDropdownOptionsForDisplay} from '@/components/dropdownOption';
-  import {HomebrewType} from '@/options/homebrew';
+  import {getTypeName, HomebrewType} from '@/options/homebrew';
   import {OptionSource} from '@/options/optionSource';
   import {Component, Prop, Vue} from 'vue-property-decorator';
   import VueSelect from 'vue-select';
@@ -69,6 +70,10 @@
         });
       }
       return optionsToDisplay;
+    }
+
+    public getHomebrewTypeName(): string {
+      return getTypeName(this.homebrewType);
     }
 
     public finishedEditCallback(): void {

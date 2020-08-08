@@ -36,6 +36,7 @@ function addStyleResource (rule) {
     .options({
       patterns: [
         path.resolve(__dirname, './src/styles/global.less'),
+        path.resolve(__dirname, './src/styles/tooltip.less'),
       ],
     })
 }
