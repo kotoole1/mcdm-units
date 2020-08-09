@@ -21,7 +21,7 @@ Vue.mixin({
 
 Vue.use(VueShortkey);
 Vue.use(VTooltip, {
-  defaultBoundariesElement: document.body
+  defaultBoundariesElement: document.body,
 });
 
 new Vue({

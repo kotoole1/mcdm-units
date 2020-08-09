@@ -59,9 +59,6 @@
     @Prop(String)
     public homebrewLabel!: string;
 
-    public mounted(): void {
-    }
-
     public getDropdownOptions(): DropdownOption[] {
       const optionsToDisplay: DropdownOption[] = getDropdownOptionsForDisplay(this.options);
       if (this.alphabetical) {
@@ -80,6 +77,8 @@
       this.$nextTick(() => {
         console.log(this.$refs.vSelect);
         (<HTMLElement> (<Vue> this.$refs.vSelect).$refs.search).focus();
+        // TODO: scroll to item
+        // TODO: return scrolled item's position
       });
     }
   }

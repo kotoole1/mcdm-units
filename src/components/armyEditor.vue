@@ -48,7 +48,8 @@
              @click="saveDataAsJSON()">
           <i class="material-icons">file_download</i> Save</div>
         <div :class="['bottom-btn', ...btn('accent')]"
-             @click="loadDataAsJSON()">
+             @click="loadDataAsJSON()"
+             v-tooltip.right-start="'test'">
           <i class="material-icons">file_upload</i> Load</div>
       </div>
     </div>
