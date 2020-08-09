@@ -8,8 +8,8 @@ import {UnitType, UnitTypeOptions} from '@/options/unitType';
 
 export function getAllAncestries(state: RootModel): {[key: string]: Ancestry} {
   const allAncestries: {[key: string]: Ancestry} = {};
-  _.forEach(AncestryOptions, (standardAncestry, id) => {
-    allAncestries[id] = standardAncestry;
+  _.forEach(AncestryOptions, (standardAncestry) => {
+    allAncestries[standardAncestry.id] = standardAncestry;
   });
   _.forEach(state.homebrewAncestries, (homebrewAncestry) => {
     allAncestries[homebrewAncestry.id] = homebrewAncestry;

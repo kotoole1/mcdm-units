@@ -13,8 +13,8 @@
                         class="homebrew-editor-container"
                         :itemId="selectedHomebrewItem"
                         :itemType="selectedHomebrewType"
-                        @close="closeHomebrewEdit()"
-    />
+                        @editItem="editItem($event)"
+                        @close="closeHomebrewEdit(CloseStatus.CONFIRMED)"/>
     <ArmyEditor class="army-editor-container"/>
   </div>
 </template>
@@ -24,6 +24,7 @@
   import HomebrewItemEditor from '@/components/homebrewItemEditor.vue';
   import {Ancestry, newHomebrewAncestry} from '@/options/ancestry';
   import {HomebrewItem, HomebrewType} from '@/options/homebrew';
+  import {ClosedCallbackData, CloseStatus} from '@/options/homebrewEditorAnimation';
   import {RootModel} from 'src/models/rootModel';
   import {Component, Vue} from 'vue-property-decorator';
   import ArmyEditor from './armyEditor.vue';
@@ -39,6 +40,11 @@
     UnitEditor,
     UnitCardPng,
   },
+  data: () => {
+    return {
+      CloseStatus,
+    };
+  },
 })
 export default class RootEditor extends Vue {
   public static initialState: RootModel | null = null; // should only be set once when the page loads, by
@@ -46,7 +52,7 @@ export default class RootEditor extends Vue {
   public selectedHomebrewType: HomebrewType = HomebrewType.ANCESTRY;
   // TODO: store selected unit here, have undo-redo introspect into its undo stack and to select the last changed unit
 
-  private finishedEditCallback: (() => void) | undefined = undefined;
+  private finishedEditCallback: ((data: ClosedCallbackData) => void) | null = null;
 
   // private selectUnit(unitId: string) {
   //   if (unitId === 'NEXT') {
@@ -84,15 +90,21 @@ export default class RootEditor extends Vue {
   }
 
   public editItem(editOptionData: EditOptionData): void {
-    this.selectedHomebrewType = editOptionData.homebrewType;
-    this.selectedHomebrewItem = editOptionData.option.id;
-    this.finishedEditCallback = editOptionData.finishedEditCallback;
+    if (editOptionData.option) {
+      this.selectedHomebrewType = editOptionData.homebrewType;
+      this.selectedHomebrewItem = editOptionData.option.id;
+      this.finishedEditCallback = editOptionData.finishedEditCallback;
+    } else {
+      this.closeHomebrewEdit(CloseStatus.DELETED);
+    }
   }
 
-  public closeHomebrewEdit(): void {
+  public closeHomebrewEdit(status: CloseStatus): void {
+    this.selectedHomebrewType = HomebrewType.ANCESTRY;
     this.selectedHomebrewItem = '';
     if (this.finishedEditCallback) {
-      this.finishedEditCallback();
+      this.finishedEditCallback({ status });
+      this.finishedEditCallback = null;
     }
     // ensure the
   }
@@ -106,8 +118,9 @@ export default class RootEditor extends Vue {
     right: 0;
     bottom: 0;
     top: 40px;
-    width: 100%;
-    height: calc(100vh - 40px);
+    overflow: hidden;
+    /*width: 100%;*/
+    /*height: ~"calc(100vh - 40px)";*/
   }
   .army-editor-container,
   .unit-editor-container,

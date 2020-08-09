@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <title>MCDM Unit Lab</title>
-    <RootEditor/>
     <NavBar></NavBar>
+    <RootEditor/>
   </div>
 </template>
 
@@ -10,12 +10,13 @@
   import NavBar from './components/navBar.vue';
   import RootEditor from './components/rootEditor.vue';
   import { Component, Vue } from 'vue-property-decorator';
-
+  import Popper from 'vue-popperjs';
 
   @Component({
     components: {
       NavBar,
       RootEditor,
+      Popper, // tslint:disable-line:no-implicit-any
     },
   })
   export default class App extends Vue {
@@ -31,5 +32,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  width: 100%;
+  height: 100vh;
 }
 </style>

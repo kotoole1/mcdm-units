@@ -29,8 +29,9 @@
   </div>
 </template>
 <script lang="ts">
-  import {DropdownOption, getDropdownOptionsForDisplay} from '@/components/dropdownOption';
+  import {DropdownOption, getDropdownOptionsForDisplay, PopulatedDropdownOption} from '@/components/dropdownOption';
   import {getTypeName, HomebrewType} from '@/options/homebrew';
+  import {ClosedCallbackData, CloseStatus} from '@/options/homebrewEditorAnimation';
   import {OptionSource} from '@/options/optionSource';
   import {Component, Prop, Vue} from 'vue-property-decorator';
   import VueSelect from 'vue-select';
@@ -59,8 +60,8 @@
     @Prop(String)
     public homebrewLabel!: string;
 
-    public getDropdownOptions(): DropdownOption[] {
-      const optionsToDisplay: DropdownOption[] = getDropdownOptionsForDisplay(this.options);
+    public getDropdownOptions(): PopulatedDropdownOption[] {
+      const optionsToDisplay: PopulatedDropdownOption[] = getDropdownOptionsForDisplay(this.options);
       if (this.alphabetical) {
         optionsToDisplay.sort((option1, option2) => {
           return option1.label!.localeCompare(option2.label!);
@@ -73,12 +74,14 @@
       return getTypeName(this.homebrewType);
     }
 
-    public finishedEditCallback(): void {
+    public finishedEditCallback(data: ClosedCallbackData): void {
       this.$nextTick(() => {
-        console.log(this.$refs.vSelect);
         (<HTMLElement> (<Vue> this.$refs.vSelect).$refs.search).focus();
         // TODO: scroll to item
         // TODO: return scrolled item's position
+        if (data.status === CloseStatus.CONFIRMED) {
+          // TODO: return data for animation?
+        }
       });
     }
   }
@@ -93,6 +96,9 @@
 
   .option-label {
     flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .vs__actions svg {

@@ -1,9 +1,10 @@
 import {HomebrewType} from '@/options/homebrew';
+import {ClosedCallbackData} from '@/options/homebrewEditorAnimation';
 import {OptionSource} from '@/options/optionSource';
 
 export interface EditOptionData {
-  option: PopulatedDropdownOption;
-  finishedEditCallback: () => void;
+  option?: PopulatedDropdownOption;
+  finishedEditCallback: (data: ClosedCallbackData) => void;
   homebrewType: HomebrewType;
 }
 

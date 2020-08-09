@@ -22,7 +22,10 @@ Vue.mixin({
 Vue.use(VueShortkey);
 Vue.use(VTooltip, {
   defaultBoundariesElement: document.body,
-});
+  // autoHide: false,
+  offset: 0,
+  delay: { show: 5000, hide: 100 }},
+);
 
 new Vue({
   render: (h) => h(App),

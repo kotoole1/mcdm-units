@@ -83,9 +83,10 @@ export default new Vuex.Store<RootModel>({
       state.selectedItemId = unit.id;
     },
     deleteUnit: (state, { unitId }: {unitId: string}) => {
-      state.units = state.units.filter((unit) => {
+      removeIf(state.units, (unit) => {
         return unit.id !== unitId;
       });
+
       state.armies.forEach((army) => {
         army.unitIds = army.unitIds.filter((armyUnitId) => {
           return armyUnitId !== unitId;
@@ -113,6 +114,34 @@ export default new Vuex.Store<RootModel>({
         }
       }
       state.selectedItemId = unitId;
+    },
+    deleteItem: (state, { id, type }: { id: string, type: HomebrewType }) => {
+      switch (type) {
+        case HomebrewType.ANCESTRY:
+          const defaultAncestry =  'HUMAN';
+          const ancestries = getAllAncestries(state);
+          state.units.forEach((unit: UnitModel) => {
+            if (unit.ancestryId === id) {
+              unit.ancestryId = defaultAncestry;
+              fixTraitsAndOrders(state, unit.id, ancestries[id], ancestries[defaultAncestry]);
+            }
+          });
+          break;
+        case HomebrewType.ORDER:
+          state.units.forEach((unit: UnitModel) => {
+            removeIf(unit.orderIds, (orderId: string) => orderId === id);
+          });
+          break;
+        case HomebrewType.TRAIT:
+          state.units.forEach((unit: UnitModel) => {
+            removeIf(unit.traitIds, (traitId: string) => traitId === id);
+          });
+          break;
+      }
+
+      const itemList = getHomebrewItems(state, type);
+      removeIf(itemList, (item) => item.id === id );
+      // Does not handle selected item
     },
     addHomebrewAncestry: (state, ancestry: Ancestry) => {
       state.homebrewAncestries.push(ancestry);

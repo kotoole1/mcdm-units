@@ -32,25 +32,28 @@
         </ul>
         <div class="btn-container">
           <button :class="[ 'new-unit-btn', ...btn('raised')]"
+                  v-tooltip.right="'Create a new unit in this army'"
                   @click="newUnitClicked(army.id)">New Unit</button>
         </div>
       </div>
     </div>
     <div class="bottom-btn-container">
       <div class="btn-row">
-        <div :class="['bottom-btn', ...btn('colored')]"
-             :disabled="!isPrintEnabled"
-             @click="openPrintPage()">
-          <i class="material-icons">print</i> Print Armies</div>
-      </div>
-      <div class="btn-row">
         <div :class="['bottom-btn', ...btn('accent')]"
-             @click="saveDataAsJSON()">
+             @click="saveDataAsJSON()"
+             v-tooltip.top="getSaveLoadTooltip()">
           <i class="material-icons">file_download</i> Save</div>
         <div :class="['bottom-btn', ...btn('accent')]"
              @click="loadDataAsJSON()"
-             v-tooltip.right-start="'test'">
+             v-tooltip.top="getSaveLoadTooltip()">
           <i class="material-icons">file_upload</i> Load</div>
+      </div>
+      <div class="btn-row">
+        <div :class="['bottom-btn', ...btn('colored')]"
+             :disabled="!isPrintEnabled"
+             v-tooltip.right="'Open page with all cards for printing or screenshots'"
+             @click="openPrintPage()">
+          <i class="material-icons">print</i> Print Armies</div>
       </div>
     </div>
   </div>
@@ -195,6 +198,11 @@ export default class UnitEditor extends Vue {
 
     this.tempUploadElement.click(); // open
   }
+
+  public getSaveLoadTooltip(): string {
+    return 'Your armies are always saved in your browser.<br>' +
+      'To store your armies as a file, or transfer your armies between browsers, use these Save and Load buttons';
+  }
 }
 </script>
 <style scoped src="../styles/material.indigo-red.min.css"></style>
@@ -210,7 +218,8 @@ export default class UnitEditor extends Vue {
     min-height: 24px;
 
     &.active {
-      background-color: aqua;
+      background-color: @selected-highlight;
+      color: #fff;
       margin: 0 -@editor-panel-padding 0 -@editor-panel-padding;
       padding-left: @editor-panel-padding;
       padding-right: @editor-panel-padding;

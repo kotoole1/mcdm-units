@@ -1,30 +1,30 @@
 Arguments: 
-  /Users/kotoole/build_tools/node-v8.15.1-darwin-x64-npm-5.6.0/bin/node /Users/kotoole/build_tools/yarn-1.17.3/bin/yarn.js add @types/vue-shortkey
+  /usr/local/Cellar/node/13.7.0/bin/node /usr/local/Cellar/yarn/1.21.1/libexec/bin/yarn.js add @types/vue-popperjs
 
 PATH: 
-  /Users/kotoole/build_tools/virtualenv/newton-kot-named-attributes/bin:/Users/kotoole/Library/Python/2.7/bin:/Users/kotoole/build_tools/node-v8.15.1-darwin-x64-npm-5.6.0/bin:/Users/kotoole/repos/newton/tools:/Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/bin:/Users/kotoole/build_tools/yarn-1.17.3/bin:/Users/kotoole/.yarn/bin:/usr/local/autoconf/bin:/usr/local/heroku/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/opt/X11/bin:/usr/local/git/bin:/Users/kotoole/.gem/ruby/1.8/bin:/opt/nginx/sbin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/Applications/microchip/xc16/v1.24/bin:/usr/local/bin
+  /Users/kotoole/Library/Python/2.7/bin:/Users/kotoole/.yarn/bin:/usr/local/bin:/usr/local/autoconf/bin:/usr/local/heroku/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/kotoole/.gem/ruby/1.8/bin:/opt/nginx/sbin:/usr/local/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/Applications/microchip/xc16/v1.24/bin:/usr/local/bin
 
 Yarn version: 
-  1.17.3
+  1.21.1
 
 Node version: 
-  8.15.1
+  13.7.0
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fvue-shortkey: Not found
-      at Request.params.callback [as _callback] (/Users/kotoole/build_tools/yarn-1.17.3/lib/cli.js:66830:18)
-      at Request.self.callback (/Users/kotoole/build_tools/yarn-1.17.3/lib/cli.js:140464:22)
-      at emitTwo (events.js:126:13)
-      at Request.emit (events.js:214:7)
-      at Request.<anonymous> (/Users/kotoole/build_tools/yarn-1.17.3/lib/cli.js:141436:10)
-      at emitOne (events.js:116:13)
-      at Request.emit (events.js:211:7)
-      at IncomingMessage.<anonymous> (/Users/kotoole/build_tools/yarn-1.17.3/lib/cli.js:141358:12)
-      at Object.onceWrapper (events.js:313:30)
-      at emitNone (events.js:111:20)
+  Error: https://registry.yarnpkg.com/@types%2fvue-popperjs: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:66947:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:140665:22)
+      at Request.emit (events.js:321:20)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:141637:10)
+      at Request.emit (events.js:321:20)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:141559:12)
+      at Object.onceWrapper (events.js:427:28)
+      at IncomingMessage.emit (events.js:333:22)
+      at endReadableNT (_stream_readable.js:1201:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
 
 npm manifest: 
   {
@@ -46,11 +46,13 @@ npm manifest:
       "es6-promise": "^4.2.8",
       "html2canvas": "^1.0.0-rc.5",
       "lodash": "^4.17.15",
+      "v-tooltip": "2.0.2",
       "vue": "^2.6.10",
       "vue-class-component": "^7.0.2",
       "vue-multiselect": "^2.1.6",
+      "vue-popperjs": "^2.3.0",
       "vue-property-decorator": "^8.1.0",
-      "vue-select": "^3.2.0",
+      "vue-select": "^3.10.3",
       "vue-shortkey": "^3.1.7",
       "vuex": "^3.1.1",
       "vuex-persist": "^2.2.0",
@@ -4745,6 +4747,11 @@ Lockfile:
     dependencies:
       mimic-fn "^1.0.0"
   
+  opencollective-postinstall@^2.0.2:
+    version "2.0.3"
+    resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
+    integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
+  
   opener@^1.5.1:
     version "1.5.1"
     resolved "https://registry.yarnpkg.com/opener/-/opener-1.5.1.tgz#6d2f0e77f1a0af0032aca716c2c1fbb8e7e8abed"
@@ -5007,6 +5014,11 @@ Lockfile:
   pn@^1.1.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
+  
+  popper.js@^1.15.0:
+    version "1.16.1"
+    resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
+    integrity sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
   
   portfinder@^1.0.20:
     version "1.0.20"
@@ -6644,6 +6656,15 @@ Lockfile:
     version "3.3.2"
     resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   
+  v-tooltip@2.0.2:
+    version "2.0.2"
+    resolved "https://registry.yarnpkg.com/v-tooltip/-/v-tooltip-2.0.2.tgz#8610d9eece2cc44fd66c12ef2f12eec6435cab9b"
+    integrity sha512-xQ+qzOFfywkLdjHknRPgMMupQNS8yJtf9Utd5Dxiu/0n4HtrxqsgDtN2MLZ0LKbburtSAQgyypuE/snM8bBZhw==
+    dependencies:
+      lodash "^4.17.11"
+      popper.js "^1.15.0"
+      vue-resize "^0.4.5"
+  
   validate-npm-package-license@^3.0.1:
     version "3.0.4"
     resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"
@@ -6700,15 +6721,29 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/vue-multiselect/-/vue-multiselect-2.1.6.tgz#5be5d811a224804a15c43a4edbb7485028a89c7f"
     integrity sha512-s7jmZPlm9FeueJg1RwJtnE9KNPtME/7C8uRWSfp9/yEN4M8XcS/d+bddoyVwVnvFyRh9msFo0HWeW0vTL8Qv+w==
   
+  vue-popperjs@^2.3.0:
+    version "2.3.0"
+    resolved "https://registry.yarnpkg.com/vue-popperjs/-/vue-popperjs-2.3.0.tgz#9cfa052878a3b47b670339ea81e05edcb863200f"
+    integrity sha512-925QEeNjlMtb3eDHl5ZlODJzqnQL0nQPEKpr9aQ3XBg21DyqAdfLgD/At4svsPwFeIkpdF1gvHarENon47L9Cg==
+    dependencies:
+      opencollective-postinstall "^2.0.2"
+      popper.js "^1.15.0"
+  
   vue-property-decorator@^8.1.0:
     version "8.1.0"
     resolved "https://registry.yarnpkg.com/vue-property-decorator/-/vue-property-decorator-8.1.0.tgz#66493a5350e7f643e852e7698ec2c883554daa79"
     dependencies:
       vue-class-component "^7.0.1"
   
-  vue-select@^3.2.0:
-    version "3.2.0"
-    resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-3.2.0.tgz#c72166cb1f976d76cd612cde25fc8ef29f7914f5"
+  vue-resize@^0.4.5:
+    version "0.4.5"
+    resolved "https://registry.yarnpkg.com/vue-resize/-/vue-resize-0.4.5.tgz#4777a23042e3c05620d9cbda01c0b3cc5e32dcea"
+    integrity sha512-bhP7MlgJQ8TIkZJXAfDf78uJO+mEI3CaLABLjv0WNzr4CcGRGPIAItyWYnP6LsPA4Oq0WE+suidNs6dgpO4RHg==
+  
+  vue-select@^3.10.3:
+    version "3.10.3"
+    resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-3.10.3.tgz#60659dc07ec4c96ec270fb12558eab7b938f5004"
+    integrity sha512-SgLmiSwnJwT2erxjq42AA1iTzu1uqhA5MPuF4UDtGot5YSgJLKy71H0LO0hHaBpIjb7d/nJHiufYKcrSakaupw==
   
   vue-shortkey@^3.1.7:
     version "3.1.7"

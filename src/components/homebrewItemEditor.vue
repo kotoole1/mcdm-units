@@ -8,27 +8,27 @@
                      :value="item.name"
                      @input="setField('name', $event)"></StringParameter>
     <div class="editor-section" v-if="itemType == HomebrewType.ANCESTRY">
-      <NumberParameter :name="'attack'"
+      <NumberParameter :name="'Attack'"
                        :value="item.attack"
                        :min="-100"
                        :max="100"
                        @input="setField('attack', $event)"></NumberParameter>
-      <NumberParameter :name="'power'"
+      <NumberParameter :name="'Power'"
                        :value="item.power"
                        :min="-100"
                        :max="100"
                        @input="setField('power', $event)"></NumberParameter>
-      <NumberParameter :name="'defense'"
+      <NumberParameter :name="'Defense'"
                        :value="item.defense"
                        :min="-100"
                        :max="100"
                        @input="setField('defense', $event)"></NumberParameter>
-      <NumberParameter :name="'toughness'"
+      <NumberParameter :name="'Toughness'"
                        :value="item.toughness"
                        :min="-100"
                        :max="100"
                        @input="setField('toughness', $event)"></NumberParameter>
-      <NumberParameter :name="'morale'"
+      <NumberParameter :name="'Morale'"
                        :value="item.morale"
                        :min="-100"
                        :max="100"
@@ -42,13 +42,15 @@
                             :options="Orders"
                             @input="setField('orderIds', $event)"></MultiselectParameter>
     </div>
-    <div class="bottom-buttons">
-      <div :class="['delete-btn', ...btn('accent')]"
+    <div class="btn-row">
+      <div :class="['delete-btn', ...btnFlat('accent')]"
            @click="deleteItem()">
-        <i class="material-icons">delete</i> Delete {{ item.name }} {{ typeName }}</div>
+        <i class="material-icons">delete</i> Delete {{ item.name }}</div>
+    </div>
+    <div class="btn-row">
       <div :class="['confirm-btn', ...btn('colored')]"
            @click="$emit('close')">
-        <i class="material-icons">done</i> Confirm changes {{ typeName }}</div>
+        <i class="material-icons">done</i> Confirm changes</div>
     </div>
   </div>
 </template>
@@ -118,6 +120,11 @@
 
     public deleteItem(): void {
       this.$store.commit('deleteItem', { id: this.itemId, type: this.itemType });
+      // The previous line sets the current e.g. ancestry to e.g. human.
+      // That needs to happen before the call below, which stops editing and refocuses
+      // the dropdown, since otherwise focusing will put the current (just-deleted) option
+      // in the search field
+      this.$emit('editItem', {});
     }
   }
 </script>
@@ -129,7 +136,17 @@
     padding: 4px 4px 0 0;
   }
 
-  .delete-btn {
-    float: right;
+  .btn-row {
+    display: flex;
+    width: 100%;
+  }
+
+  .mu-btn {
+    float: bottom;
+    flex-grow: 1;
+    margin: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>
