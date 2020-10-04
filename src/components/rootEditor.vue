@@ -16,12 +16,18 @@
                         @editItem="editItem($event)"
                         @close="closeHomebrewEdit(CloseStatus.CONFIRMED)"/>
     <ArmyEditor class="army-editor-container"/>
+    <LabIcon
+      v-show="isAnimatingLabIcon"
+      :ref="'animatingIcon'"
+      class="animating-lab-icon"
+    ></LabIcon>
   </div>
 </template>
 
 <script lang="ts">
   import {EditOptionData} from '@/components/dropdownOption';
   import HomebrewItemEditor from '@/components/homebrewItemEditor.vue';
+  import LabIcon from '@/components/lab-icon.vue';
   import {Ancestry, newHomebrewAncestry} from '@/options/ancestry';
   import {HomebrewItem, HomebrewType} from '@/options/homebrew';
   import {ClosedCallbackData, CloseStatus} from '@/options/homebrewEditorAnimation';
@@ -34,6 +40,7 @@
 
   @Component({
   components: {
+    LabIcon,
     HomebrewItemEditor,
     ArmyEditor,
     UnitCard,
@@ -51,6 +58,8 @@ export default class RootEditor extends Vue {
   public selectedHomebrewItem: string = '';
   public selectedHomebrewType: HomebrewType = HomebrewType.ANCESTRY;
   // TODO: store selected unit here, have undo-redo introspect into its undo stack and to select the last changed unit
+
+  public isAnimatingLabIcon: boolean = false;
 
   private finishedEditCallback: ((data: ClosedCallbackData) => void) | null = null;
 
@@ -90,12 +99,22 @@ export default class RootEditor extends Vue {
   }
 
   public editItem(editOptionData: EditOptionData): void {
+    this.animateIcon(editOptionData);
     if (editOptionData.option) {
       this.selectedHomebrewType = editOptionData.homebrewType;
       this.selectedHomebrewItem = editOptionData.option.id;
       this.finishedEditCallback = editOptionData.finishedEditCallback;
     } else {
       this.closeHomebrewEdit(CloseStatus.DELETED);
+    }
+  }
+
+  private animateIcon(editOptionData: EditOptionData): void {
+    const animatedIcon: LabIcon = <LabIcon> (this.$refs['animatingIcon']);
+    if (!animatedIcon) {
+      console.warn('Failed to animate icon')
+    } else {
+      animatedIcon.setAnimationPosition(editOptionData.iconPosition);
     }
   }
 
@@ -142,5 +161,9 @@ export default class RootEditor extends Vue {
   .card-container {
     left: @army-editor-width + @unit-editor-width;
     padding: 15px 0 0 25px;
+  }
+
+  .animating-lab-icon {
+    position: absolute;
   }
 </style>

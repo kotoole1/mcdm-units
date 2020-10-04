@@ -15,14 +15,12 @@
       <template v-slot:option="option">
         <div class="dropdown-option">
           <label class="option-label">{{ option.label }}</label>
-          <i v-if="option.source === OptionSource.YOUR_HOMEBREW"
+          <div v-if="option.source === OptionSource.YOUR_HOMEBREW"
              class="option-icon material-icons"
              v-tooltip.right-end="'Edit your homebrew ' + getHomebrewTypeName()"
-             @mousedown="$emit('editOption', {
-               option,
-               finishedEditCallback,
-               homebrewType,
-             })">edit</i>
+             @mousedown="editOption(option)">
+            <LabIcon :ref="getRefName(option)":width="20" />
+          </div>
         </div>
       </template>
     </v-select>
@@ -30,6 +28,7 @@
 </template>
 <script lang="ts">
   import {DropdownOption, getDropdownOptionsForDisplay, PopulatedDropdownOption} from '@/components/dropdownOption';
+  import LabIcon from '@/components/lab-icon.vue';
   import {getTypeName, HomebrewType} from '@/options/homebrew';
   import {ClosedCallbackData, CloseStatus} from '@/options/homebrewEditorAnimation';
   import {OptionSource} from '@/options/optionSource';
@@ -38,6 +37,7 @@
 
   @Component({
     components: {
+      LabIcon,
       'v-select': VueSelect,
     },
     data: () => {
@@ -72,6 +72,27 @@
 
     public getHomebrewTypeName(): string {
       return getTypeName(this.homebrewType);
+    }
+
+    public editOption(option: DropdownOption): void {
+      const iconElement: Vue = <Vue> this.$refs[this.getRefName(option)];
+      let iconPosition = undefined;
+      if (iconElement && iconElement.$el) {
+        iconPosition = iconElement.$el.getBoundingClientRect();
+      }
+      this.$emit('editOption', {
+        option,
+        iconPosition,
+        finishedEditCallback: this.finishedEditCallback,
+        homebrewType: this.homebrewType,
+      });
+      this.$nextTick(() => {
+
+      });
+    }
+
+    public getRefName(option: DropdownOption): string {
+      return 'ref-' + option.id;
     }
 
     public finishedEditCallback(data: ClosedCallbackData): void {

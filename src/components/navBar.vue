@@ -1,6 +1,9 @@
 <template>
   <div id="nav-bar">
-    <div class="title">Unit lab</div>
+    <div class="title">
+      <div class="icon-container"><LabIcon :width="30"/></div>
+      <label>Unit lab</label>
+    </div>
     <button class="navbar-btn-right-end"
          :class="btnFlat()"
          :disabled="!canUndo"
@@ -18,9 +21,11 @@
 
 <script lang="ts">
   import {Component, Vue} from 'vue-property-decorator';
+  import LabIcon from '@/components/lab-icon.vue';
 
   @Component({
     components: {
+      LabIcon,
     },
   })
   export default class NavBar extends Vue {
@@ -61,6 +66,13 @@
     margin-left: 10px;
     color: white;
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+  }
+
+  .icon-container {
+    padding: 3px;
+    margin-top: 12px;
   }
 
   .navbar-btn-right-end {

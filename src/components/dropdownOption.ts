@@ -6,6 +6,7 @@ export interface EditOptionData {
   option?: PopulatedDropdownOption;
   finishedEditCallback: (data: ClosedCallbackData) => void;
   homebrewType: HomebrewType;
+  iconPosition?: ClientRect;
 }
 
 export interface DropdownOption {

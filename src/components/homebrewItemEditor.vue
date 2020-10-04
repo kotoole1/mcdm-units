@@ -2,8 +2,10 @@
   <div class="editor-panel homebrew-editor-panel">
     <i class="material-icons close-button"
        @click="$emit('close')">close</i>
-    <EditableTextParameter :value="item.name"
-                           @input="setField('name', $event)"></EditableTextParameter>
+    <div class="param-line">
+      <EditableTextParameter :value="item.name"
+                             @input="setField('name', $event)"></EditableTextParameter>
+    </div>
     <StringParameter :name="'Name'"
                      :value="item.name"
                      @input="setField('name', $event)"></StringParameter>

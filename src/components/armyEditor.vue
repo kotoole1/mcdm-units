@@ -52,7 +52,7 @@
         <div :class="['bottom-btn', ...btn('colored')]"
              :disabled="!isPrintEnabled"
              v-tooltip.right="'Open page with all cards for printing or screenshots'"
-             @click="openPrintPage()">
+               @click="openPrintPage()">
           <i class="material-icons">print</i> Print Armies</div>
       </div>
     </div>
