@@ -3,13 +3,13 @@
     <i class="material-icons close-button"
        @click="$emit('close')">close</i>
     <div class="param-line">
+      <LabIcon id="homebrew-editing-icon"
+               :ref="'homebrewEditingIcon'"
+               :width="25"/>
       <EditableTextParameter :value="item.name"
                              @input="setField('name', $event)"></EditableTextParameter>
     </div>
-    <StringParameter :name="'Name'"
-                     :value="item.name"
-                     @input="setField('name', $event)"></StringParameter>
-    <div class="editor-section" v-if="itemType == HomebrewType.ANCESTRY">
+    <div v-if="itemType == HomebrewType.ANCESTRY">
       <NumberParameter :name="'Attack'"
                        :value="item.attack"
                        :min="-100"
@@ -59,6 +59,7 @@
 
 <script lang="ts">
   import EditableTextParameter from '@/components/editableTextParameter.vue';
+  import LabIcon from '@/components/lab-icon.vue';
   import MultiselectParameter from '@/components/multiselectParameter.vue';
   import {AncestryOptions} from '@/options/ancestry';
   import {AttitudeOptions} from '@/options/attitude';
@@ -79,6 +80,7 @@
 
   @Component({
     components: {
+      LabIcon,
       EditableTextParameter,
       MultiselectParameter,
       StringParameter,
@@ -143,6 +145,9 @@
     width: 100%;
   }
 
+  #homebrew-editing-icon {
+    margin-right: 5px;
+  }
   .mu-btn {
     float: bottom;
     flex-grow: 1;

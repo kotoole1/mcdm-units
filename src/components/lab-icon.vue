@@ -1,8 +1,8 @@
 <template>
   <div class="ul-icon-container">
     <svg class="icon"
-         :class="{ hovered, active, invisible, animating }"
-         :style="{ width }"
+         :class="{ hovered, active, invisible }"
+         :style="{ width: width + 'px' }"
          @mouseover="hoverStart"
          @mouseout="hoverStop"
          style="overflow:visible;enable-background:new 0 0 512 651.8;" xml:space="preserve"
@@ -49,21 +49,18 @@
 </template>
 <script lang="ts">
 import {randomId} from '@/models/uuid';
+import {WithAnimationPosition} from '@/options/homebrewEditorAnimation';
 import {Component, Prop, Vue} from 'vue-property-decorator';
 
 @Component({})
-export default class LabIcon extends Vue {
+export default class LabIcon extends Vue implements WithAnimationPosition {
   @Prop({ type: Number, required: true })
   public width!: number;
 
   public hovered: boolean = false;
   public active: boolean = false;
   public invisible: boolean = false;
-  public animating: boolean = false;
   public readonly id: string;
-
-  private startingPosition: ClientRect|undefined = undefined;
-  private endingPosition: ClientRect|undefined = undefined;
 
   constructor() {
     super();
@@ -78,39 +75,27 @@ export default class LabIcon extends Vue {
     this.hovered = false;
   }
 
-  public activate(): void {
+  public getElement(): Element {
+    return this.$el;
+  }
+
+  public setVisibility(isVisible: boolean): void {
+    this.invisible = !isVisible;
+  }
+
+  public startDurationEffects(): void {
     this.active = true;
   }
 
-  public deactivate(): void {
+  public stopDurationEffects(): void {
     this.active = false;
-  }
-
-  public setAnimationPosition(position: ClientRect): void {
-    this.startingPosition = position;
-    this.endingPosition = undefined;
-    this.animating = false;
-  }
-
-  public animateTo(position: ClientRect): void {
-    this.endingPosition = position;
-    this.active = true;
-    this.animating = true;
-    this.invisible = false;
-  }
-
-  public stopAnimating(): void {
-    this.startingPosition = undefined;
-    this.endingPosition = undefined;
-    this.animating = false;
-    this.active = false;
-    this.invisible = true;
   }
 }
 </script>
 
 <style lang="less">
   .ul-icon-container {
+    position: relative; // TODOK: This needs to be absolute for the animation... Let's make a AnimationCart to wrap this
     // TODO: invisible
   }
 
@@ -118,6 +103,10 @@ export default class LabIcon extends Vue {
     .bubbleGroup > circle {
       transform: none;
     }
+  }
+
+  .icon.invisible {
+    opacity: 0;
   }
 
   .icon.hovered,

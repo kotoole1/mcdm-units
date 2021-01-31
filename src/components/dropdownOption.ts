@@ -1,12 +1,14 @@
+import {RectangleDimensions} from '@/components/transitions';
 import {HomebrewType} from '@/options/homebrew';
-import {ClosedCallbackData} from '@/options/homebrewEditorAnimation';
+import {ClosedCallbackData, WithAnimationPosition} from '@/options/homebrewEditorAnimation';
 import {OptionSource} from '@/options/optionSource';
 
 export interface EditOptionData {
   option?: PopulatedDropdownOption;
-  finishedEditCallback: (data: ClosedCallbackData) => void;
+  finishedEditCallback: (data: ClosedCallbackData) => WithAnimationPosition|null;
+  beforeFinishedEditCallback: () => void;
   homebrewType: HomebrewType;
-  iconPosition?: ClientRect;
+  iconPosition?: RectangleDimensions;
 }
 
 export interface DropdownOption {

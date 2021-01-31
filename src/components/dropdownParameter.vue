@@ -19,7 +19,7 @@
              class="option-icon material-icons"
              v-tooltip.right-end="'Edit your homebrew ' + getHomebrewTypeName()"
              @mousedown="editOption(option)">
-            <LabIcon :ref="getRefName(option)":width="20" />
+            <LabIcon :ref="getRefName(option)" :width="20" />
           </div>
         </div>
       </template>
@@ -27,10 +27,16 @@
   </div>
 </template>
 <script lang="ts">
-  import {DropdownOption, getDropdownOptionsForDisplay, PopulatedDropdownOption} from '@/components/dropdownOption';
+  import {
+    DropdownOption,
+    EditOptionData,
+    getDropdownOptionsForDisplay,
+    PopulatedDropdownOption
+  } from '@/components/dropdownOption';
   import LabIcon from '@/components/lab-icon.vue';
+  import {RectangleDimensions} from '@/components/transitions';
   import {getTypeName, HomebrewType} from '@/options/homebrew';
-  import {ClosedCallbackData, CloseStatus} from '@/options/homebrewEditorAnimation';
+  import {ClosedCallbackData, CloseStatus, WithAnimationPosition} from '@/options/homebrewEditorAnimation';
   import {OptionSource} from '@/options/optionSource';
   import {Component, Prop, Vue} from 'vue-property-decorator';
   import VueSelect from 'vue-select';
@@ -74,20 +80,18 @@
       return getTypeName(this.homebrewType);
     }
 
-    public editOption(option: DropdownOption): void {
+    public editOption(option: PopulatedDropdownOption): void {
       const iconElement: Vue = <Vue> this.$refs[this.getRefName(option)];
-      let iconPosition = undefined;
+      let iconPosition;
       if (iconElement && iconElement.$el) {
-        iconPosition = iconElement.$el.getBoundingClientRect();
+        iconPosition = RectangleDimensions.fromElement(iconElement.$el);
       }
       this.$emit('editOption', {
         option,
         iconPosition,
-        finishedEditCallback: this.finishedEditCallback,
+        finishedEditCallback: this.getFinishedEditCallback(option),
+        beforeFinishedEditCallback: this.beforeFinishedEditCallback,
         homebrewType: this.homebrewType,
-      });
-      this.$nextTick(() => {
-
       });
     }
 
@@ -95,15 +99,25 @@
       return 'ref-' + option.id;
     }
 
-    public finishedEditCallback(data: ClosedCallbackData): void {
-      this.$nextTick(() => {
-        (<HTMLElement> (<Vue> this.$refs.vSelect).$refs.search).focus();
+    public beforeFinishedEditCallback(): void {
+      (<HTMLElement> (<Vue> this.$refs.vSelect).$refs.search).focus();
+    }
+
+    public getFinishedEditCallback(option: PopulatedDropdownOption): (closedData: ClosedCallbackData) => (WithAnimationPosition|null) {
+      return (closedData: ClosedCallbackData) => {
         // TODO: scroll to item
-        // TODO: return scrolled item's position
-        if (data.status === CloseStatus.CONFIRMED) {
+
+        if (closedData.status === CloseStatus.CONFIRMED) {
           // TODO: return data for animation?
+          if (option) {
+            const iconElement: LabIcon = <LabIcon> (this.$refs[this.getRefName(option)]);
+            if (iconElement) {
+              return iconElement;
+            }
+          }
         }
-      });
+        return null;
+      }
     }
   }
 </script>
